@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.GifFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            />
+
+        <TextView
+            android:id="@+id/tvVideo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textStyle="bold|italic"
+            android:text="No Status Gif from Your Friends"/>
+
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/floating_item_added" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_main_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="90dp"
+            android:layout_marginRight="16dp"
+            android:visibility="invisible"
+            android:src="@drawable/item_send" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_main_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="160dp"
+            android:layout_marginRight="16dp"
+            android:visibility="invisible"
+            android:src="@drawable/item_recived" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_main_thired"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="230dp"
+            android:layout_marginRight="16dp"
+            android:visibility="invisible"
+            android:src="@drawable/ic_action_image_selected" />
+
+        <RelativeLayout
+            android:id="@+id/relThired"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="230dp"
+            android:layout_marginRight="70dp"
+            android:visibility="invisible"
+            android:background="@drawable/curved_background_floating">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:layout_centerInParent="true"
+                android:textColor="@android:color/white"
+                android:text="Status GIFS"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relSecond"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="160dp"
+            android:layout_marginRight="70dp"
+            android:visibility="invisible"
+            android:background="@drawable/curved_background_floating">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:layout_centerInParent="true"
+                android:textColor="@android:color/white"
+                android:text="Received Status GIFS"/>
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relFirst"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="90dp"
+            android:layout_marginRight="70dp"
+            android:visibility="invisible"
+            android:background="@drawable/curved_background_floating">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_centerInParent="true"
+                android:textSize="14sp"
+                android:textColor="@android:color/white"
+                android:text="Send Status GIFS"/>
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+
+</FrameLayout>

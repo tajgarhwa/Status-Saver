@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">StatusSaver</string>
+    <string name="status_saver">Status Saver</string>
+    <string name="msg">Please enable all permission</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sww">Something went wrong please try again.</string>
+</resources>

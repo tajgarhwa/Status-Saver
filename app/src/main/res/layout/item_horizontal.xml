@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relround"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="#00141414">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rel_roundimage_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/profile_image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/placeholder"
+                    app:civ_border_color="#075e54"
+                    app:civ_border_width="4dp" />
+
+
+            </RelativeLayout>
+
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Tap to Beat"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:textSize="12dp"/>-->
+
+
+            <!--<TextView-->
+                <!--android:id="@+id/tv_challenge_friend_name"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Name"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:layout_marginTop="4dp"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:textSize="12sp"-->
+                <!--android:textStyle="bold"/>-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/btn_challange"-->
+                <!--android:layout_width="96dp"-->
+                <!--android:layout_height="26dp"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:gravity="center"-->
+                <!--android:onClick="onClick"-->
+                <!--android:text="@string/challenge"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textSize="12sp"-->
+                <!--android:layout_marginBottom="10dp"-->
+                <!--android:background="@drawable/orange_button_bg"-->
+                <!--/>-->
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
