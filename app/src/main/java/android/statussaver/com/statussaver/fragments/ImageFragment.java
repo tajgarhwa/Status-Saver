@@ -1,7 +1,10 @@
 package android.statussaver.com.statussaver.fragments;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.statussaver.com.statussaver.BaseCompare;
 import android.statussaver.com.statussaver.adapters.Stories.StoriesAdapterImage;
 import android.statussaver.com.statussaver.models.Status;
@@ -17,8 +20,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.statussaver.com.statussaver.R;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,9 +45,13 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
     private static final String WHATSAPP_STATUSES_LOCATION_RECIVED = "/WhatsApp/Media/WhatsApp Images";
 
     private FloatingActionButton fabMain, fabFirst, fabMainsecond, fabthired;
-    private RelativeLayout relFirst,relSecond,relThired;
+    private RelativeLayout relFirst, relSecond, relThired;
     private Animation fabOpen, fabClose, fabForaward, fabBackward;
     private boolean isOpen = false;
+    private int tag = -1;
+
+    AsyncTaskRunner3 task3;
+    ProgressBar progressDialog;
 
     public ImageFragment() {
         // Required empty public constructor
@@ -63,9 +73,11 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         fabMainsecond = view.findViewById(R.id.fab_main_download);
         fabthired = view.findViewById(R.id.fab_main_thired);
         tvImage = view.findViewById(R.id.tvImage);
-        relFirst =view.findViewById(R.id.relFirst);
-        relSecond =view.findViewById(R.id.relSecond);
-        relThired =view.findViewById(R.id.relThired);
+        relFirst = view.findViewById(R.id.relFirst);
+        relSecond = view.findViewById(R.id.relSecond);
+        relThired = view.findViewById(R.id.relThired);
+
+        progressDialog = view.findViewById(R.id.progres_main);
 
         fabOpen = AnimationUtils.loadAnimation(getActivity(), R.anim.fab_open);
         fabClose = AnimationUtils.loadAnimation(getActivity(), R.anim.fab_close);
@@ -77,7 +89,16 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         fabMainsecond.setOnClickListener(this);
         fabthired.setOnClickListener(this);
 
-        setStatusList();
+        // setStatusList();
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                task3 = new AsyncTaskRunner3();
+                task3.execute();
+            }
+        },500);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -153,13 +174,12 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
             } else {
                 tvImage.setVisibility(View.VISIBLE);
             }
-        }else {
+        } else {
 
-            Toast.makeText(getActivity(),"Thire is any directory ",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Thire is any directory ", Toast.LENGTH_SHORT).show();
         }
         return inFiles;
     }
-
 
 
     private void setStatusList() {
@@ -179,10 +199,14 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    private void initSetList(String whatsapp_loaction, String status) {
 
+    private void initSetList(String whatsapp_loaction, String status) {
+        int resId = R.anim.layout_animation_slide_down;
         recyclerviewAdapter = new StoriesAdapterImage(this.getListFiles(new File(Environment.getExternalStorageDirectory().toString() + whatsapp_loaction)), getActivity(), status);
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(COUNT, LinearLayoutManager.VERTICAL);
+
+        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getActivity(), resId);
+        recyclerView.setLayoutAnimation(animation);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
         recyclerView.setAdapter(recyclerviewAdapter);
     }
@@ -203,20 +227,178 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.fab_main_first:
                 animatedFab();
-                initSetList(WHATSAPP_STATUSES_LOCATION_SEND, "THREE");
-                ToastCustom.setToast(getActivity(), "WhatsApp Sent Images..");
+//                initSetList(WHATSAPP_STATUSES_LOCATION_SEND, "THREE");
+//                ToastCustom.setToast(getActivity(), "WhatsApp Sent Images..");
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        AsyncTaskRunner2 task2 = new AsyncTaskRunner2();
+                        task2.execute();
+                    }
+                },500);
+
+
                 break;
             case R.id.fab_main_download:
                 animatedFab();
-                initSetList(WHATSAPP_STATUSES_LOCATION_RECIVED, "TWO");
-                ToastCustom.setToast(getActivity(), "WhatsApp Received Images..");
+                //initSetList(WHATSAPP_STATUSES_LOCATION_RECIVED, "TWO");
+                // ToastCustom.setToast(getActivity(), "WhatsApp Received Images..");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        AsyncTaskRunner task = new AsyncTaskRunner();
+                        task.execute();
+                    }
+                    },500);
+
                 break;
             case R.id.fab_main_thired:
                 animatedFab();
-                initSetList(WHATSAPP_STATUSES_LOCATION, "ONE");
-                ToastCustom.setToast(getActivity(), "WhatsApp Stories Images..");
+//                initSetList(WHATSAPP_STATUSES_LOCATION, "ONE");
+//                ToastCustom.setToast(getActivity(), "WhatsApp Stories Images..");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        task3 = new AsyncTaskRunner3();
+                        task3.execute();
+
+                    }
+                },500);
                 break;
         }
 
     }
+
+    private class AsyncTaskRunner extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            if(!((getActivity().isFinishing()))) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+                            initSetList(WHATSAPP_STATUSES_LOCATION_RECIVED, "TWO");
+                        } catch (WindowManager.BadTokenException e) {
+                            //use a log message
+                        }
+
+                    }
+                });
+
+            }
+            return "";
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            progressDialog.setVisibility(View.GONE);
+            ToastCustom.setToast(getActivity(), "WhatsApp Received Images..");
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog.setVisibility(View.VISIBLE);
+
+        }
+
+        @Override
+        protected void onProgressUpdate(String... text) {
+
+        }
+    }
+
+    private class AsyncTaskRunner2 extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            if(!((getActivity().isFinishing()))) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            initSetList(WHATSAPP_STATUSES_LOCATION_SEND, "THREE");
+                        } catch (WindowManager.BadTokenException e) {
+                            //use a log message
+                        }
+
+                    }
+                });
+
+            }
+            return "";
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            progressDialog.setVisibility(View.GONE);
+            ToastCustom.setToast(getActivity(), "WhatsApp Sent Images..");
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+            progressDialog.setVisibility(View.VISIBLE);
+
+        }
+
+        @Override
+        protected void onProgressUpdate(String... text) {
+
+        }
+    }
+
+
+    private class AsyncTaskRunner3 extends AsyncTask<String, String, String> {
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            if(!((getActivity().isFinishing())))
+            {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+
+                        try {
+                            initSetList(WHATSAPP_STATUSES_LOCATION, "ONE");
+                        } catch (WindowManager.BadTokenException e) {
+                            //use a log message
+                        }
+
+                    }
+                });
+            }
+
+
+            return "";
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            progressDialog.setVisibility(View.GONE);
+            ToastCustom.setToast(getActivity(), "WhatsApp Stories Images..");
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog.setVisibility(View.VISIBLE);
+
+        }
+
+        @Override
+        protected void onProgressUpdate(String... text) {
+
+        }
+    }
+
 }
