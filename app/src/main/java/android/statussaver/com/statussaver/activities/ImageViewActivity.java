@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
     private String position;
     private int pos;
     private TextView tvCurrentItem;
+    private RelativeLayout rel_close;
 
 
 //private PhotoViewAttacher photoViewAttacher;]
@@ -72,6 +74,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
         fabthired = findViewById(R.id.fab_main_thired);
         ViewPager viewPager = findViewById(R.id.view_pager);
         tvCurrentItem = findViewById(R.id.tvCurrentItem);
+        rel_close = findViewById(R.id.rel_close);
 
         fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open);
         fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close);
@@ -82,6 +85,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
         fabFirst.setOnClickListener(this);
         fabMainsecond.setOnClickListener(this);
         fabthired.setOnClickListener(this);
+        rel_close.setOnClickListener(this);
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager(), documents);
         viewPager.setAdapter(adapter);
@@ -160,6 +164,10 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.fab_main_thired:
                 animatedFab();
+                break;
+
+            case R.id.rel_close:
+                finish();
                 break;
         }
     }

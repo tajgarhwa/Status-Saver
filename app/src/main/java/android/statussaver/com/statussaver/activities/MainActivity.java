@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if (!inFiles.contains(file)) {
                             i++;
                             Log.e("file name" + " " + i, file.getAbsolutePath());
-                            if (i<8) {
+                            if (i<7) {
                                 inFiles.add(file);
                             }
                         }
