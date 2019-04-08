@@ -52,7 +52,7 @@ public class StoriesAdapterImage extends RecyclerView.Adapter<StoriesAdapterImag
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
         final File status = getItem(position);
-        Picasso.with(mContext).load(status.getAbsoluteFile()).placeholder(R.drawable.placeholder).into(holder.statusImage);
+        Picasso.with(mContext).load(status.getAbsoluteFile()).placeholder(R.drawable.placeholder).resize(400,400).into(holder.statusImage);
 
         if (st.equalsIgnoreCase("TWO") || st.equalsIgnoreCase("THREE")){
 

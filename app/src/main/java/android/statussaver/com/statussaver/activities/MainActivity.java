@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 //        recyclerView = findViewById(R.id.recyclerview);
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-        setStatusList();
+        //setStatusList();
         initSetList();
         setButtonState();
 
@@ -130,41 +130,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        Toast.makeText(getApplicationContext(), "Permission granted"+requestCode, Toast.LENGTH_LONG).show();
 //    }
 
-    private void setStatusList() {
-
-//        Intent myIntent = new Intent(getApplicationContext(), MediaListenerService.class);
-//        ContextCompat.startForegroundService(this,myIntent);
-
-//        Job job = jobDispatcher.newJobBuilder().
-//                setService(StatusListenerService.class).
-//                setLifetime(Lifetime.FOREVER).
-//                setRecurring(true).
-//                setTag(JOB_TAG).
-//                setTrigger(Trigger.executionWindow(0,5)).
-//                setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL).
-//                setReplaceCurrent(false)
-//                .setConstraints(Constraint.ON_UNMETERED_NETWORK)
-//                .build();
+//    private void setStatusList() {
 //
-//         jobDispatcher.mustSchedule(job);
+////        Intent myIntent = new Intent(getApplicationContext(), MediaListenerService.class);
+////        ContextCompat.startForegroundService(this,myIntent);
 //
-//         Toast.makeText(this,"Job Sheduled",Toast.LENGTH_LONG).show();
-
-
-        statusList = new ArrayList<>();
-        statusList.add(new Status(1, "https://i.ytimg.com/vi/1Ltt4IN1QAQ/maxresdefault.jpg"));
-        statusList.add(new Status(2, "https://cdn.pastemagazine.com/www/articles/2018/08/15/redbox-2018.jpg"));
-        statusList.add(new Status(3, "https://cdn3.movieweb.com/i/movie/1vf613jMI8Ni7ceCPolymZecDPhwVR/384:50/The-Greatest-Showman.jpg"));
-        statusList.add(new Status(4, "https://cdn3.movieweb.com/i/movie/lGg2fMgeBi6yswQpkdBicBtCT2V8D2/384:50/The-Maze-Runner-The-Death-Cure.jpg"));
-        statusList.add(new Status(5, "https://images.summitmedia-digital.com/spotph/images/2018/01/02/2018-must-see-movies.jpg"));
-        statusList.add(new Status(6, "http://knowitandshareit.com/wp-content/uploads/2018/02/Best-Of-january-2018-movies.jpg"));
-        statusList.add(new Status(7, "https://i.pinimg.com/originals/15/24/28/15242875db07ad637cb9c2b68f845778.jpg"));
-        statusList.add(new Status(8, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsbAEF645n8ljncfEphDnVKMbvgDTH22eXOyFAx9mY3OngURuo"));
-        statusList.add(new Status(9, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF3EB6H1qkNq7X4HlkZK1bdTmR88hPPSSvvb8aOC5eWuvpKt2M6w"));
-        statusList.add(new Status(10, "http://knowitandshareit.com/wp-content/uploads/2018/02/Best-Of-january-2018-movies.jpg"));
-       // initSetList();
-
-    }
+////        Job job = jobDispatcher.newJobBuilder().
+////                setService(StatusListenerService.class).
+////                setLifetime(Lifetime.FOREVER).
+////                setRecurring(true).
+////                setTag(JOB_TAG).
+////                setTrigger(Trigger.executionWindow(0,5)).
+////                setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL).
+////                setReplaceCurrent(false)
+////                .setConstraints(Constraint.ON_UNMETERED_NETWORK)
+////                .build();
+////
+////         jobDispatcher.mustSchedule(job);
+////
+////         Toast.makeText(this,"Job Sheduled",Toast.LENGTH_LONG).show();
+//
+//
+//        statusList = new ArrayList<>();
+//        statusList.add(new Status(1, "https://i.ytimg.com/vi/1Ltt4IN1QAQ/maxresdefault.jpg"));
+//        statusList.add(new Status(2, "https://cdn.pastemagazine.com/www/articles/2018/08/15/redbox-2018.jpg"));
+//        statusList.add(new Status(3, "https://cdn3.movieweb.com/i/movie/1vf613jMI8Ni7ceCPolymZecDPhwVR/384:50/The-Greatest-Showman.jpg"));
+//        statusList.add(new Status(4, "https://cdn3.movieweb.com/i/movie/lGg2fMgeBi6yswQpkdBicBtCT2V8D2/384:50/The-Maze-Runner-The-Death-Cure.jpg"));
+//        statusList.add(new Status(5, "https://images.summitmedia-digital.com/spotph/images/2018/01/02/2018-must-see-movies.jpg"));
+//        statusList.add(new Status(6, "http://knowitandshareit.com/wp-content/uploads/2018/02/Best-Of-january-2018-movies.jpg"));
+//        statusList.add(new Status(7, "https://i.pinimg.com/originals/15/24/28/15242875db07ad637cb9c2b68f845778.jpg"));
+//        statusList.add(new Status(8, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsbAEF645n8ljncfEphDnVKMbvgDTH22eXOyFAx9mY3OngURuo"));
+//        statusList.add(new Status(9, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF3EB6H1qkNq7X4HlkZK1bdTmR88hPPSSvvb8aOC5eWuvpKt2M6w"));
+//        statusList.add(new Status(10, "http://knowitandshareit.com/wp-content/uploads/2018/02/Best-Of-january-2018-movies.jpg"));
+//       // initSetList();
+//
+//    }
 
 
     private void initSetList() {
@@ -186,11 +186,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             int i = 0;
             if (files != null) {
                 for (File file : files) {
-                    if (file.getName().endsWith(".jpg") || file.getName().endsWith(".png")) {
+                    if (file.getName().endsWith(".jpg") || file.getName().endsWith(".png") || file.getName().endsWith(".mp4") || file.getName().endsWith(".3gp") || file.getName().endsWith(".mov")) {
                         if (!inFiles.contains(file)) {
                             i++;
                             Log.e("file name" + " " + i, file.getAbsolutePath());
-                            inFiles.add(file);
+                            if (i<8) {
+                                inFiles.add(file);
+                            }
                         }
                     } else {
                         relRecylerHori.setVisibility(View.GONE);

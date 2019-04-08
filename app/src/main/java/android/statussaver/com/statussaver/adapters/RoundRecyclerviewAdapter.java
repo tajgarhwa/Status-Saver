@@ -10,10 +10,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
+import com.bumptech.glide.load.resource.bitmap.FileDescriptorBitmapDecoder;
+import com.bumptech.glide.load.resource.bitmap.VideoBitmapDecoder;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import static com.bumptech.glide.request.target.Target.SIZE_ORIGINAL;
 
 public class RoundRecyclerviewAdapter extends RecyclerView.Adapter<RoundRecyclerviewAdapter.ViewHolder> {
 
@@ -39,7 +46,37 @@ public class RoundRecyclerviewAdapter extends RecyclerView.Adapter<RoundRecycler
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         File status = getItem(position);
-        Picasso.with(mContext).load(status.getAbsoluteFile()).placeholder(R.drawable.placeholder).into(holder.profile_image);
+
+
+            if (status.getAbsolutePath().endsWith(".mp4") || status.getAbsolutePath().endsWith(".3gp") || status.getAbsolutePath().endsWith(".mov")) {
+                holder.rel_video.setVisibility(View.VISIBLE);
+
+                ViewGroup.LayoutParams params = holder.profile_image.getLayoutParams();
+                // int a= params.height=ViewGroup.LayoutParams.WRAP_CONTENT;
+                // int b =params.width =ViewGroup.LayoutParams.WRAP_CONTENT;
+                BitmapPool bitmapPool = Glide.get(mContext).getBitmapPool();
+                int microSecond = 6000000;// 6th second as an example
+                VideoBitmapDecoder videoBitmapDecoder = new VideoBitmapDecoder(microSecond);
+                FileDescriptorBitmapDecoder fileDescriptorBitmapDecoder = new FileDescriptorBitmapDecoder(videoBitmapDecoder, bitmapPool, DecodeFormat.PREFER_ARGB_8888);
+                Glide.with(mContext)
+                        .load("file://" + status.getAbsolutePath())
+                        .asBitmap().placeholder(R.drawable.placeholder)
+                        .override(SIZE_ORIGINAL, SIZE_ORIGINAL)// Example
+                        .videoDecoder(fileDescriptorBitmapDecoder).override(100, 100)
+                        .into(holder.profile_image);
+            } else {
+                holder.rel_video.setVisibility(View.INVISIBLE);
+                Picasso.with(mContext).load(status.getAbsoluteFile()).placeholder(R.drawable.placeholder).resize(100, 100).into(holder.profile_image);
+            }
+
+
+        holder.relround.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
 
     }
 
@@ -55,14 +92,15 @@ public class RoundRecyclerviewAdapter extends RecyclerView.Adapter<RoundRecycler
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView statusImage,profile_image;
-        RelativeLayout relround;
+        ImageView statusImage, profile_image;
+        RelativeLayout relround, rel_video;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.statusImage = itemView.findViewById(R.id.img_status);
             this.profile_image = itemView.findViewById(R.id.profile_image);
-            this.relround =itemView.findViewById(R.id.relround);
+            this.relround = itemView.findViewById(R.id.relround);
+            this.rel_video = itemView.findViewById(R.id.rel_video);
         }
     }
 }
