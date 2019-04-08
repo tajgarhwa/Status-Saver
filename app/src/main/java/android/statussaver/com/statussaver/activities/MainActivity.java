@@ -132,8 +132,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setStatusList() {
 
-        Intent myIntent = new Intent(getApplicationContext(), MediaListenerService.class);
-        ContextCompat.startForegroundService(this,myIntent);
+//        Intent myIntent = new Intent(getApplicationContext(), MediaListenerService.class);
+//        ContextCompat.startForegroundService(this,myIntent);
 
 //        Job job = jobDispatcher.newJobBuilder().
 //                setService(StatusListenerService.class).
@@ -261,7 +261,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imgVideo.setImageResource(R.drawable.ic_action_video);
         imgGif.setImageResource(R.drawable.ic_action_gif);
         imgSave.setImageResource(R.drawable.ic_action_save);
-        imgInfo.setImageResource(R.drawable.item_drawer);
+       // imgInfo.setImageResource(R.drawable.item_drawer);
+        imgInfo.setImageResource(R.drawable.item_drawer_selected);
     }
 
     @Override
@@ -282,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 imgVideo.setImageResource(R.drawable.ic_action_video);
                 imgGif.setImageResource(R.drawable.ic_action_gif);
                 imgSave.setImageResource(R.drawable.ic_action_save);
-                imgInfo.setImageResource(R.drawable.ic_action_info);
+                imgInfo.setImageResource(R.drawable.item_drawer_selected);
 
                 break;
 
@@ -293,7 +294,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 imgVideo.setImageResource(R.drawable.ic_action_video_selected);
                 imgGif.setImageResource(R.drawable.ic_action_gif);
                 imgSave.setImageResource(R.drawable.ic_action_save);
-                imgInfo.setImageResource(R.drawable.ic_action_info);
+                imgInfo.setImageResource(R.drawable.item_drawer_selected);
 
                 break;
 
@@ -305,7 +306,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 imgVideo.setImageResource(R.drawable.ic_action_video);
                 imgGif.setImageResource(R.drawable.ic_action_gif_selected);
                 imgSave.setImageResource(R.drawable.ic_action_save);
-                imgInfo.setImageResource(R.drawable.ic_action_info);
+                imgInfo.setImageResource(R.drawable.item_drawer_selected);
                 break;
 
             case R.id.RelImgSave:
@@ -316,7 +317,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 imgVideo.setImageResource(R.drawable.ic_action_video);
                 imgGif.setImageResource(R.drawable.ic_action_gif);
                 imgSave.setImageResource(R.drawable.ic_action_save_selected);
-                imgInfo.setImageResource(R.drawable.ic_action_info);
+                imgInfo.setImageResource(R.drawable.item_drawer_selected);
 
                 break;
 
@@ -324,11 +325,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 drawerLayout.openDrawer(Gravity.RIGHT);
                 //showSelectedFragment(getInfoFragment());
 
-                imgImage.setImageResource(R.drawable.ic_action_image);
-                imgVideo.setImageResource(R.drawable.ic_action_video);
-                imgGif.setImageResource(R.drawable.ic_action_gif);
-                imgSave.setImageResource(R.drawable.ic_action_save);
-                imgInfo.setImageResource(R.drawable.item_drawer_selected);
+//                imgImage.setImageResource(R.drawable.ic_action_image);
+//                imgVideo.setImageResource(R.drawable.ic_action_video);
+//                imgGif.setImageResource(R.drawable.ic_action_gif);
+//                imgSave.setImageResource(R.drawable.ic_action_save);
+//                imgInfo.setImageResource(R.drawable.item_drawer_selected);
 
                 break;
 

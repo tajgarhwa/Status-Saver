@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Handler;
 import android.provider.Settings;
 import android.statussaver.com.statussaver.R;
 import android.statussaver.com.statussaver.utils.Alerts;
@@ -30,10 +31,12 @@ public class SplashActivity extends AppCompatActivity {
 
         multiplePermissionsListener = new MultiplePermissionListner(this);
 
-
-        Dexter.withActivity(this).withPermissions(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE).withListener(multiplePermissionsListener).check();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Dexter.withActivity(SplashActivity.this).withPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE).withListener(multiplePermissionsListener).check();
+            }
+            },500);
     }
 
     public void showPermissionGranded(String permissionName) {

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.statussaver.com.statussaver.R;
+import android.statussaver.com.statussaver.activities.ImageViewActivity;
 import android.statussaver.com.statussaver.activities.VideoViewActivity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -55,7 +56,7 @@ public class StoriesAdapterVideo extends RecyclerView.Adapter<StoriesAdapterVide
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
         final File status = getItem(position);
         // Picasso.with(mContext).load("file://" + status.getAbsoluteFile()).placeholder(R.drawable.placeholder).into(holder.statusImage);
@@ -81,8 +82,15 @@ public class StoriesAdapterVideo extends RecyclerView.Adapter<StoriesAdapterVide
         holder.statusImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, VideoViewActivity.class);
-                intent.putExtra("url","file://" + status.getAbsolutePath());
+//                Intent intent = new Intent(mContext, VideoViewActivity.class);
+//                intent.putExtra("url","file://" + status.getAbsolutePath());
+//                mContext.startActivity(intent);
+
+                Intent intent = new Intent(mContext, ImageViewActivity.class);
+                intent.putExtra("imageList",statuslist);
+                intent.putExtra("file",status);
+                intent.putExtra("state",st);
+                intent.putExtra("position",position);
                 mContext.startActivity(intent);
             }
         });

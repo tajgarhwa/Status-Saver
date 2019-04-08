@@ -52,6 +52,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
     AsyncTaskRunner3 task3;
     ProgressBar progressDialog;
+    ArrayList<File> inFiles = new ArrayList<File>();
 
     public ImageFragment() {
         // Required empty public constructor
@@ -91,7 +92,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
         // setStatusList();
 
-
+        inFiles.clear();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -151,7 +152,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
 
     private ArrayList<File> getListFiles(File parentDir) {
-        ArrayList<File> inFiles = new ArrayList<File>();
+
         File[] files;
         if (parentDir.exists() && parentDir.isDirectory()) {
             files = parentDir.listFiles();
@@ -201,14 +202,8 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
 
     private void initSetList(String whatsapp_loaction, String status) {
-        int resId = R.anim.layout_animation_slide_down;
-        recyclerviewAdapter = new StoriesAdapterImage(this.getListFiles(new File(Environment.getExternalStorageDirectory().toString() + whatsapp_loaction)), getActivity(), status);
-        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(COUNT, LinearLayoutManager.VERTICAL);
+        this.getListFiles(new File(Environment.getExternalStorageDirectory().toString() + whatsapp_loaction));
 
-        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getActivity(), resId);
-        recyclerView.setLayoutAnimation(animation);
-        recyclerView.setLayoutManager(staggeredGridLayoutManager);
-        recyclerView.setAdapter(recyclerviewAdapter);
     }
 
 
@@ -229,7 +224,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
                 animatedFab();
 //                initSetList(WHATSAPP_STATUSES_LOCATION_SEND, "THREE");
 //                ToastCustom.setToast(getActivity(), "WhatsApp Sent Images..");
-
+                inFiles.clear();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -237,11 +232,10 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
                         task2.execute();
                     }
                 },500);
-
-
                 break;
             case R.id.fab_main_download:
                 animatedFab();
+                inFiles.clear();
                 //initSetList(WHATSAPP_STATUSES_LOCATION_RECIVED, "TWO");
                 // ToastCustom.setToast(getActivity(), "WhatsApp Received Images..");
                 new Handler().postDelayed(new Runnable() {
@@ -255,6 +249,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.fab_main_thired:
                 animatedFab();
+                inFiles.clear();
 //                initSetList(WHATSAPP_STATUSES_LOCATION, "ONE");
 //                ToastCustom.setToast(getActivity(), "WhatsApp Stories Images..");
                 new Handler().postDelayed(new Runnable() {
@@ -275,27 +270,41 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         @Override
         protected String doInBackground(String... params) {
 
-            if(!((getActivity().isFinishing()))) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
 
-                        try {
-                            initSetList(WHATSAPP_STATUSES_LOCATION_RECIVED, "TWO");
-                        } catch (WindowManager.BadTokenException e) {
-                            //use a log message
-                        }
+            initSetList(WHATSAPP_STATUSES_LOCATION_RECIVED, "TWO");
 
-                    }
-                });
-
-            }
+//            if(!((getActivity().isFinishing()))) {
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//
+//                        try {
+//                            initSetList(WHATSAPP_STATUSES_LOCATION_RECIVED, "TWO");
+//                        } catch (WindowManager.BadTokenException e) {
+//                            //use a log message
+//                        }
+//
+//                    }
+//                });
+//
+//            }
             return "";
         }
 
 
         @Override
         protected void onPostExecute(String result) {
+
+            int resId = R.anim.layout_animation_slide_down;
+            recyclerviewAdapter = new StoriesAdapterImage(inFiles, getActivity(), "TWO");
+            StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(COUNT, LinearLayoutManager.VERTICAL);
+
+            LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getActivity(), resId);
+            recyclerView.setLayoutAnimation(animation);
+            recyclerView.setLayoutManager(staggeredGridLayoutManager);
+            recyclerView.setAdapter(recyclerviewAdapter);
+
+
             progressDialog.setVisibility(View.GONE);
             ToastCustom.setToast(getActivity(), "WhatsApp Received Images..");
         }
@@ -317,26 +326,37 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         @Override
         protected String doInBackground(String... params) {
 
-            if(!((getActivity().isFinishing()))) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
+//            if(!((getActivity().isFinishing()))) {
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        try {
                             initSetList(WHATSAPP_STATUSES_LOCATION_SEND, "THREE");
-                        } catch (WindowManager.BadTokenException e) {
-                            //use a log message
-                        }
+//                        } catch (WindowManager.BadTokenException e) {
+//                            //use a log message
+//                        }
+//
+//                    }
+//                });
 
-                    }
-                });
-
-            }
+//            }
             return "";
         }
 
 
         @Override
         protected void onPostExecute(String result) {
+
+
+            int resId = R.anim.layout_animation_slide_down;
+            recyclerviewAdapter = new StoriesAdapterImage(inFiles, getActivity(), "THREE");
+            StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(COUNT, LinearLayoutManager.VERTICAL);
+
+            LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getActivity(), resId);
+            recyclerView.setLayoutAnimation(animation);
+            recyclerView.setLayoutManager(staggeredGridLayoutManager);
+            recyclerView.setAdapter(recyclerviewAdapter);
+
             progressDialog.setVisibility(View.GONE);
             ToastCustom.setToast(getActivity(), "WhatsApp Sent Images..");
         }
@@ -361,22 +381,22 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         @Override
         protected String doInBackground(String... params) {
 
-            if(!((getActivity().isFinishing())))
-            {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-
-                        try {
+//            if(!((getActivity().isFinishing())))
+//            {
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//
+//
+//                        try {
                             initSetList(WHATSAPP_STATUSES_LOCATION, "ONE");
-                        } catch (WindowManager.BadTokenException e) {
-                            //use a log message
-                        }
-
-                    }
-                });
-            }
+//                        } catch (WindowManager.BadTokenException e) {
+//                            //use a log message
+//                        }
+//
+//                    }
+//                });
+//            }
 
 
             return "";
@@ -385,6 +405,16 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
         @Override
         protected void onPostExecute(String result) {
+
+            int resId = R.anim.layout_animation_slide_down;
+            recyclerviewAdapter = new StoriesAdapterImage(inFiles, getActivity(), "ONE");
+            StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(COUNT, LinearLayoutManager.VERTICAL);
+
+            LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getActivity(), resId);
+            recyclerView.setLayoutAnimation(animation);
+            recyclerView.setLayoutManager(staggeredGridLayoutManager);
+            recyclerView.setAdapter(recyclerviewAdapter);
+
             progressDialog.setVisibility(View.GONE);
             ToastCustom.setToast(getActivity(), "WhatsApp Stories Images..");
         }
@@ -399,6 +429,12 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         protected void onProgressUpdate(String... text) {
 
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("Tag", "ImageFragment.onDestroyView() has been called.");
     }
 
 }

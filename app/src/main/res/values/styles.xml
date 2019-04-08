@@ -56,4 +56,8 @@
         <item name="android:windowEnterAnimation">@anim/dialog_slide_down</item>
         <item name="android:windowExitAnimation">@anim/dialog_slide_top</item>
     </style>
+
+    <style name="AppThemeMyLight" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/colorPrimary2</item>
+    </style>
 </resources>

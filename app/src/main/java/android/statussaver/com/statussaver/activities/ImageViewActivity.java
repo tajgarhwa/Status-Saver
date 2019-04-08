@@ -3,8 +3,10 @@ package android.statussaver.com.statussaver.activities;
 import android.annotation.SuppressLint;
 import android.os.Environment;
 import android.statussaver.com.statussaver.R;
+import android.statussaver.com.statussaver.adapters.ViewPagerAdapter;
 import android.statussaver.com.statussaver.utils.ToastCustom;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,7 +16,10 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.github.chrisbanes.photoview.PhotoView;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -22,17 +27,24 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
 
-public class ImageViewActivity extends AppCompatActivity implements View.OnClickListener {
+public class ImageViewActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener{
 
     private static final String DIRECTORY_TO_SAVE_MEDIA_NOW ="/Status_Saver/" ;
     String sessionUrl,state;
-    ImageView imageView;
+    //ImageView imageView;
+    PhotoView imageView;
     File sourceFile;
 
     private FloatingActionButton fabMain, fabFirst, fabMainsecond, fabthired;
     private Animation fabOpen, fabClose, fabForaward, fabBackward;
     private boolean isOpen = false;
+    private ViewPagerAdapter adapter;
+    private ArrayList<File> documents;
+    private String position;
+    private int pos;
+    private TextView tvCurrentItem;
 
 
 //private PhotoViewAttacher photoViewAttacher;]
@@ -45,16 +57,21 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_view);
 
-        sessionUrl = getIntent().getStringExtra("image");
+        //sessionUrl = getIntent().getStringExtra("imageList");
+        documents = (ArrayList<File>) getIntent().getSerializableExtra("imageList");
         state =getIntent().getStringExtra("state");
+        pos = getIntent().getIntExtra("position",0);
         sourceFile = (File)getIntent().getSerializableExtra("file");
 
-        imageView = findViewById(R.id.img_status);
+        //pos = Integer.parseInt(position);
+        //imageView = findViewById(R.id.img_status);
 
         fabMain = findViewById(R.id.fab_main);
         fabFirst = findViewById(R.id.fab_main_first);
         fabMainsecond = findViewById(R.id.fab_main_download);
         fabthired = findViewById(R.id.fab_main_thired);
+        ViewPager viewPager = findViewById(R.id.view_pager);
+        tvCurrentItem = findViewById(R.id.tvCurrentItem);
 
         fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open);
         fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close);
@@ -66,10 +83,19 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
         fabMainsecond.setOnClickListener(this);
         fabthired.setOnClickListener(this);
 
+        adapter = new ViewPagerAdapter(getSupportFragmentManager(), documents);
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(this);
       //  photoViewAttacher = new PhotoViewAttacher(imageView);
-        Picasso.with(this).load("file://" + sessionUrl).placeholder(R.drawable.placeholder).into(imageView);
+        //Picasso.with(this).load("file://" + sessionUrl).placeholder(R.drawable.placeholder).into(imageView);
 
-        mScaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
+        //mScaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
+
+        try {
+            viewPager.setCurrentItem(pos);
+            onPageSelected(pos);
+        } catch (Exception e) {
+        }
 
         hideView(state);
 
@@ -163,11 +189,11 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
             }
         }
     }
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        mScaleGestureDetector.onTouchEvent(event);
-        return true;
-    }
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        mScaleGestureDetector.onTouchEvent(event);
+//        return true;
+//    }
 
     @Override
     public void onBackPressed() {
@@ -175,15 +201,33 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
     }
 
 
-    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
-        @Override
-        public boolean onScale(ScaleGestureDetector scaleGestureDetector){
-            mScaleFactor *= scaleGestureDetector.getScaleFactor();
-            mScaleFactor = Math.max(0.1f,
-                    Math.min(mScaleFactor, 10.0f));
-            imageView.setScaleX(mScaleFactor);
-            imageView.setScaleY(mScaleFactor);
-            return true;
+//    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+//        @Override
+//        public boolean onScale(ScaleGestureDetector scaleGestureDetector){
+//            mScaleFactor *= scaleGestureDetector.getScaleFactor();
+//            mScaleFactor = Math.max(0.1f,
+//                    Math.min(mScaleFactor, 10.0f));
+//            imageView.setScaleX(mScaleFactor);
+//            imageView.setScaleY(mScaleFactor);
+//            return true;
+//        }
+//    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        try {
+            tvCurrentItem.setText((position + 1) + "/" + documents.size());
+        } catch (Exception e) {
         }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }

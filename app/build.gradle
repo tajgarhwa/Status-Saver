@@ -57,6 +57,8 @@ dependencies {
 
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
     //implementation 'com.google.android.gms:play-services-ads:17.1.1'
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
 
 
 

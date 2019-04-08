@@ -8,6 +8,7 @@ import android.statussaver.com.statussaver.R;
 import android.statussaver.com.statussaver.activities.ImageViewActivity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,7 @@ public class StoriesAdapterImage extends RecyclerView.Adapter<StoriesAdapterImag
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
         final File status = getItem(position);
         Picasso.with(mContext).load(status.getAbsoluteFile()).placeholder(R.drawable.placeholder).into(holder.statusImage);
@@ -58,13 +59,16 @@ public class StoriesAdapterImage extends RecyclerView.Adapter<StoriesAdapterImag
             holder.relfuctions.setVisibility(View.GONE);
         }
 
+        Log.d("position", String.valueOf(position));
+
         holder.statusImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ImageViewActivity.class);
-                intent.putExtra("image",status.getAbsolutePath());
+                intent.putExtra("imageList",statuslist);
                 intent.putExtra("file",status);
                 intent.putExtra("state",st);
+                intent.putExtra("position",position);
                 mContext.startActivity(intent);
             }
         });
