@@ -3,6 +3,7 @@ package android.statussaver.com.statussaver.adapters.Stories;
 import android.content.Context;
 import android.content.Intent;
 import android.statussaver.com.statussaver.R;
+import android.statussaver.com.statussaver.activities.ImageViewActivity;
 import android.statussaver.com.statussaver.activities.VideoViewActivity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -57,7 +58,7 @@ public class StoriesAdapterSave extends RecyclerView.Adapter<StoriesAdapterSave.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
         final File status = getItem(position);
         // Picasso.with(mContext).load("file://" + status.getAbsoluteFile()).placeholder(R.drawable.placeholder).into(holder.statusImage);
@@ -66,7 +67,7 @@ public class StoriesAdapterSave extends RecyclerView.Adapter<StoriesAdapterSave.
 //                .skipMemoryCache(true)
 //                .into(holder.statusImage);
 
-        if (status.getAbsolutePath().endsWith(".mp4") || status.getAbsolutePath().endsWith(".3gp") || status.getAbsolutePath().endsWith(".mov")) {
+        if (status.getAbsolutePath().endsWith(".mp4") || status.getAbsolutePath().endsWith(".3gp") || status.getAbsolutePath().endsWith(".mov") || status.getAbsolutePath().endsWith("webm")) {
 //            ViewGroup.LayoutParams params = holder.statusImage.getLayoutParams();
 //            // int a= params.height=ViewGroup.LayoutParams.WRAP_CONTENT;
 //            // int b =params.width =ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -99,8 +100,15 @@ public class StoriesAdapterSave extends RecyclerView.Adapter<StoriesAdapterSave.
         holder.statusImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, VideoViewActivity.class);
-                intent.putExtra("url","file://" + status.getAbsolutePath());
+//                Intent intent = new Intent(mContext, ImageViewActivity.class);
+//                intent.putExtra("url","file://" + status.getAbsolutePath());
+//                mContext.startActivity(intent);
+
+                Intent intent = new Intent(mContext, ImageViewActivity.class);
+                intent.putExtra("imageList",statuslist);
+                intent.putExtra("file",status);
+                intent.putExtra("state","ONE");
+                intent.putExtra("position",position);
                 mContext.startActivity(intent);
             }
         });

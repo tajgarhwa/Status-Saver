@@ -185,7 +185,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
             if (files != null) {
                 for (File file : files) {
 
-                    if (file.getName().endsWith(".jpg") || file.getName().endsWith(".png") || file.getName().endsWith(".mp4") || file.getName().endsWith(".gif") || file.getName().endsWith(".3gp") || file.getName().endsWith(".mov")) {
+                    if (file.getName().endsWith(".jpg") || file.getName().endsWith(".png") || file.getName().endsWith(".mp4") || file.getName().endsWith(".gif") || file.getName().endsWith(".3gp") || file.getName().endsWith(".mov") || file.getName().endsWith(".webm")) {
                         if (!inFiles.contains(file)) {
                             i++;
                             Log.e("file name" + " " + i, file.getAbsolutePath());
