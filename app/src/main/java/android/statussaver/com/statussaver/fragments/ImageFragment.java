@@ -271,6 +271,10 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         protected String doInBackground(String... params) {
 
 
+            if (inFiles.size() == 0) {
+                tvImage.setVisibility(View.INVISIBLE);
+            }
+
             initSetList(WHATSAPP_STATUSES_LOCATION_RECIVED, "TWO");
 
 //            if(!((getActivity().isFinishing()))) {
@@ -307,6 +311,10 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
             progressDialog.setVisibility(View.GONE);
             ToastCustom.setToast(getActivity(), "WhatsApp Received Images..");
+
+            if (inFiles.size() == 0) {
+                tvImage.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
@@ -325,6 +333,10 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
         @Override
         protected String doInBackground(String... params) {
+
+            if (inFiles.size() == 0) {
+                tvImage.setVisibility(View.INVISIBLE);
+            }
 
 //            if(!((getActivity().isFinishing()))) {
 //                getActivity().runOnUiThread(new Runnable() {
@@ -359,6 +371,10 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
             progressDialog.setVisibility(View.GONE);
             ToastCustom.setToast(getActivity(), "WhatsApp Sent Images..");
+
+            if (inFiles.size() == 0) {
+                tvImage.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
@@ -380,6 +396,11 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
         @Override
         protected String doInBackground(String... params) {
+
+            if (inFiles.size() == 0) {
+                tvImage.setVisibility(View.INVISIBLE);
+            }
+
 
 //            if(!((getActivity().isFinishing())))
 //            {
@@ -417,6 +438,10 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
             progressDialog.setVisibility(View.GONE);
             ToastCustom.setToast(getActivity(), "WhatsApp Stories Images..");
+
+            if (inFiles.size() == 0) {
+                tvImage.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
