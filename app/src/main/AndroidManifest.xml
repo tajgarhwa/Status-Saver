@@ -18,9 +18,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.MainActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activities.SplashActivity"
             android:screenOrientation="portrait">
@@ -30,22 +28,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ImageViewActivity"/>
-        <activity android:name=".activities.VideoViewActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.GifViewActivity"
-            android:screenOrientation="portrait">
-        </activity>
+        <activity android:name=".activities.ImageViewActivity" />
+        <activity
+            android:name=".activities.VideoViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.GifViewActivity"
+            android:screenOrientation="portrait"></activity>
 
-        <service android:name="android.statussaver.com.statussaver.service.MediaListenerService">
+        <service android:name=".service.MediaListenerService">
 
-            <!--<intent-filter>-->
-            <!--<action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/> -->
+            <!-- </intent-filter> -->
         </service>
 
         <receiver
-            android:name="android.statussaver.com.statussaver.recivers.MyReceiver"
+            android:name=".recivers.MyReceiver"
             android:enabled="true">
             <intent-filter android:priority="999">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -54,6 +53,8 @@
                 <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".activities.SettingsActivity"></activity>
     </application>
 
 </manifest>

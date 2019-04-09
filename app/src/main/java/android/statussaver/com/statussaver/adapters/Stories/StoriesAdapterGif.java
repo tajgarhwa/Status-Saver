@@ -56,6 +56,10 @@ public class StoriesAdapterGif extends RecyclerView.Adapter<StoriesAdapterGif.Vi
         GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(holder.statusImage);
         Glide.with(mContext).load("file://" + status.getAbsoluteFile()).placeholder(R.drawable.placeholder).into(imageViewTarget);
 
+        if (st.equalsIgnoreCase("TWO") || st.equalsIgnoreCase("THREE")){
+            holder.relfuctions.setVisibility(View.GONE);
+        }
+
         holder.statusImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,13 +135,14 @@ public class StoriesAdapterGif extends RecyclerView.Adapter<StoriesAdapterGif.Vi
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView statusImage;
-        RelativeLayout btnDownload, btnShare;
+        RelativeLayout btnDownload, btnShare,relfuctions;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.statusImage = itemView.findViewById(R.id.img_status);
             this.btnDownload = itemView.findViewById(R.id.btnDownload);
             this.btnShare = itemView.findViewById(R.id.btnShare);
+            this.relfuctions = itemView.findViewById(R.id.relfuctions);
         }
     }
 }

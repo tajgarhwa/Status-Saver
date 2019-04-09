@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ImageView imgImage, imgVideo, imgGif, imgSave, imgInfo;
     private RelativeLayout RelImgImage, RelImgVideo, RelImgGif, RelImgSave, RelImgInfo, relRecylerHori;
-    private TextView tvrecentStories;
+    private TextView tvrecentStories,tvInviteFriend;
 
     private ImageFragment imageFragment;
     private VideoFragment videoFragment;
@@ -109,6 +109,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RelImgGif.setOnClickListener(this);
         RelImgSave.setOnClickListener(this);
         RelImgInfo.setOnClickListener(this);
+
+        tvInviteFriend = findViewById(R.id.tvInviteFriend);
+
+        tvInviteFriend.setOnClickListener(this);
 
 
 //        recyclerView = findViewById(R.id.recyclerview);
@@ -333,6 +337,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                imgSave.setImageResource(R.drawable.ic_action_save);
 //                imgInfo.setImageResource(R.drawable.item_drawer_selected);
 
+                break;
+
+            case R.id.tvInviteFriend:
+                Intent intent = new Intent(this,SettingsActivity.class);
+                startActivity(intent);
                 break;
 
 
