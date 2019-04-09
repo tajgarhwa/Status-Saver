@@ -177,7 +177,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
             }
         } else {
 
-            Toast.makeText(getActivity(), "Thire is any directory ", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "Thire is any directory ", Toast.LENGTH_SHORT).show();
         }
         return inFiles;
     }

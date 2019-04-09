@@ -33,10 +33,12 @@ public class StoriesAdapterGif extends RecyclerView.Adapter<StoriesAdapterGif.Vi
     private ArrayList<File> statuslist;
     private Context mContext;
     private static final String DIRECTORY_TO_SAVE_MEDIA_NOW = "/Status_Saver/";
+    private String st;
 
-    public StoriesAdapterGif(ArrayList<File> statuslist, Context mContext) {
+    public StoriesAdapterGif(ArrayList<File> statuslist, Context mContext,String st) {
         this.statuslist = statuslist;
         this.mContext = mContext;
+        this.st = st;
     }
 
     @NonNull

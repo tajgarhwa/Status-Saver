@@ -384,7 +384,7 @@ public class VideoFragment extends Fragment implements View.OnClickListener {
             }
         } else {
 
-            Toast.makeText(getActivity(), "There is any directory ", Toast.LENGTH_SHORT).show();
+           //Toast.makeText(getActivity(), "There is any directory ", Toast.LENGTH_SHORT).show();
         }
         return inFiles;
     }
