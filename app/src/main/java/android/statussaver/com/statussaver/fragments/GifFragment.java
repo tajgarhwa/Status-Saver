@@ -250,7 +250,7 @@ public class GifFragment extends Fragment implements View.OnClickListener {
             files = parentDir.listFiles();
             Arrays.sort(files, new BaseCompare.compare());
             int i = 0;
-            if (files != null) {
+            if (files.length !=0) {
                 for (File file : files) {
 
                     if (file.getName().endsWith(".mp4") || file.getName().endsWith(".gif")) {
@@ -265,7 +265,7 @@ public class GifFragment extends Fragment implements View.OnClickListener {
                     }
                 }
             } else {
-                tvImage.setVisibility(View.VISIBLE);
+                //tvImage.setVisibility(View.VISIBLE);
             }
         } else {
 

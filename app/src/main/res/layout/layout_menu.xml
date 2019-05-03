@@ -8,8 +8,8 @@
 
     <RelativeLayout
         android:id="@+id/btnClose"
-        android:layout_width="?attr/actionBarSize"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         android:layout_alignParentRight="true"
         android:clickable="true"
         android:onClick="onClick">
@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textColor="#ff5b28" />
+            android:background="@drawable/clear_meterial"/>
 
     </RelativeLayout>
 
@@ -34,8 +34,10 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:clickable="true"
-            android:drawablePadding="20dp"
-            android:gravity="center_vertical"
+            android:drawablePadding="10dp"
+            android:gravity="left|center_vertical"
+            android:text="How to use?"
+            android:drawableLeft="@drawable/info_meterial"
             android:onClick="onClick"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -47,9 +49,11 @@
             android:layout_height="48dp"
             android:layout_marginTop="5dp"
             android:clickable="true"
-            android:drawablePadding="20dp"
-            android:gravity="center_vertical"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/public_meterial"
+            android:gravity="left|center_vertical"
             android:onClick="onClick"
+            android:text="Privacy policy"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -60,9 +64,11 @@
             android:layout_height="48dp"
             android:layout_marginTop="5dp"
             android:clickable="true"
-            android:drawablePadding="20dp"
-            android:gravity="center_vertical"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/star_rate_meterial"
+            android:gravity="left|center_vertical"
             android:onClick="onClick"
+            android:text="Rate status saver"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -73,8 +79,9 @@
             android:layout_height="48dp"
             android:layout_marginTop="5dp"
             android:clickable="true"
-            android:drawablePadding="20dp"
-            android:gravity="center"
+            android:drawablePadding="10dp"
+            android:gravity="left|center_vertical"
+            android:drawableLeft="@drawable/settings_metrial"
             android:onClick="onClick"
             android:text="Settings"
             android:textColor="@color/white"
@@ -87,15 +94,15 @@
             android:layout_height="48dp"
             android:layout_marginTop="5dp"
             android:clickable="true"
-
-            android:drawablePadding="20dp"
-            android:gravity="center_vertical"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/share_meterial"
+            android:gravity="left|center_vertical"
             android:onClick="onClick"
-
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:visibility="gone" />
+            android:text="Share this app"
+            android:visibility="visible" />
     </LinearLayout>
 
     <LinearLayout

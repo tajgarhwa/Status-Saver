@@ -99,7 +99,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
                 task3 = new AsyncTaskRunner3();
                 task3.execute();
             }
-        },500);
+        }, 500);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -158,7 +158,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
             files = parentDir.listFiles();
             Arrays.sort(files, new BaseCompare.compare());
             int i = 0;
-            if (files != null) {
+            if (files.length != 0) {
                 for (File file : files) {
 
                     if (file.getName().endsWith(".jpg") || file.getName().endsWith(".png")) {
@@ -173,7 +173,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
                     }
                 }
             } else {
-                tvImage.setVisibility(View.VISIBLE);
+                // tvImage.setVisibility(View.VISIBLE);
             }
         } else {
 
@@ -231,7 +231,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
                         AsyncTaskRunner2 task2 = new AsyncTaskRunner2();
                         task2.execute();
                     }
-                },500);
+                }, 500);
                 break;
             case R.id.fab_main_download:
                 animatedFab();
@@ -244,7 +244,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
                         AsyncTaskRunner task = new AsyncTaskRunner();
                         task.execute();
                     }
-                    },500);
+                }, 500);
 
                 break;
             case R.id.fab_main_thired:
@@ -259,7 +259,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
                         task3.execute();
 
                     }
-                },500);
+                }, 500);
                 break;
         }
 
@@ -277,21 +277,6 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
             initSetList(WHATSAPP_STATUSES_LOCATION_RECIVED, "TWO");
 
-//            if(!((getActivity().isFinishing()))) {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//
-//                        try {
-//                            initSetList(WHATSAPP_STATUSES_LOCATION_RECIVED, "TWO");
-//                        } catch (WindowManager.BadTokenException e) {
-//                            //use a log message
-//                        }
-//
-//                    }
-//                });
-//
-//            }
             return "";
         }
 
@@ -338,20 +323,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
                 tvImage.setVisibility(View.INVISIBLE);
             }
 
-//            if(!((getActivity().isFinishing()))) {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        try {
-                            initSetList(WHATSAPP_STATUSES_LOCATION_SEND, "THREE");
-//                        } catch (WindowManager.BadTokenException e) {
-//                            //use a log message
-//                        }
-//
-//                    }
-//                });
-
-//            }
+            initSetList(WHATSAPP_STATUSES_LOCATION_SEND, "THREE");
             return "";
         }
 
@@ -401,23 +373,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
                 tvImage.setVisibility(View.INVISIBLE);
             }
 
-
-//            if(!((getActivity().isFinishing())))
-//            {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//
-//
-//                        try {
-                            initSetList(WHATSAPP_STATUSES_LOCATION, "ONE");
-//                        } catch (WindowManager.BadTokenException e) {
-//                            //use a log message
-//                        }
-//
-//                    }
-//                });
-//            }
+            initSetList(WHATSAPP_STATUSES_LOCATION, "ONE");
 
 
             return "";

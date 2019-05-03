@@ -363,9 +363,8 @@ public class VideoFragment extends Fragment implements View.OnClickListener {
             files = parentDir.listFiles();
             Arrays.sort(files, new BaseCompare.compare());
             int i = 0;
-            if (files != null) {
+            if (files.length !=0) {
                 for (File file : files) {
-
                     if (file.getName().endsWith(".mp4") || file.getName().endsWith(".3gp") || file.getName().endsWith(".mov")) {
                         if (!inFiles.contains(file)) {
                             i++;
@@ -380,7 +379,7 @@ public class VideoFragment extends Fragment implements View.OnClickListener {
                     }
                 }
             } else {
-                tvImage.setVisibility(View.VISIBLE);
+               // tvImage.setVisibility(View.VISIBLE);
             }
         } else {
 
@@ -480,24 +479,7 @@ public class VideoFragment extends Fragment implements View.OnClickListener {
             if (inFiles.size() == 0) {
                 tvImage.setVisibility(View.INVISIBLE);
             }
-
             initSetList(WHATSAPP_STATUSES_LOCATION_RECIVED, "TWO");
-
-//            if(!((getActivity().isFinishing()))) {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//
-//                        try {
-//                            initSetList(WHATSAPP_STATUSES_LOCATION_RECIVED, "TWO");
-//                        } catch (WindowManager.BadTokenException e) {
-//                            //use a log message
-//                        }
-//
-//                    }
-//                });
-//
-//            }
             return "";
         }
 
@@ -543,21 +525,7 @@ public class VideoFragment extends Fragment implements View.OnClickListener {
             if (inFiles.size() == 0) {
                 tvImage.setVisibility(View.INVISIBLE);
             }
-
-//            if(!((getActivity().isFinishing()))) {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        try {
             initSetList(WHATSAPP_STATUSES_LOCATION_SEND, "THREE");
-//                        } catch (WindowManager.BadTokenException e) {
-//                            //use a log message
-//                        }
-//
-//                    }
-//                });
-
-//            }
             return "";
         }
 
@@ -606,23 +574,7 @@ public class VideoFragment extends Fragment implements View.OnClickListener {
             if (inFiles.size() == 0) {
                 tvImage.setVisibility(View.INVISIBLE);
             }
-
-//            if(!((getActivity().isFinishing())))
-//            {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//
-//
-//                        try {
             initSetList(WHATSAPP_STATUSES_LOCATION, "ONE");
-//                        } catch (WindowManager.BadTokenException e) {
-//                            //use a log message
-//                        }
-//
-//                    }
-//                });
-//            }
 
 
             return "";

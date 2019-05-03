@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             files = parentDir.listFiles();
             Arrays.sort(files, new BaseCompare.compare());
             int i = 0;
-            if (files != null) {
+            if (files.length !=0) {
                 for (File file : files) {
                     if (file.getName().endsWith(".jpg") || file.getName().endsWith(".png") || file.getName().endsWith(".mp4") || file.getName().endsWith(".3gp") || file.getName().endsWith(".mov")) {
                         if (!inFiles.contains(file)) {
@@ -205,10 +205,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             } else {
                 //tvImage.setVisibility(View.VISIBLE);
+                relRecylerHori.setVisibility(View.GONE);
+                tvrecentStories.setVisibility(View.GONE);
             }
 
         }else {
-            Toast.makeText(getApplicationContext(),"Thire is any directory ",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"No any directory found",Toast.LENGTH_SHORT).show();
         }
         return inFiles;
     }
