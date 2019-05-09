@@ -63,7 +63,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
         documents = (ArrayList<File>) getIntent().getSerializableExtra("imageList");
         state =getIntent().getStringExtra("state");
         pos = getIntent().getIntExtra("position",0);
-        sourceFile = (File)getIntent().getSerializableExtra("file");
+        //sourceFile = (File)getIntent().getSerializableExtra("file");
 
         //pos = Integer.parseInt(position);
         //imageView = findViewById(R.id.img_status);

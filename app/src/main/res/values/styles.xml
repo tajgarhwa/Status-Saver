@@ -6,6 +6,13 @@
         <item name="colorPrimary">@color/colorPrimary2</item>
         <item name="colorPrimaryDark">@color/colorPrimary2</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!--  It should be true otherwise action mode will not overlay toolbar -->
+        <item name="windowActionModeOverlay">true</item>
+
+        <!--  For Custom Action Mode Background Color/Drawable -->
+        <item name="actionModeBackground">@color/colorAccent</item>
+
     </style>
 
     <style name="TitleBarStyle" parent="@android:style/Widget.TextView">
@@ -60,4 +67,6 @@
     <style name="AppThemeMyLight" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@color/colorPrimary2</item>
     </style>
+
+
 </resources>

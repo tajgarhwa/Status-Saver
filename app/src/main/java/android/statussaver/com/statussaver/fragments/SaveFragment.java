@@ -1,12 +1,17 @@
 package android.statussaver.com.statussaver.fragments;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.statussaver.com.statussaver.BaseCompare;
+import android.statussaver.com.statussaver.activities.ImageViewActivity;
+import android.statussaver.com.statussaver.activities.MainActivity;
 import android.statussaver.com.statussaver.adapters.Stories.StoriesAdapterSave;
 import android.statussaver.com.statussaver.models.Status;
+import android.statussaver.com.statussaver.utils.RecyclerItemClickListener;
 import android.statussaver.com.statussaver.utils.ToastCustom;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -14,7 +19,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -25,39 +34,14 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class SaveFragment extends Fragment implements View.OnClickListener {
-
-
-//    public SaveFragment() {
-//        // Required empty public constructor
-//    }
-//
-//
-//
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//    }
-//
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_save, container, false);
-//    }
-//
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//    }
-
 
     private RecyclerView recyclerView;
     private TextView tvImage;
@@ -65,9 +49,6 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
     private StoriesAdapterSave recyclerviewAdapter;
     private static final int COUNT = 2;
     private static final String WHATSAPP_STATUSES_LOCATION = "/Status_Saver";
-//    private static final String WHATSAPP_STATUSES_LOCATION_SEND = "/WhatsApp/Media/WhatsApp Images/Sent";
-//    private static final String WHATSAPP_STATUSES_LOCATION_RECIVED = "/WhatsApp/Media/WhatsApp Images";
-
     private FloatingActionButton fabMain, fabFirst, fabMainsecond, fabthired;
     private RelativeLayout relFirst, relSecond, relThired;
     private Animation fabOpen, fabClose, fabForaward, fabBackward;
@@ -77,6 +58,10 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
     AsyncTaskRunner3 task3;
     ProgressBar progressDialog;
     ArrayList<File> inFiles = new ArrayList<File>();
+
+    private ActionMode actionMode;
+    private boolean isMultiSelect = false;
+    private List<File> selectedIds = new ArrayList<>();
 
     public SaveFragment() {
         // Required empty public constructor
@@ -123,7 +108,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
                 task3 = new AsyncTaskRunner3();
                 task3.execute();
             }
-        },500);
+        }, 500);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -182,7 +167,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
             files = parentDir.listFiles();
             Arrays.sort(files, new BaseCompare.compare());
             int i = 0;
-            if (files.length !=0) {
+            if (files.length != 0) {
                 for (File file : files) {
 
                     if (file.getName().endsWith(".jpg") || file.getName().endsWith(".png") || file.getName().endsWith(".mp4") || file.getName().endsWith(".gif") || file.getName().endsWith(".3gp") || file.getName().endsWith(".mov") || file.getName().endsWith(".webm")) {
@@ -283,140 +268,32 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
                         task3.execute();
 
                     }
-                },500);
+                }, 500);
                 break;
         }
 
     }
-//
-//    private class AsyncTaskRunner extends AsyncTask<String, String, String> {
-//
-//        @Override
-//        protected String doInBackground(String... params) {
-//
-//
-//            if (inFiles.size() == 0) {
-//                tvImage.setVisibility(View.INVISIBLE);
-//            }
-//
-//            initSetList(WHATSAPP_STATUSES_LOCATION_RECIVED, "TWO");
-//
-////            if(!((getActivity().isFinishing()))) {
-////                getActivity().runOnUiThread(new Runnable() {
-////                    @Override
-////                    public void run() {
-////
-////                        try {
-////                            initSetList(WHATSAPP_STATUSES_LOCATION_RECIVED, "TWO");
-////                        } catch (WindowManager.BadTokenException e) {
-////                            //use a log message
-////                        }
-////
-////                    }
-////                });
-////
-////            }
-//            return "";
-//        }
-//
-//
-//        @Override
-//        protected void onPostExecute(String result) {
-//
-//            int resId = R.anim.layout_animation_slide_down;
-//            recyclerviewAdapter = new StoriesAdapterImage(inFiles, getActivity(), "TWO");
-//            StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(COUNT, LinearLayoutManager.VERTICAL);
-//
-//            LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getActivity(), resId);
-//            recyclerView.setLayoutAnimation(animation);
-//            recyclerView.setLayoutManager(staggeredGridLayoutManager);
-//            recyclerView.setAdapter(recyclerviewAdapter);
-//
-//
-//            progressDialog.setVisibility(View.GONE);
-//            ToastCustom.setToast(getActivity(), "WhatsApp Received Images..");
-//
-//            if (inFiles.size() == 0) {
-//                tvImage.setVisibility(View.VISIBLE);
-//            }
-//        }
-//
-//        @Override
-//        protected void onPreExecute() {
-//            progressDialog.setVisibility(View.VISIBLE);
-//
-//        }
-//
-//        @Override
-//        protected void onProgressUpdate(String... text) {
-//
-//        }
-//    }
 
-//    private class AsyncTaskRunner2 extends AsyncTask<String, String, String> {
+    //    @Override
+//    public void onMultiSelect(int count) {
 //
-//        @Override
-//        protected String doInBackground(String... params) {
-//
-//            if (inFiles.size() == 0) {
-//                tvImage.setVisibility(View.INVISIBLE);
-//            }
-//
-////            if(!((getActivity().isFinishing()))) {
-////                getActivity().runOnUiThread(new Runnable() {
-////                    @Override
-////                    public void run() {
-////                        try {
-//            initSetList(WHATSAPP_STATUSES_LOCATION_SEND, "THREE");
-////                        } catch (WindowManager.BadTokenException e) {
-////                            //use a log message
-////                        }
-////
-////                    }
-////                });
-//
-////            }
-//            return "";
-//        }
-//
-//
-//        @Override
-//        protected void onPostExecute(String result) {
-//
-//
-//            int resId = R.anim.layout_animation_slide_down;
-//            recyclerviewAdapter = new StoriesAdapterImage(inFiles, getActivity(), "THREE");
-//            StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(COUNT, LinearLayoutManager.VERTICAL);
-//
-//            LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getActivity(), resId);
-//            recyclerView.setLayoutAnimation(animation);
-//            recyclerView.setLayoutManager(staggeredGridLayoutManager);
-//            recyclerView.setAdapter(recyclerviewAdapter);
-//
-//            progressDialog.setVisibility(View.GONE);
-//            ToastCustom.setToast(getActivity(), "WhatsApp Sent Images..");
-//
-//            if (inFiles.size() == 0) {
-//                tvImage.setVisibility(View.VISIBLE);
-//            }
-//        }
-//
-//        @Override
-//        protected void onPreExecute() {
-//
-//            progressDialog.setVisibility(View.VISIBLE);
-//
-//        }
-//
-//        @Override
-//        protected void onProgressUpdate(String... text) {
-//
-//        }
 //    }
-
+//
+//    @Override
+//    public void onDeselectAll() {
+//
+//    }
+//
+//    @Override
+//    public void onItemClick(int position, File media) {
+//
+//    }
+//
+    public Context passContext() {
+        return getActivity();
+    }
 
     private class AsyncTaskRunner3 extends AsyncTask<String, String, String> {
-
 
         @Override
         protected String doInBackground(String... params) {
@@ -424,10 +301,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
             if (inFiles.size() == 0) {
                 tvImage.setVisibility(View.INVISIBLE);
             }
-
             initSetList(WHATSAPP_STATUSES_LOCATION, "ONE");
-
-
             return "";
         }
 
@@ -436,6 +310,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
         protected void onPostExecute(String result) {
 
             int resId = R.anim.layout_animation_slide_down;
+            //recyclerviewAdapter = new StoriesAdapterSave(inFiles, getActivity(), "ONE",passListner());
             recyclerviewAdapter = new StoriesAdapterSave(inFiles, getActivity(), "ONE");
             StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(COUNT, LinearLayoutManager.VERTICAL);
 
@@ -449,6 +324,106 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
 
             if (inFiles.size() == 0) {
                 tvImage.setVisibility(View.VISIBLE);
+            }
+
+            recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(passContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+
+                    if (isMultiSelect) {
+                        Log.e("TAG:", "normal mode selected");
+                        multiSelect(position);
+                    } else {
+                        Intent intent = new Intent(getActivity(), ImageViewActivity.class);
+                        intent.putExtra("imageList", inFiles);
+                        intent.putExtra("state", "ONE");
+                        intent.putExtra("position", position);
+                        getActivity().startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onItemLongClick(View view, int position) {
+                    if (!isMultiSelect) {
+                        selectedIds = new ArrayList<>();
+                        isMultiSelect = true;
+
+                        if (actionMode == null) {
+                            actionMode = getActivity().startActionMode(new ActionMode.Callback() {
+                                @Override
+                                public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                                    MenuInflater inflater = mode.getMenuInflater();
+                                    inflater.inflate(R.menu.menu_select, menu);
+                                    return true;
+                                }
+
+                                @Override
+                                public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                                    return false;
+                                }
+
+                                @Override
+                                public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                                    switch (item.getItemId()) {
+                                        case R.id.action_delete:
+                                            //just to show selected items.
+                                            //StringBuilder stringBuilder = new StringBuilder();
+//                                            for (MyData data : getList()) {
+//                                                if (selectedIds.contains(data.getId()))
+//                                                    stringBuilder.append("\n").append(data.getTitle());
+//                                            }
+                                            Toast.makeText(getActivity(), "Selected items are :", Toast.LENGTH_SHORT).show();
+                                            return true;
+                                    }
+                                    return false;
+                                }
+
+                                @Override
+                                public void onDestroyActionMode(ActionMode mode) {
+
+                                    actionMode = null;
+                                    isMultiSelect = false;
+                                    selectedIds = new ArrayList<>();
+                                    recyclerviewAdapter.setSelectedIds(new ArrayList<File>());
+
+                                }
+                            });//show ActionMode.
+                        }
+                    }
+
+                    multiSelect(position);
+
+                }
+            }));
+        }
+
+        private void multiSelect(int position) {
+            File data = getItem(position);
+            if (data != null) {
+                if (actionMode != null) {
+                    if (selectedIds.contains(data.getAbsoluteFile())) {
+                        for (int i = 0; i < selectedIds.size(); i++) {
+                            if (selectedIds.get(i).getAbsolutePath().equalsIgnoreCase(data.getAbsolutePath())) {
+                                selectedIds.remove(i);
+                            }
+                        }
+                    } else {
+                        if (selectedIds.size()<10) {
+                            selectedIds.add(data.getAbsoluteFile());
+                        }else {
+                            Toast.makeText(getActivity(),"Sorry you can select only 10 items"+String.valueOf(selectedIds.size()),Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    if (selectedIds.size() > 0)
+                        actionMode.setTitle(String.valueOf(selectedIds.size())); //show selected item count on action mode.
+                    else {
+                        actionMode.setTitle(""); //remove item count from action mode.
+                        actionMode.finish(); //hide action mode.
+                    }
+                    recyclerviewAdapter.setSelectedIds(selectedIds);
+
+                }
             }
         }
 
@@ -470,10 +445,8 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
         Log.d("Tag", "ImageFragment.onDestroyView() has been called.");
     }
 
-
-
-
-
-
+    public File getItem(int position) {
+        return inFiles.get(position);
+    }
 
 }

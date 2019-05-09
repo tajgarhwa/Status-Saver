@@ -2,10 +2,12 @@ package android.statussaver.com.statussaver.adapters.Stories;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.statussaver.com.statussaver.R;
 import android.statussaver.com.statussaver.activities.ImageViewActivity;
 import android.statussaver.com.statussaver.activities.VideoViewActivity;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +31,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.bumptech.glide.request.target.Target.SIZE_ORIGINAL;
 
@@ -41,6 +44,8 @@ public class StoriesAdapterSave extends RecyclerView.Adapter<StoriesAdapterSave.
     private Context mContext;
     private static final String DIRECTORY_TO_SAVE_MEDIA_NOW ="/Status_Saver/" ;
     private String st;
+    private List<File> selectedIds= new ArrayList<>();
+
 
 
     public StoriesAdapterSave(ArrayList<File> statuslist, Context mContext,String st)
@@ -95,59 +100,15 @@ public class StoriesAdapterSave extends RecyclerView.Adapter<StoriesAdapterSave.
             holder.rel_save_video.setVisibility(View.GONE);
         }
 
-
-
-        holder.statusImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent = new Intent(mContext, ImageViewActivity.class);
-//                intent.putExtra("url","file://" + status.getAbsolutePath());
-//                mContext.startActivity(intent);
-
-                Intent intent = new Intent(mContext, ImageViewActivity.class);
-                intent.putExtra("imageList",statuslist);
-                intent.putExtra("file",status);
-                intent.putExtra("state","ONE");
-                intent.putExtra("position",position);
-                mContext.startActivity(intent);
-            }
-        });
-
-
-//        holder.statusImage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(mContext, ImageViewActivity.class);
-//                intent.putExtra("image",status.getAbsolutePath());
-//                intent.putExtra("file",status);
-//                mContext.startActivity(intent);
-//            }
-//        });
-
-//        holder.btnDownload.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                try {
-//                    copyFile(status, new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW + status.getName()));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//        });
-//
-//        holder.btnShare.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                final Intent shareIntent = new Intent(Intent.ACTION_SEND);
-//                shareIntent.setType("video/*");
-//                final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, status.getName());
-//                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photoFile));
-//                mContext.startActivity(Intent.createChooser(shareIntent, "Share image using"));
-//            }
-//        });
+        if (selectedIds.contains(status.getAbsoluteFile())){
+            //if item is selected then,set foreground color of FrameLayout.
+            holder.layoutSelected.setVisibility(View.VISIBLE);
+        }
+        else {
+            //else remove selected item color.
+            //holder.rootView.setForeground(new ColorDrawable(ContextCompat.getColor(context,android.R.color.transparent)));
+            holder.layoutSelected.setVisibility(View.GONE);
+        }
 
         Log.e("video path load:", status.getAbsolutePath());
 
@@ -188,11 +149,16 @@ public class StoriesAdapterSave extends RecyclerView.Adapter<StoriesAdapterSave.
         return statuslist.get(position);
     }
 
+    public void setSelectedIds(List<File> selectedIds) {
+        this.selectedIds = selectedIds;
+        notifyDataSetChanged();
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView statusImage;
-        RelativeLayout rel_save_video;
+        RelativeLayout rel_save_video,layoutSelected;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -200,6 +166,7 @@ public class StoriesAdapterSave extends RecyclerView.Adapter<StoriesAdapterSave.
 //            this.btnDownload = itemView.findViewById(R.id.btnDownload);
 //            this.btnShare = itemView.findViewById(R.id.btnShare);
             this.rel_save_video = itemView.findViewById(R.id.rel_save_video);
+            this.layoutSelected = itemView.findViewById(R.id.layoutSelected);
         }
     }
 }
