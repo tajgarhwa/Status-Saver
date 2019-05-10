@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:padding="@dimen/dialog_outer_margin">
+
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/header"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="50dp"-->
+    <!--android:background="@drawable/curved_background_header">-->
+
+    <!--</RelativeLayout>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/curved_background_dialog"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/curved_background_header">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/DialogHeader"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="Status Saver And Gallery" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/item_error"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvMsg"
+            style="@style/DialogContent"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:padding="@dimen/dialog_inner_margin"
+            tools:text="Are you sure you want to delete it ?" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="0dp"
+            android:layout_weight="2"
+            android:padding="@dimen/dialog_inner_margin">
+            <!--<Button
+                android:id="@+id/btnCancel"
+                tools:visibility="visible"
+                android:layout_marginStart="0dp"
+                andrmessageCodetext="@string/cancel"
+                style="@style/BtnStyleWhite"/>-->
+            <Button
+                android:id="@+id/btnyes"
+                style="@style/BtnStyleOrange"
+                android:layout_marginTop="5dp"
+                android:text="Yes"
+                android:layout_weight="1"
+                android:layout_marginRight="20dp"
+                tools:visibility="visible" />
+            <Button
+                android:id="@+id/btnNo"
+                style="@style/BtnStyleOrange"
+                android:layout_marginTop="5dp"
+                android:text="No"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

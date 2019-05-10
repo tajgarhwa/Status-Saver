@@ -3,11 +3,13 @@ package android.statussaver.com.statussaver.adapters.Stories;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.statussaver.com.statussaver.R;
 import android.statussaver.com.statussaver.activities.ImageViewActivity;
 import android.statussaver.com.statussaver.activities.VideoViewActivity;
 import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -128,11 +130,26 @@ public class StoriesAdapterVideo extends RecyclerView.Adapter<StoriesAdapterVide
             @Override
             public void onClick(View v) {
 
-                final Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("video/*");
-                final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, status.getName());
-                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photoFile));
-                mContext.startActivity(Intent.createChooser(shareIntent, "Share image using"));
+//                final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+//                shareIntent.setType("video/*");
+//                final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, status.getName());
+//                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photoFile));
+//                mContext.startActivity(Intent.createChooser(shareIntent, "Share image using"));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("video/*");
+                    final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, status.getName());
+                    Uri photoUri = FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".provider", photoFile);
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, photoUri);
+                    mContext.startActivity(Intent.createChooser(shareIntent, "Share Video using"));
+                }else {
+                    final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("video/*");
+                    final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, status.getName());
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photoFile));
+                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    mContext.startActivity(Intent.createChooser(shareIntent, "Share Video using"));
+                }
             }
         });
 

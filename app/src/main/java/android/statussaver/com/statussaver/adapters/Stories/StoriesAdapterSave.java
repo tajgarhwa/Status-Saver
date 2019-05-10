@@ -154,6 +154,10 @@ public class StoriesAdapterSave extends RecyclerView.Adapter<StoriesAdapterSave.
         notifyDataSetChanged();
     }
 
+    public synchronized void setNotify(){
+        this.notifyDataSetChanged();
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

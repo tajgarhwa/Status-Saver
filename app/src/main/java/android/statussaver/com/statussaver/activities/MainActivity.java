@@ -55,16 +55,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String WHATSAPP_STATUSES_LOCATION = "/WhatsApp/Media/.Statuses";
 
     private static final int REQUEST_PERMISSION = 10;
-    private int backCount =0;
+    private int backCount = 0;
 
-    private static final String JOB_TAG="my_job_tag";
+    private static final String JOB_TAG = "my_job_tag";
     private FirebaseJobDispatcher jobDispatcher;
-
 
 
     private ImageView imgImage, imgVideo, imgGif, imgSave, imgInfo;
     private RelativeLayout RelImgImage, RelImgVideo, RelImgGif, RelImgSave, RelImgInfo, relRecylerHori;
-    private TextView tvrecentStories,tvInviteFriend;
+    private TextView tvrecentStories, tvInviteFriend;
 
     private ImageFragment imageFragment;
     private VideoFragment videoFragment;
@@ -188,13 +187,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             files = parentDir.listFiles();
             Arrays.sort(files, new BaseCompare.compare());
             int i = 0;
-            if (files.length !=0) {
+            if (files.length != 0) {
                 for (File file : files) {
                     if (file.getName().endsWith(".jpg") || file.getName().endsWith(".png") || file.getName().endsWith(".mp4") || file.getName().endsWith(".3gp") || file.getName().endsWith(".mov")) {
                         if (!inFiles.contains(file)) {
                             i++;
                             Log.e("file name" + " " + i, file.getAbsolutePath());
-                            if (i<7) {
+                            if (i < 7) {
                                 inFiles.add(file);
                             }
                         }
@@ -209,8 +208,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tvrecentStories.setVisibility(View.GONE);
             }
 
-        }else {
-            Toast.makeText(getApplicationContext(),"No any directory found",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "No any directory found", Toast.LENGTH_SHORT).show();
         }
         return inFiles;
     }
@@ -261,7 +260,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     public void setButtonState() {
 
         showSelectedFragment(getImageFragment());
@@ -269,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imgVideo.setImageResource(R.drawable.ic_action_video);
         imgGif.setImageResource(R.drawable.ic_action_gif);
         imgSave.setImageResource(R.drawable.ic_action_save);
-       // imgInfo.setImageResource(R.drawable.item_drawer);
+        // imgInfo.setImageResource(R.drawable.item_drawer);
         imgInfo.setImageResource(R.drawable.item_drawer_selected);
     }
 
@@ -287,6 +285,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 showSelectedFragment(getImageFragment());
 
+                if (saveFragment == null) {
+                    saveFragment = new SaveFragment();
+                }
+                saveFragment.updateContextMenu();
                 imgImage.setImageResource(R.drawable.ic_action_image_selected);
                 imgVideo.setImageResource(R.drawable.ic_action_video);
                 imgGif.setImageResource(R.drawable.ic_action_gif);
@@ -297,7 +299,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.RelImgVideo:
                 showSelectedFragment(getVideoFragment());
-
+                if (saveFragment == null) {
+                    saveFragment = new SaveFragment();
+                }
+                saveFragment.updateContextMenu();
                 imgImage.setImageResource(R.drawable.ic_action_image);
                 imgVideo.setImageResource(R.drawable.ic_action_video_selected);
                 imgGif.setImageResource(R.drawable.ic_action_gif);
@@ -320,7 +325,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.RelImgSave:
 
                 showSelectedFragment(getSaveFragment());
-
+                if (saveFragment == null) {
+                    saveFragment = new SaveFragment();
+                }
+                saveFragment.updateContextMenu();
                 imgImage.setImageResource(R.drawable.ic_action_image);
                 imgVideo.setImageResource(R.drawable.ic_action_video);
                 imgGif.setImageResource(R.drawable.ic_action_gif);
@@ -342,7 +350,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.tvInviteFriend:
-                Intent intent = new Intent(this,SettingsActivity.class);
+                Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 break;
 
@@ -373,7 +381,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        } else {
 //            super.onBackPressed();
 //        }
-     showExitPrompt();
+        showExitPrompt();
     }
 
     Runnable runnableExit = new Runnable() {
@@ -396,8 +404,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-
-
 
 
 }

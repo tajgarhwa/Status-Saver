@@ -1,6 +1,7 @@
 package android.statussaver.com.statussaver.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.statussaver.com.statussaver.activities.ImageViewActivity;
 import android.statussaver.com.statussaver.activities.MainActivity;
 import android.statussaver.com.statussaver.adapters.Stories.StoriesAdapterSave;
 import android.statussaver.com.statussaver.models.Status;
+import android.statussaver.com.statussaver.utils.Alerts;
 import android.statussaver.com.statussaver.utils.RecyclerItemClickListener;
 import android.statussaver.com.statussaver.utils.ToastCustom;
 import android.support.design.widget.FloatingActionButton;
@@ -273,22 +275,6 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
         }
 
     }
-
-    //    @Override
-//    public void onMultiSelect(int count) {
-//
-//    }
-//
-//    @Override
-//    public void onDeselectAll() {
-//
-//    }
-//
-//    @Override
-//    public void onItemClick(int position, File media) {
-//
-//    }
-//
     public Context passContext() {
         return getActivity();
     }
@@ -361,18 +347,62 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
                                 public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
                                     return false;
                                 }
-
                                 @Override
                                 public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                                     switch (item.getItemId()) {
                                         case R.id.action_delete:
                                             //just to show selected items.
-                                            //StringBuilder stringBuilder = new StringBuilder();
-//                                            for (MyData data : getList()) {
-//                                                if (selectedIds.contains(data.getId()))
-//                                                    stringBuilder.append("\n").append(data.getTitle());
-//                                            }
-                                            Toast.makeText(getActivity(), "Selected items are :", Toast.LENGTH_SHORT).show();
+                                            Alerts.ShowYesOrNo(getActivity(), "Are you sure you want to delete it ?", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    final StringBuilder stringBuilder = new StringBuilder();
+                                                    File filedelete;
+                                                    for(int i=0;i<selectedIds.size();i++){
+                                                        for (int j =0 ;j<inFiles.size();j++){
+                                                            if (selectedIds.get(i).getAbsolutePath().contains(inFiles.get(j).getAbsolutePath())){
+                                                                stringBuilder.append("\n").append(selectedIds.get(i).getAbsolutePath());
+                                                                filedelete = new File(selectedIds.get(i).getAbsolutePath());
+                                                                if (filedelete.exists()) {
+                                                                    inFiles.remove(j);
+                                                                    filedelete.delete();
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    if (actionMode!=null){
+                                                        actionMode.finish();
+                                                    }
+                                                    isMultiSelect = false;
+                                                    selectedIds.clear();
+                                                    progressDialog.setVisibility(View.VISIBLE);
+                                                    new Handler().postDelayed(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            //to refresh
+                                                            int resId = R.anim.layout_animation_slide_down;
+                                                            recyclerviewAdapter = new StoriesAdapterSave(inFiles, getActivity(), "ONE");
+                                                            StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(COUNT, LinearLayoutManager.VERTICAL);
+                                                            LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getActivity(), resId);
+                                                            recyclerView.setLayoutAnimation(animation);
+                                                            recyclerView.setLayoutManager(staggeredGridLayoutManager);
+                                                            recyclerView.setAdapter(recyclerviewAdapter);
+
+                                                           // Toast.makeText(getActivity(), "Selected items are :"+stringBuilder.toString(), Toast.LENGTH_SHORT).show();
+                                                            progressDialog.setVisibility(View.GONE);
+                                                        }
+                                                    }, 1500);
+
+                                                }
+                                            }, new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    if (actionMode!=null){
+                                                        actionMode.finish();
+                                                    }
+                                                    isMultiSelect = false;
+                                                    selectedIds.clear();
+                                                }
+                                            },true);
                                             return true;
                                     }
                                     return false;
@@ -416,7 +446,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
                     }
 
                     if (selectedIds.size() > 0)
-                        actionMode.setTitle(String.valueOf(selectedIds.size())); //show selected item count on action mode.
+                        actionMode.setTitle(String.valueOf(selectedIds.size())+" Selected"); //show selected item count on action mode.
                     else {
                         actionMode.setTitle(""); //remove item count from action mode.
                         actionMode.finish(); //hide action mode.
@@ -447,6 +477,14 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
 
     public File getItem(int position) {
         return inFiles.get(position);
+    }
+
+    public void updateContextMenu(){
+        if (actionMode!=null){
+            actionMode.finish();
+        }
+        isMultiSelect = false;
+        selectedIds.clear();
     }
 
 }
