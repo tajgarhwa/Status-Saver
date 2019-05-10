@@ -86,6 +86,8 @@ public class StoriesAdapterSave extends RecyclerView.Adapter<StoriesAdapterSave.
                     .override(SIZE_ORIGINAL,SIZE_ORIGINAL)// Example
                     .videoDecoder(fileDescriptorBitmapDecoder)
                     .into(holder.statusImage);
+
+            holder.rel_save_video.setVisibility(View.VISIBLE);
         }
         else if (status.getAbsolutePath().endsWith(".jpg") || status.getAbsolutePath().endsWith(".png")){
 
