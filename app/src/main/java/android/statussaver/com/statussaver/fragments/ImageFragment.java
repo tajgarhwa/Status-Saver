@@ -54,6 +54,11 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
     ProgressBar progressDialog;
     ArrayList<File> inFiles = new ArrayList<File>();
 
+    ArrayList<File> searchList = new ArrayList<File>();
+    ArrayList<String> trueList = new ArrayList<String>();
+
+    private static final String DIRECTORY_TO_SAVE_MEDIA_NOW ="/Status_Saver/";
+
     public ImageFragment() {
         // Required empty public constructor
     }
@@ -205,6 +210,60 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         this.getListFiles(new File(Environment.getExternalStorageDirectory().toString() + whatsapp_loaction));
 
     }
+
+
+
+    ////
+//    private void setSearchList(String whatsapp_loaction, String status) {
+//        this.getSearchFiles(new File(Environment.getExternalStorageDirectory().toString() + whatsapp_loaction));
+//
+//    }
+//
+//    private ArrayList<File> getSearchFiles(File parentDir) {
+//
+//        File[] files;
+//        if (parentDir.exists() && parentDir.isDirectory()) {
+//            files = parentDir.listFiles();
+//            Arrays.sort(files, new BaseCompare.compare());
+//            int i = 0;
+//            if (files.length != 0) {
+//                for (File file : files) {
+//
+//                    if (file.getName().endsWith(".jpg") || file.getName().endsWith(".png")) {
+//                        if (!searchList.contains(file)) {
+//                            i++;
+//                            //Log.e("file name search" + " " + i, file.getAbsolutePath());
+//                            searchList.add(file);
+//                        }
+//
+//                    } else {
+//                        //tvImage.setVisibility(View.VISIBLE);
+//                    }
+//                }
+//            } else {
+//                //tvImage.setVisibility(View.VISIBLE);
+//            }
+//        } else {
+//
+//            //Toast.makeText(getActivity(), "Thire is any directory ", Toast.LENGTH_SHORT).show();
+//        }
+//        return searchList;
+//    }
+//
+//    public void getTrueList(){
+//        for (int i =0;i<inFiles.size();i++){
+//            for (int j =0;j<searchList.size();j++){
+//
+//                if (inFiles.get(i).getName().equals(searchList.get(j).getName())){
+//                    trueList.add(searchList.get(j).getName());
+//                    //Log.e("file name search" + " " + j,searchList.get(j).getName());
+//
+//                }
+//
+//            }
+//
+//        }
+//    }
 
 
     @Override
@@ -368,14 +427,12 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
         @Override
         protected String doInBackground(String... params) {
-
             if (inFiles.size() == 0) {
                 tvImage.setVisibility(View.INVISIBLE);
             }
-
             initSetList(WHATSAPP_STATUSES_LOCATION, "ONE");
-
-
+            //setSearchList(DIRECTORY_TO_SAVE_MEDIA_NOW, "ONE");
+            //getTrueList();
             return "";
         }
 
@@ -385,6 +442,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
             int resId = R.anim.layout_animation_slide_down;
             recyclerviewAdapter = new StoriesAdapterImage(inFiles, getActivity(), "ONE");
+            //recyclerviewAdapter.setTrueList(trueList);
             StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(COUNT, LinearLayoutManager.VERTICAL);
 
             LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getActivity(), resId);

@@ -3,7 +3,9 @@ package android.statussaver.com.statussaver.fragments;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -17,6 +19,7 @@ import android.statussaver.com.statussaver.utils.RecyclerItemClickListener;
 import android.statussaver.com.statussaver.utils.ToastCustom;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -64,6 +67,8 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
     private ActionMode actionMode;
     private boolean isMultiSelect = false;
     private List<File> selectedIds = new ArrayList<>();
+    private static final String DIRECTORY_TO_SAVE_MEDIA_NOW = "/Status_Saver/";
+    private Uri photoUri;
 
     public SaveFragment() {
         // Required empty public constructor
@@ -275,6 +280,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
         }
 
     }
+
     public Context passContext() {
         return getActivity();
     }
@@ -347,6 +353,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
                                 public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
                                     return false;
                                 }
+
                                 @Override
                                 public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                                     switch (item.getItemId()) {
@@ -357,9 +364,9 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     final StringBuilder stringBuilder = new StringBuilder();
                                                     File filedelete;
-                                                    for(int i=0;i<selectedIds.size();i++){
-                                                        for (int j =0 ;j<inFiles.size();j++){
-                                                            if (selectedIds.get(i).getAbsolutePath().contains(inFiles.get(j).getAbsolutePath())){
+                                                    for (int i = 0; i < selectedIds.size(); i++) {
+                                                        for (int j = 0; j < inFiles.size(); j++) {
+                                                            if (selectedIds.get(i).getAbsolutePath().contains(inFiles.get(j).getAbsolutePath())) {
                                                                 stringBuilder.append("\n").append(selectedIds.get(i).getAbsolutePath());
                                                                 filedelete = new File(selectedIds.get(i).getAbsolutePath());
                                                                 if (filedelete.exists()) {
@@ -369,7 +376,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
                                                             }
                                                         }
                                                     }
-                                                    if (actionMode!=null){
+                                                    if (actionMode != null) {
                                                         actionMode.finish();
                                                     }
                                                     isMultiSelect = false;
@@ -387,7 +394,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
                                                             recyclerView.setLayoutManager(staggeredGridLayoutManager);
                                                             recyclerView.setAdapter(recyclerviewAdapter);
 
-                                                           // Toast.makeText(getActivity(), "Selected items are :"+stringBuilder.toString(), Toast.LENGTH_SHORT).show();
+                                                            // Toast.makeText(getActivity(), "Selected items are :"+stringBuilder.toString(), Toast.LENGTH_SHORT).show();
                                                             progressDialog.setVisibility(View.GONE);
                                                         }
                                                     }, 1500);
@@ -396,13 +403,73 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
                                             }, new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
-                                                    if (actionMode!=null){
+                                                    if (actionMode != null) {
                                                         actionMode.finish();
                                                     }
                                                     isMultiSelect = false;
                                                     selectedIds.clear();
                                                 }
-                                            },true);
+                                            }, true);
+                                            return true;
+
+                                        case R.id.action_share:
+                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                                final Intent shareIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+                                                shareIntent.setType("*/*");
+
+                                                final ArrayList<Uri> files = new ArrayList<Uri>();
+                                                for (int i = 0; i < selectedIds.size(); i++) {
+                                                    //File fileSend = new File(selectedIds.get(i).getAbsolutePath());
+//                                                    final File fileSend = new File(selectedIds.get(i).getAbsolutePath());
+//                                                    Uri photoUri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName() + ".provider", fileSend);
+//                                                    files.add(photoUri);
+
+                                                    final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, selectedIds.get(i).getName());
+                                                    photoUri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName() + ".provider", photoFile);
+                                                    files.add(photoUri);
+                                                    //shareIntent.putExtra(Intent.EXTRA_STREAM, photoUri);
+                                                }
+
+                                                //shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, files);
+                                                //shareIntent.putExtra(Intent.EXTRA_STREAM, files);
+                                                shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, files);
+                                                getActivity().startActivity(Intent.createChooser(shareIntent, "Share files using"));
+
+
+                                                //final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, status.getName());
+                                                //Uri photoUri = FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".provider", photoFile);
+                                                //shareIntent.putExtra(Intent.EXTRA_STREAM, photoUri);
+                                                //mContext.startActivity(Intent.createChooser(shareIntent, "Share image using"));
+                                            } else {
+//                                                final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+//                                                shareIntent.setType("image/*");
+//                                                final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, status.getName());
+//                                                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photoFile));
+//                                                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                                                mContext.startActivity(Intent.createChooser(shareIntent, "Share image using"));
+
+                                                final Intent shareIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+                                                shareIntent.setType("*/*");
+
+                                                final ArrayList<Uri> files = new ArrayList<Uri>();
+                                                for (int i = 0; i < selectedIds.size(); i++) {
+                                                    //File fileSend = new File(selectedIds.get(i).getAbsolutePath());
+//                                                    final File fileSend = new File(selectedIds.get(i).getAbsolutePath());
+//                                                    Uri photoUri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName() + ".provider", fileSend);
+//                                                    files.add(photoUri);
+
+                                                    final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, selectedIds.get(i).getName());
+                                                    photoUri = Uri.fromFile(photoFile);
+                                                    files.add(photoUri);
+                                                    //shareIntent.putExtra(Intent.EXTRA_STREAM, photoUri);
+                                                }
+
+                                                //shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, files);
+                                                //shareIntent.putExtra(Intent.EXTRA_STREAM, files);
+                                                shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, files);
+                                                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                                getActivity().startActivity(Intent.createChooser(shareIntent, "Share files using"));
+                                            }
                                             return true;
                                     }
                                     return false;
@@ -438,15 +505,15 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
                             }
                         }
                     } else {
-                        if (selectedIds.size()<10) {
+                        if (selectedIds.size() < 10) {
                             selectedIds.add(data.getAbsoluteFile());
-                        }else {
-                            Toast.makeText(getActivity(),"Sorry you can select only 10 items"+String.valueOf(selectedIds.size()),Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getActivity(), "Sorry you can select only 10 items" + String.valueOf(selectedIds.size()), Toast.LENGTH_LONG).show();
                         }
                     }
 
                     if (selectedIds.size() > 0)
-                        actionMode.setTitle(String.valueOf(selectedIds.size())+" Selected"); //show selected item count on action mode.
+                        actionMode.setTitle(String.valueOf(selectedIds.size()) + " Selected"); //show selected item count on action mode.
                     else {
                         actionMode.setTitle(""); //remove item count from action mode.
                         actionMode.finish(); //hide action mode.
@@ -479,8 +546,8 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
         return inFiles.get(position);
     }
 
-    public void updateContextMenu(){
-        if (actionMode!=null){
+    public void updateContextMenu() {
+        if (actionMode != null) {
             actionMode.finish();
         }
         isMultiSelect = false;
