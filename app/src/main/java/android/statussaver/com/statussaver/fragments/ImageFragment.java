@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.statussaver.com.statussaver.BaseCompare;
+import android.statussaver.com.statussaver.activities.MainActivity;
 import android.statussaver.com.statussaver.adapters.Stories.StoriesAdapterImage;
 import android.statussaver.com.statussaver.models.Status;
+import android.statussaver.com.statussaver.utils.HideShowScrollListener;
 import android.statussaver.com.statussaver.utils.ToastCustom;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -106,15 +108,29 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
             }
         }, 500);
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//                if (dy > 0 && fabMain.getVisibility() == View.VISIBLE) {
+//                    fabMain.hide();
+//                } else if (dy < 0 && fabMain.getVisibility() != View.VISIBLE) {
+//                    fabMain.show();
+//                }
+//            }
+//        });
+
+        recyclerView.addOnScrollListener(new HideShowScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0 && fabMain.getVisibility() == View.VISIBLE) {
-                    fabMain.hide();
-                } else if (dy < 0 && fabMain.getVisibility() != View.VISIBLE) {
-                    fabMain.show();
-                }
+            public void onHide() {
+                fabMain.hide();
+                ((MainActivity)getActivity()).hideBottomNavigationMenu(true);
+            }
+
+            @Override
+            public void onShow() {
+                fabMain.show();
+                ((MainActivity)getActivity()).hideBottomNavigationMenu(false);
             }
         });
         return view;

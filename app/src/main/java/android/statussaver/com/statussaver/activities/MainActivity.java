@@ -29,6 +29,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     FragmentTransaction fragmentTransaction;
 
     MediaPlayer player;
+    RelativeLayout bottom_navigation_bar,relmiidleroundbtn;
 
 
     @Override
@@ -102,6 +104,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RelImgGif = findViewById(R.id.RelImgGif);
         RelImgSave = findViewById(R.id.RelImgSave);
         RelImgInfo = findViewById(R.id.RelImgInfo);
+        bottom_navigation_bar = findViewById(R.id.bottom_navigation_bar);
+        relmiidleroundbtn=  findViewById(R.id.relmiidleroundbtn);
 
         RelImgImage.setOnClickListener(this);
         RelImgVideo.setOnClickListener(this);
@@ -126,6 +130,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                        Manifest.permission.WRITE_CONTACTS},
 //                R.string.msg,REQUEST_PERMISSION);
 
+    }
+
+    public void hideBottomNavigationMenu(boolean b){
+        if (b) {
+            slideDown(bottom_navigation_bar,relmiidleroundbtn);
+        }else {
+            slideUp(bottom_navigation_bar,relmiidleroundbtn);
+        }
+    }
+    public void slideUp(View view,View view2){
+        view.setVisibility(View.VISIBLE);
+        TranslateAnimation animate = new TranslateAnimation(0, 0, view.getHeight(),0);
+        animate.setDuration(300);
+        //animate.setFillAfter(true);
+        view.startAnimation(animate);
+        view2.setVisibility(View.VISIBLE);
+
+    }
+    public void slideDown(View view,View view2){
+        view.setVisibility(View.GONE);
+        TranslateAnimation animate = new TranslateAnimation(0, 0, 0, view.getHeight());
+        animate.setDuration(300);
+        //animate.setFillAfter(true);
+        view.startAnimation(animate);
+        view2.setVisibility(View.GONE);
     }
 //
 //    @Override

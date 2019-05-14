@@ -123,6 +123,7 @@ public class StoriesAdapterImage extends RecyclerView.Adapter<StoriesAdapterImag
                     shareIntent.setType("image/*");
                     final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + WHATSAPP_STATUSES_LOCATION, status.getName());
                     Uri photoUri = FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".provider", photoFile);
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, "Download Status Saver and Gallery App on - https://play.google.com/store/apps/details?id=android.statussaver.com.statussaver");
                     shareIntent.putExtra(Intent.EXTRA_STREAM, photoUri);
                     mContext.startActivity(Intent.createChooser(shareIntent, "Share image using"));
                 }else {
@@ -131,6 +132,7 @@ public class StoriesAdapterImage extends RecyclerView.Adapter<StoriesAdapterImag
                     final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + WHATSAPP_STATUSES_LOCATION, status.getName());
                     shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photoFile));
                     shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, "Download Status Saver and Gallery App on - https://play.google.com/store/apps/details?id=android.statussaver.com.statussaver");
                     mContext.startActivity(Intent.createChooser(shareIntent, "Share image using"));
                 }
 

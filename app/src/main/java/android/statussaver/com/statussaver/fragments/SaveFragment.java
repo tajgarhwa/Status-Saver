@@ -15,6 +15,7 @@ import android.statussaver.com.statussaver.activities.MainActivity;
 import android.statussaver.com.statussaver.adapters.Stories.StoriesAdapterSave;
 import android.statussaver.com.statussaver.models.Status;
 import android.statussaver.com.statussaver.utils.Alerts;
+import android.statussaver.com.statussaver.utils.HideShowScrollListener;
 import android.statussaver.com.statussaver.utils.RecyclerItemClickListener;
 import android.statussaver.com.statussaver.utils.ToastCustom;
 import android.support.design.widget.FloatingActionButton;
@@ -117,15 +118,31 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
             }
         }, 500);
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//                if (dy > 0 && fabMain.getVisibility() == View.VISIBLE) {
+//                    fabMain.hide();
+//                    ((MainActivity)getActivity()).hideBottomNavigationMenu(true);
+//                } else if (dy < 0 && fabMain.getVisibility() != View.VISIBLE) {
+//                    fabMain.show();
+//                    ((MainActivity)getActivity()).hideBottomNavigationMenu(false);
+//                }
+//            }
+//        });
+
+        recyclerView.addOnScrollListener(new HideShowScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0 && fabMain.getVisibility() == View.VISIBLE) {
-                    fabMain.hide();
-                } else if (dy < 0 && fabMain.getVisibility() != View.VISIBLE) {
-                    fabMain.show();
-                }
+            public void onHide() {
+                fabMain.hide();
+                ((MainActivity)getActivity()).hideBottomNavigationMenu(true);
+            }
+
+            @Override
+            public void onShow() {
+                fabMain.show();
+                ((MainActivity)getActivity()).hideBottomNavigationMenu(false);
             }
         });
         return view;
@@ -433,6 +450,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
                                                 //shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, files);
                                                 //shareIntent.putExtra(Intent.EXTRA_STREAM, files);
                                                 shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, files);
+                                                shareIntent.putExtra(Intent.EXTRA_TEXT, "Download Status Saver and Gallery App on - https://play.google.com/store/apps/details?id=android.statussaver.com.statussaver");
                                                 getActivity().startActivity(Intent.createChooser(shareIntent, "Share files using"));
 
 
@@ -468,6 +486,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
                                                 //shareIntent.putExtra(Intent.EXTRA_STREAM, files);
                                                 shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, files);
                                                 shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                                shareIntent.putExtra(Intent.EXTRA_TEXT, "Download Status Saver and Gallery App on - https://play.google.com/store/apps/details?id=android.statussaver.com.statussaver");
                                                 getActivity().startActivity(Intent.createChooser(shareIntent, "Share files using"));
                                             }
                                             return true;
