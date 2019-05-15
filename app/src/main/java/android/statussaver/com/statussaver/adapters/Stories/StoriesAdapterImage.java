@@ -9,7 +9,9 @@ import android.statussaver.com.statussaver.BaseCompare;
 import android.statussaver.com.statussaver.BuildConfig;
 import android.statussaver.com.statussaver.R;
 import android.statussaver.com.statussaver.activities.ImageViewActivity;
+import android.statussaver.com.statussaver.utils.ToastCustom;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -64,7 +67,7 @@ public class StoriesAdapterImage extends RecyclerView.Adapter<StoriesAdapterImag
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
         final File status = getItem(position);
         Picasso.with(mContext).load(status.getAbsoluteFile()).placeholder(R.drawable.placeholder).into(holder.statusImage);
@@ -105,7 +108,7 @@ public class StoriesAdapterImage extends RecyclerView.Adapter<StoriesAdapterImag
             public void onClick(View v) {
 
                 try {
-                    copyFile(status, new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW + status.getName()));
+                    copyFile(status, new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW + status.getName()),holder);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -117,8 +120,6 @@ public class StoriesAdapterImage extends RecyclerView.Adapter<StoriesAdapterImag
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-
-
                     final Intent shareIntent = new Intent(Intent.ACTION_SEND);
                     shareIntent.setType("image/*");
                     final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + WHATSAPP_STATUSES_LOCATION, status.getName());
@@ -139,16 +140,73 @@ public class StoriesAdapterImage extends RecyclerView.Adapter<StoriesAdapterImag
             }
         });
 
+        holder.btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
+
+                    Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
+                    whatsappIntent.setType("image/*");
+                    whatsappIntent.setPackage("com.whatsapp");
+                    final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + WHATSAPP_STATUSES_LOCATION, status.getName());
+                    Uri photoUri = FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".provider", photoFile);
+                    //whatsappIntent.putExtra(Intent.EXTRA_TEXT, "The text you wanted to share");
+                    whatsappIntent.putExtra(Intent.EXTRA_STREAM, photoUri);
+                    //whatsappIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    try {
+                        mContext.startActivity(whatsappIntent);
+                        ToastCustom.setToast(mContext,"Repost!");
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        // ToastHelper.MakeShortText("Whatsapp have not been installed.");
+                        ToastCustom.setToast(mContext,"Whatsapp have not been installed.");
+                    }
+                }else {
+                    Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
+                    whatsappIntent.setType("image/*");
+                    whatsappIntent.setPackage("com.whatsapp");
+                    final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + WHATSAPP_STATUSES_LOCATION, status.getName());
+                    //whatsappIntent.putExtra(Intent.EXTRA_TEXT, "The text you wanted to share");
+                    whatsappIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photoFile));
+                    whatsappIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                    try {
+                        mContext.startActivity(whatsappIntent);
+                        ToastCustom.setToast(mContext,"Repost!");
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        // ToastHelper.MakeShortText("Whatsapp have not been installed.");
+                        ToastCustom.setToast(mContext,"Whatsapp have not been installed.");
+                    }
+                }
+
+
+            }
+        });
+
     }
 
-    private void copyFile(File sourceFile, File file) throws IOException {
+    private void copyFile(File sourceFile, File file,ViewHolder viewHolder) throws IOException {
         if (!file.getParentFile().exists())
             file.getParentFile().mkdirs();
 
         if (!file.exists()) {
             file.createNewFile();
+            final int sdk = android.os.Build.VERSION.SDK_INT;
+            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                viewHolder.tvDownload.setBackgroundResource(R.drawable.ic_done);
+            } else {
+                viewHolder.tvDownload.setBackgroundResource(R.drawable.ic_done);
+            }
         }else {
-            Toast.makeText(mContext,"Image is already exist!",Toast.LENGTH_LONG).show();
+            //Toast.makeText(mContext,"Image is already exist!",Toast.LENGTH_LONG).show();
+            ToastCustom.setToast(mContext,"Image is already exist!");
+            final int sdk = android.os.Build.VERSION.SDK_INT;
+            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                viewHolder.tvDownload.setBackgroundResource(R.drawable.ic_done_all);
+            } else {
+                viewHolder.tvDownload.setBackgroundResource(R.drawable.ic_done_all);
+            }
             return;
         }
         FileChannel source = null;
@@ -179,7 +237,8 @@ public class StoriesAdapterImage extends RecyclerView.Adapter<StoriesAdapterImag
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView statusImage;
-        RelativeLayout btnDownload,btnShare,relfuctions;
+        RelativeLayout btnDownload,btnShare,relfuctions,btn;
+        TextView tvDownload;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -187,6 +246,8 @@ public class StoriesAdapterImage extends RecyclerView.Adapter<StoriesAdapterImag
             this.btnDownload = itemView.findViewById(R.id.btnDownload);
             this.btnShare = itemView.findViewById(R.id.btnShare);
             this.relfuctions = itemView.findViewById(R.id.relfuctions);
+            this.btn = itemView.findViewById(R.id.btn);
+            this.tvDownload = itemView.findViewById(R.id.tv_download);
         }
     }
 }

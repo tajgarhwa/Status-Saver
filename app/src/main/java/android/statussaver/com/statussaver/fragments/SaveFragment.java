@@ -135,14 +135,31 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
         recyclerView.addOnScrollListener(new HideShowScrollListener() {
             @Override
             public void onHide() {
-                fabMain.hide();
+                //fabMain.hide();
                 ((MainActivity)getActivity()).hideBottomNavigationMenu(true);
+                //animatedFab();
+//                if (isOpen){
+//                    //fabMain.startAnimation(fabForaward);
+//                    fabFirst.startAnimation(fabClose);
+//                    fabMainsecond.startAnimation(fabClose);
+//                    fabthired.startAnimation(fabClose);
+//
+//                    relFirst.startAnimation(fabClose);
+//                    relSecond.startAnimation(fabClose);
+//                    relThired.startAnimation(fabClose);
+//
+//                    fabFirst.setClickable(false);
+//                    fabMainsecond.setClickable(false);
+//                    fabthired.setClickable(false);
+//                    isOpen = false;
+//                }
             }
 
             @Override
             public void onShow() {
-                fabMain.show();
+                //fabMain.show();
                 ((MainActivity)getActivity()).hideBottomNavigationMenu(false);
+                //animatedFab();
             }
         });
         return view;
@@ -152,7 +169,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
 
         if (isOpen) {
 
-            fabMain.startAnimation(fabForaward);
+            //fabMain.startAnimation(fabForaward);
             fabFirst.startAnimation(fabClose);
             fabMainsecond.startAnimation(fabClose);
             fabthired.startAnimation(fabClose);
@@ -166,7 +183,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
             fabthired.setClickable(false);
             isOpen = false;
         } else {
-            fabMain.startAnimation(fabBackward);
+           // fabMain.startAnimation(fabBackward);
             fabFirst.startAnimation(fabOpen);
             fabMainsecond.startAnimation(fabOpen);
             fabthired.startAnimation(fabOpen);

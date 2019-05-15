@@ -8,7 +8,9 @@ import android.os.Environment;
 import android.statussaver.com.statussaver.R;
 import android.statussaver.com.statussaver.activities.ImageViewActivity;
 import android.statussaver.com.statussaver.activities.VideoViewActivity;
+import android.statussaver.com.statussaver.utils.ToastCustom;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -43,6 +46,7 @@ public class StoriesAdapterVideo extends RecyclerView.Adapter<StoriesAdapterVide
     private Context mContext;
     private static final String DIRECTORY_TO_SAVE_MEDIA_NOW ="/Status_Saver/" ;
     private String st;
+    private static final String WHATSAPP_STATUSES_LOCATION = "/WhatsApp/Media/.Statuses";
 
     public StoriesAdapterVideo(ArrayList<File> statuslist, Context mContext,String st) {
         this.statuslist = statuslist;
@@ -58,7 +62,7 @@ public class StoriesAdapterVideo extends RecyclerView.Adapter<StoriesAdapterVide
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
         final File status = getItem(position);
         // Picasso.with(mContext).load("file://" + status.getAbsoluteFile()).placeholder(R.drawable.placeholder).into(holder.statusImage);
@@ -118,7 +122,7 @@ public class StoriesAdapterVideo extends RecyclerView.Adapter<StoriesAdapterVide
             public void onClick(View v) {
 
                 try {
-                    copyFile(status, new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW + status.getName()));
+                    copyFile(status, new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW + status.getName()),holder);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -138,14 +142,14 @@ public class StoriesAdapterVideo extends RecyclerView.Adapter<StoriesAdapterVide
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     final Intent shareIntent = new Intent(Intent.ACTION_SEND);
                     shareIntent.setType("video/*");
-                    final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, status.getName());
+                    final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + WHATSAPP_STATUSES_LOCATION, status.getName());
                     Uri photoUri = FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".provider", photoFile);
                     shareIntent.putExtra(Intent.EXTRA_STREAM, photoUri);
                     mContext.startActivity(Intent.createChooser(shareIntent, "Share Video using"));
                 }else {
                     final Intent shareIntent = new Intent(Intent.ACTION_SEND);
                     shareIntent.setType("video/*");
-                    final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, status.getName());
+                    final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + WHATSAPP_STATUSES_LOCATION, status.getName());
                     shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photoFile));
                     shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     mContext.startActivity(Intent.createChooser(shareIntent, "Share Video using"));
@@ -153,18 +157,75 @@ public class StoriesAdapterVideo extends RecyclerView.Adapter<StoriesAdapterVide
             }
         });
 
-        Log.e("video path load:", status.getAbsolutePath());
+        //Log.e("video path load:", status.getAbsolutePath());
+
+        holder.btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
+
+                    Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
+                    whatsappIntent.setType("image/*");
+                    whatsappIntent.setPackage("com.whatsapp");
+                    final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + WHATSAPP_STATUSES_LOCATION, status.getName());
+                    Uri photoUri = FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".provider", photoFile);
+                    //whatsappIntent.putExtra(Intent.EXTRA_TEXT, "The text you wanted to share");
+                    whatsappIntent.putExtra(Intent.EXTRA_STREAM, photoUri);
+                    //whatsappIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    try {
+                        mContext.startActivity(whatsappIntent);
+                        ToastCustom.setToast(mContext,"Repost!");
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        // ToastHelper.MakeShortText("Whatsapp have not been installed.");
+                        ToastCustom.setToast(mContext,"Whatsapp have not been installed.");
+                    }
+                }else {
+                    Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
+                    whatsappIntent.setType("image/*");
+                    whatsappIntent.setPackage("com.whatsapp");
+                    final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + WHATSAPP_STATUSES_LOCATION, status.getName());
+                    //whatsappIntent.putExtra(Intent.EXTRA_TEXT, "The text you wanted to share");
+                    whatsappIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photoFile));
+                    whatsappIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                    try {
+                        mContext.startActivity(whatsappIntent);
+                        ToastCustom.setToast(mContext,"Repost!");
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        // ToastHelper.MakeShortText("Whatsapp have not been installed.");
+                        ToastCustom.setToast(mContext,"Whatsapp have not been installed.");
+                    }
+                }
+
+
+            }
+        });
 
     }
 
-    private void copyFile(File sourceFile, File file) throws IOException {
+    private void copyFile(File sourceFile, File file,ViewHolder viewHolder) throws IOException {
         if (!file.getParentFile().exists())
             file.getParentFile().mkdirs();
 
         if (!file.exists()) {
             file.createNewFile();
+            final int sdk = android.os.Build.VERSION.SDK_INT;
+            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                viewHolder.tvDownload.setBackgroundResource(R.drawable.ic_done);
+            } else {
+                viewHolder.tvDownload.setBackgroundResource(R.drawable.ic_done);
+            }
         }else {
-            Toast.makeText(mContext,"Video is already exist!",Toast.LENGTH_LONG).show();
+            //Toast.makeText(mContext,"Video is already exist!",Toast.LENGTH_LONG).show();
+            ToastCustom.setToast(mContext,"Video is already exist!");
+            final int sdk = android.os.Build.VERSION.SDK_INT;
+            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                viewHolder.tvDownload.setBackgroundResource(R.drawable.ic_done_all);
+            } else {
+                viewHolder.tvDownload.setBackgroundResource(R.drawable.ic_done_all);
+            }
             return;
         }
         FileChannel source = null;
@@ -196,7 +257,8 @@ public class StoriesAdapterVideo extends RecyclerView.Adapter<StoriesAdapterVide
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView statusImage;
-        RelativeLayout btnDownload,btnShare,relfuctions;
+        RelativeLayout btnDownload,btnShare,relfuctions,btn;
+        TextView tvDownload;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -204,6 +266,8 @@ public class StoriesAdapterVideo extends RecyclerView.Adapter<StoriesAdapterVide
             this.btnDownload = itemView.findViewById(R.id.btnDownload);
             this.btnShare = itemView.findViewById(R.id.btnShare);
             this.relfuctions = itemView.findViewById(R.id.relfuctions);
+            this.btn =itemView.findViewById(R.id.btn);
+            this.tvDownload = itemView.findViewById(R.id.tv_download);
         }
     }
 }
