@@ -37,6 +37,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerInParent="true"
                 android:textStyle="bold"
+                android:fontFamily="@font/pacifico"
                 android:text="@string/status_saver" />
         </RelativeLayout>
 

@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RelImgGif.setOnClickListener(this);
         RelImgSave.setOnClickListener(this);
         RelImgInfo.setOnClickListener(this);
+        relmiidleroundbtn.setOnClickListener(this);
 
         tvInviteFriend = findViewById(R.id.tvInviteFriend);
 
@@ -381,6 +382,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tvInviteFriend:
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
+                break;
+
+            case R.id.relmiidleroundbtn:
+                Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.whatsapp");
+                startActivity(launchIntent);
                 break;
 
 

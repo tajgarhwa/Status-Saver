@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
+            android:fontFamily="@font/righteous_regular"
             android:text="No Status Images from Your Friends"
             android:textColor="@android:color/black"
             android:textSize="20sp"
@@ -97,6 +98,7 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:padding="4dp"
+                android:fontFamily="@font/righteous_regular"
                 android:layout_centerInParent="true"
                 android:textColor="@android:color/white"
                 android:text="Status Images"/>
@@ -120,6 +122,7 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:padding="4dp"
+                android:fontFamily="@font/righteous_regular"
                 android:layout_centerInParent="true"
                 android:textColor="@android:color/white"
                 android:text="Received Status Images"/>
@@ -146,6 +149,7 @@
                 android:layout_centerInParent="true"
                 android:textSize="16sp"
                 android:padding="4dp"
+                android:fontFamily="@font/righteous_regular"
                 android:textColor="@android:color/white"
                 android:text="Send Status Images"/>
 

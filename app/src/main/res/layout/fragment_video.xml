@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
+            android:fontFamily="@font/righteous_regular"
             android:text="No Status Videos from Your Friends"
             android:textColor="@android:color/black"
             android:textSize="20sp"
@@ -96,6 +97,7 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:padding="4dp"
+                android:fontFamily="@font/righteous_regular"
                 android:layout_centerInParent="true"
                 android:textColor="@android:color/white"
                 android:text="Status Videos"/>
@@ -119,6 +121,7 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:padding="4dp"
+                android:fontFamily="@font/righteous_regular"
                 android:layout_centerInParent="true"
                 android:textColor="@android:color/white"
                 android:text="Received Status Videos"/>
@@ -144,6 +147,7 @@
                 android:textStyle="bold"
                 android:layout_centerInParent="true"
                 android:textSize="16sp"
+                android:fontFamily="@font/righteous_regular"
                 android:padding="4dp"
                 android:textColor="@android:color/white"
                 android:text="Send Status Videos"/>
