@@ -1,11 +1,14 @@
 package android.statussaver.com.statussaver.activities;
 
 import android.Manifest;
+import android.animation.Animator;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.provider.Settings;
 import android.statussaver.com.statussaver.R;
@@ -14,6 +17,10 @@ import android.statussaver.com.statussaver.utils.MultiplePermissionListner;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 import com.karumi.dexter.Dexter;
@@ -23,10 +30,12 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 public class SplashActivity extends AppCompatActivity {
 
     private MultiplePermissionsListener multiplePermissionsListener;
+    private View background;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.do_not_move, R.anim.do_not_move);
         setContentView(R.layout.activity_splash);
 
         multiplePermissionsListener = new MultiplePermissionListner(this);
@@ -36,7 +45,56 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 Dexter.withActivity(SplashActivity.this).withPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE).withListener(multiplePermissionsListener).check();
             }
-            },500);
+            },3000);
+
+
+
+        background = findViewById(R.id.background);
+
+        if (savedInstanceState == null) {
+            background.setVisibility(View.INVISIBLE);
+
+            final ViewTreeObserver viewTreeObserver = background.getViewTreeObserver();
+
+            if (viewTreeObserver.isAlive()) {
+                viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+                    @Override
+                    public void onGlobalLayout() {
+                        circularRevealActivity();
+                        background.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    }
+
+                });
+            }
+
+        }
+
+    }
+
+    private void circularRevealActivity() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            int cx = background.getRight()/2;
+            int cy = background.getBottom()/2;
+
+            float finalRadius = Math.max(background.getWidth(), background.getHeight());
+
+            Animator circularReveal = ViewAnimationUtils.createCircularReveal(background, cx, cy,0,finalRadius);
+
+            circularReveal.setDuration(2000);
+            background.setVisibility(View.VISIBLE);
+            circularReveal.start();
+        }
+
+    }
+
+    private int getDips(int dps) {
+        Resources resources = getResources();
+        return (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dps,
+                resources.getDisplayMetrics());
     }
 
     public void showPermissionGranded(String permissionName) {
