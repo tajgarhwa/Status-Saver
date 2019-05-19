@@ -14,6 +14,7 @@ import android.provider.Settings;
 import android.statussaver.com.statussaver.R;
 import android.statussaver.com.statussaver.utils.Alerts;
 import android.statussaver.com.statussaver.utils.MultiplePermissionListner;
+import android.statussaver.com.statussaver.utils.SettingsApps;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,12 +32,14 @@ public class SplashActivity extends AppCompatActivity {
 
     private MultiplePermissionsListener multiplePermissionsListener;
     private View background;
+    private SettingsApps settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.do_not_move, R.anim.do_not_move);
         setContentView(R.layout.activity_splash);
+        settings = new SettingsApps(this);
 
         multiplePermissionsListener = new MultiplePermissionListner(this);
 
@@ -101,24 +104,30 @@ public class SplashActivity extends AppCompatActivity {
 
         if (permissionName.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             //setStatusList();
-            boolean whatsAppFound = isAppInstalled(this, "com.whatsapp");
-            if (whatsAppFound) {
-                Intent intent = new Intent(this, MainActivity.class);
+
+            if (settings.getShowGuide()){
+                Intent intent = new Intent(this, IntroActivity.class);
                 startActivity(intent);
                 this.finish();
-            } else {
+            }else {
+                boolean whatsAppFound = isAppInstalled(this, "com.whatsapp");
+                if (whatsAppFound) {
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                    this.finish();
+                } else {
 
-                //Toast.makeText(getApplicationContext(), "Please Install WhatsApp To Continue!", Toast.LENGTH_SHORT).show();
-                Alerts.ShowError(SplashActivity.this, "We detected your mobile phone is not installed WhatsApp so please install WhatsApp to continue!", new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        dialog.dismiss();
-                        SplashActivity.this.finish();
-                    }
-                }, false);
+                    //Toast.makeText(getApplicationContext(), "Please Install WhatsApp To Continue!", Toast.LENGTH_SHORT).show();
+                    Alerts.ShowError(SplashActivity.this, "We detected your mobile phone is not installed WhatsApp so please install WhatsApp to continue!", new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            dialog.dismiss();
+                            SplashActivity.this.finish();
+                        }
+                    }, false);
+                }
+                //startService(new Intent(getBaseContext(), MediaListenerService.class));
             }
-            //startService(new Intent(getBaseContext(), MediaListenerService.class));
-
 
         }
     }

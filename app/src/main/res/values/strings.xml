@@ -7,4 +7,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sww">Something went wrong please try again.</string>
     <string name="status_saver_and_gallery">Status Saver And \nGallery</string>
+    <string name="youtube_api_key">AIzaSyA0LGfPxAAjkNkMrdGuW-Ln9jqV1HSe1zc</string>
 </resources>
