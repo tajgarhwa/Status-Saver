@@ -1,9 +1,12 @@
 package android.statussaver.com.statussaver.activities;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
+import android.statussaver.com.statussaver.BuildConfig;
 import android.statussaver.com.statussaver.R;
 import android.statussaver.com.statussaver.adapters.RoundRecyclerviewAdapter;
 import android.statussaver.com.statussaver.BaseCompare;
@@ -77,7 +80,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     FragmentTransaction fragmentTransaction;
 
     MediaPlayer player;
-    RelativeLayout bottom_navigation_bar,relmiidleroundbtn;
+    RelativeLayout bottom_navigation_bar, relmiidleroundbtn, btnClose;
+
+    TextView tv_how_to_use, tv_privacy_policy, tv_rate, tv_settings, tv_share_app;
 
 
     @Override
@@ -105,7 +110,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RelImgSave = findViewById(R.id.RelImgSave);
         RelImgInfo = findViewById(R.id.RelImgInfo);
         bottom_navigation_bar = findViewById(R.id.bottom_navigation_bar);
-        relmiidleroundbtn=  findViewById(R.id.relmiidleroundbtn);
+        relmiidleroundbtn = findViewById(R.id.relmiidleroundbtn);
+
+        tv_how_to_use = findViewById(R.id.tv_share_app);
+        tv_privacy_policy = findViewById(R.id.tv_privacy_policy);
+        tv_rate = findViewById(R.id.tv_rate);
+        tv_settings = findViewById(R.id.tv_settings);
+        tv_share_app = findViewById(R.id.tv_share_app);
+        btnClose = findViewById(R.id.btnClose);
 
         RelImgImage.setOnClickListener(this);
         RelImgVideo.setOnClickListener(this);
@@ -114,9 +126,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RelImgInfo.setOnClickListener(this);
         relmiidleroundbtn.setOnClickListener(this);
 
-        tvInviteFriend = findViewById(R.id.tvInviteFriend);
 
-        tvInviteFriend.setOnClickListener(this);
+        tv_how_to_use.setOnClickListener(this);
+        tv_privacy_policy.setOnClickListener(this);
+        tv_rate.setOnClickListener(this);
+        tv_settings.setOnClickListener(this);
+        tv_share_app.setOnClickListener(this);
+        btnClose.setOnClickListener(this);
 
 
 //        recyclerView = findViewById(R.id.recyclerview);
@@ -133,23 +149,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void hideBottomNavigationMenu(boolean b){
+    public void hideBottomNavigationMenu(boolean b) {
         if (b) {
-            slideDown(bottom_navigation_bar,relmiidleroundbtn);
-        }else {
-            slideUp(bottom_navigation_bar,relmiidleroundbtn);
+            slideDown(bottom_navigation_bar, relmiidleroundbtn);
+        } else {
+            slideUp(bottom_navigation_bar, relmiidleroundbtn);
         }
     }
-    public void slideUp(View view,View view2){
+
+    public void slideUp(View view, View view2) {
         view.setVisibility(View.VISIBLE);
-        TranslateAnimation animate = new TranslateAnimation(0, 0, view.getHeight(),0);
+        TranslateAnimation animate = new TranslateAnimation(0, 0, view.getHeight(), 0);
         animate.setDuration(300);
         //animate.setFillAfter(true);
         view.startAnimation(animate);
         view2.setVisibility(View.VISIBLE);
 
     }
-    public void slideDown(View view,View view2){
+
+    public void slideDown(View view, View view2) {
         view.setVisibility(View.GONE);
         TranslateAnimation animate = new TranslateAnimation(0, 0, 0, view.getHeight());
         animate.setDuration(300);
@@ -379,19 +397,56 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
 
-            case R.id.tvInviteFriend:
-                Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
-                break;
+//            case R.id.tvInviteFriend:
+//                Intent intent = new Intent(this, SettingsActivity.class);
+//                startActivity(intent);
+//                break;
 
             case R.id.relmiidleroundbtn:
                 Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.whatsapp");
                 startActivity(launchIntent);
                 break;
 
+            case R.id.tv_how_to_use:
+                Intent howtouseintent = new Intent(this, IntroActivity.class);
+                howtouseintent.putExtra("pass","showSkip");
+                startActivity(howtouseintent);
+                break;
+            case R.id.tv_privacy_policy:
+                break;
+            case R.id.tv_rate:
+                goToMyApp(true);
+                break;
+            case R.id.tv_settings:
+                ToastCustom.setToast(this, "Coming Soon");
+                break;
+            case R.id.tv_share_app:
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT,
+                        "Hey check out my app at: https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+                break;
+            case R.id.btnClose:
+                drawerLayout.closeDrawers();
+                break;
+
 
         }
 
+    }
+
+    public void goToMyApp(boolean googlePlay) {//true if Google Play, false if Amazone Store
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse((googlePlay ? "market://details?id=" : "amzn://apps/android?p=") + BuildConfig.APPLICATION_ID)));
+        } catch (ActivityNotFoundException e1) {
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse((googlePlay ? "http://play.google.com/store/apps/details?id=" : "http://www.amazon.com/gp/mas/dl/android?p=") + BuildConfig.APPLICATION_ID)));
+            } catch (ActivityNotFoundException e2) {
+                Toast.makeText(this, "You don't have any app that can open this link", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 //    @Override
