@@ -8,25 +8,32 @@
     tools:context=".activities.IntroActivity">
 
 
-    <RelativeLayout
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/header_text"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_marginTop="10dp">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/header_center"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:fontFamily="@font/righteous_regular"-->
+            <!--android:gravity="center"-->
+            <!--android:text="@string/status_saver_and_gallery"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:textSize="10sp" />-->
+
+    <!--</RelativeLayout>-->
+
+    <include
         android:id="@+id/header_text"
-        android:layout_width="match_parent"
+        layout="@layout/toolbar_layout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp">
-
-        <TextView
-            android:id="@+id/header_center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="@font/righteous_regular"
-            android:gravity="center"
-            android:text="@string/status_saver_and_gallery"
-            android:textColor="@android:color/white"
-            android:textSize="30sp" />
-
-    </RelativeLayout>
+        android:layout_alignParentTop="true" />
 
     <com.google.android.youtube.player.YouTubePlayerView
         android:id="@+id/youtubePlayerView"
@@ -49,18 +56,44 @@
         android:textColor="@android:color/white"
         android:textSize="20sp" />
 
-    <RelativeLayout
+    <!--<LinearLayout-->
+        <!--android:id="@+id/banner_container"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@+id/bottom_container"-->
+        <!--android:orientation="vertical"-->
+        <!--/>-->
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/center_text"
+        android:layout_above="@+id/bottom_container"
+        android:paddingBottom="5dp"
+        android:layout_centerInParent="true">
+
+        <com.facebook.ads.NativeAdLayout
+            android:id="@+id/native_ad_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/bottom_container"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true">
 
         <TextView
             android:id="@+id/skip_btn"
-            android:layout_width="100dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/header_bottom"
-            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:layout_marginBottom="20dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
             android:background="@drawable/btn_curved_skip"
             android:fontFamily="@font/righteous_regular"
             android:gravity="center"
@@ -69,17 +102,17 @@
             android:textColor="@android:color/white"
             android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/header_bottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="@font/righteous_regular"
-            android:gravity="center"
-            android:text="Develop by ChamiApps LK"
-            android:textColor="@android:color/white"
-            android:textSize="10sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/header_bottom"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:fontFamily="@font/righteous_regular"-->
+            <!--android:gravity="center"-->
+            <!--android:text="Develop by ChamiApps LK"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:textSize="10sp" />-->
     </RelativeLayout>
 
 

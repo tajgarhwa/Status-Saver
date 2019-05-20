@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.WallpaperManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -388,5 +389,17 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        int orientation = newConfig.orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            //ivMenuOpen.setVisibility(View.VISIBLE);
+        } else {
+            //ivMenuOpen.setVisibility(View.GONE);
+            //closeGameMenu();
+        }
     }
 }
