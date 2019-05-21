@@ -39,23 +39,23 @@
             android:name=".activities.GifViewActivity"
             android:screenOrientation="portrait" />
 
-        <service android:name=".service.MediaListenerService">
+        <!--<service android:name=".service.MediaListenerService">-->
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/> -->
-            <!-- </intent-filter> -->
-        </service>
+            <!--&lt;!&ndash; <intent-filter> &ndash;&gt;-->
+            <!--&lt;!&ndash; <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/> &ndash;&gt;-->
+            <!--&lt;!&ndash; </intent-filter> &ndash;&gt;-->
+        <!--</service>-->
 
-        <receiver
-            android:name=".recivers.MyReceiver"
-            android:enabled="true">
-            <intent-filter android:priority="999">
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
-                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
-            </intent-filter>
-        </receiver>
+        <!--<receiver-->
+            <!--android:name=".recivers.MyReceiver"-->
+            <!--android:enabled="true">-->
+            <!--<intent-filter android:priority="999">-->
+                <!--<action android:name="android.intent.action.BOOT_COMPLETED" />-->
+                <!--<action android:name="android.intent.action.QUICKBOOT_POWERON" />-->
+                <!--<action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />-->
+                <!--<action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
         <activity
             android:name=".activities.SettingsActivity"
@@ -85,6 +85,12 @@
             <!--</intent-filter>-->
 
         </activity>
+
+        <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
+
     </application>
 
 </manifest>

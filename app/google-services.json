@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "29559870203",
+    "firebase_url": "https://status-saver-99b92.firebaseio.com",
+    "project_id": "status-saver-99b92",
+    "storage_bucket": "status-saver-99b92.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:29559870203:android:2df60bb730afde0b",
+        "android_client_info": {
+          "package_name": "android.statussaver.com.statussaver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "29559870203-8r1l8r6v345o4nbotcst23h39edahn7s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "android.statussaver.com.statussaver",
+            "certificate_hash": "21d072706cbb10a32ffc476600f2005665db594b"
+          }
+        },
+        {
+          "client_id": "29559870203-81lu7rvbcbusfls6f63ii5mdg593d09g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBwNb_uAoo__C4cdX-xDI0kxv0DuSmQVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "29559870203-81lu7rvbcbusfls6f63ii5mdg593d09g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

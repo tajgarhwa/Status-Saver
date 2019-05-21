@@ -4,41 +4,43 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.firebase.jobdispatcher.JobParameters;
-import com.firebase.jobdispatcher.JobService;
+//import com.firebase.jobdispatcher.JobParameters;
+//import com.firebase.jobdispatcher.JobService;
 
-public class StatusListenerService extends JobService {
+public class StatusListenerService {
 
-    StatusTask statusBackgroundTask;
-    private static  int i=0;
-    @Override
-    public boolean onStartJob(final JobParameters job) {
+        //extends JobService {
 
-        statusBackgroundTask = new StatusTask(){
-            @Override
-            protected void onPostExecute(String s) {
-                Toast.makeText(getApplicationContext(),"Message from Background task:"+s,Toast.LENGTH_SHORT).show();
-                Log.e("task", String.valueOf(i));
-                jobFinished(job,true);
-                i++;
-            }
-        };
-
-        statusBackgroundTask.execute();
-        return true;
-    }
-
-    @Override
-    public boolean onStopJob(JobParameters job) {
-        return true;
-    }
-
-    public static class StatusTask extends AsyncTask<Void,Void,String>{
-
-
-        @Override
-        protected String doInBackground(Void... voids) {
-            return "BackGround job";
-        }
-    }
+//    StatusTask statusBackgroundTask;
+//    private static  int i=0;
+//    @Override
+//    public boolean onStartJob(final JobParameters job) {
+//
+//        statusBackgroundTask = new StatusTask(){
+//            @Override
+//            protected void onPostExecute(String s) {
+//                Toast.makeText(getApplicationContext(),"Message from Background task:"+s,Toast.LENGTH_SHORT).show();
+//                Log.e("task", String.valueOf(i));
+//                jobFinished(job,true);
+//                i++;
+//            }
+//        };
+//
+//        statusBackgroundTask.execute();
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onStopJob(JobParameters job) {
+//        return true;
+//    }
+//
+//    public static class StatusTask extends AsyncTask<Void,Void,String>{
+//
+//
+//        @Override
+//        protected String doInBackground(Void... voids) {
+//            return "BackGround job";
+//        }
+//    }
 }

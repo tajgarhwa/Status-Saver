@@ -3,6 +3,7 @@ package android.statussaver.com.statussaver;
 import android.app.Application;
 
 import com.facebook.ads.AudienceNetworkAds;
+import com.google.android.gms.ads.MobileAds;
 
 public class MyApplication extends Application {
 

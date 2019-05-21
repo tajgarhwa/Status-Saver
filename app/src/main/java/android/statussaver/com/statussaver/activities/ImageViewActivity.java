@@ -31,6 +31,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.chrisbanes.photoview.PhotoView;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -60,12 +63,14 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
     private TextView tvCurrentItem;
     private RelativeLayout rel_close;
     private int globPosition;
+    private AdRequest adRequest;
 
 
 //private PhotoViewAttacher photoViewAttacher;]
 
     private ScaleGestureDetector mScaleGestureDetector;
     private float mScaleFactor = 1.0f;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,14 +101,12 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
         relshare_fab_main_thired = findViewById(R.id.relshare_fab_main_thired);
         relshare_fab_main_download = findViewById(R.id.relshare_fab_main_download);
         relshare_fab_main_first = findViewById(R.id.relshare_fab_main_first);
-
+        mAdView = findViewById(R.id.adView);
 
         fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open);
         fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close);
         fabForaward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
         fabBackward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
-
-
 
         fabMain.setOnClickListener(this);
         fabFirst.setOnClickListener(this);
@@ -127,7 +130,15 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
         }
 
         hideView(state);
+        MobileAds.initialize(this, getString(R.string.admob_ad_id));
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            mAdView.setVisibility(View.VISIBLE);
+            adRequest = new AdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
+        }else {
+            mAdView.setVisibility(View.GONE);
 
+        }
 
     }
 
@@ -389,17 +400,5 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onPageScrollStateChanged(int state) {
 
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        int orientation = newConfig.orientation;
-        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            //ivMenuOpen.setVisibility(View.VISIBLE);
-        } else {
-            //ivMenuOpen.setVisibility(View.GONE);
-            //closeGameMenu();
-        }
     }
 }

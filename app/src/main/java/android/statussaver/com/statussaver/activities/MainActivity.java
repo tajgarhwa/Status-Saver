@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.statussaver.com.statussaver.BuildConfig;
+import android.statussaver.com.statussaver.DialogFragment.ExitDialogFragment;
+import android.statussaver.com.statussaver.DialogFragment.SelectDirectoryDialogFragment;
 import android.statussaver.com.statussaver.R;
 import android.statussaver.com.statussaver.adapters.RoundRecyclerviewAdapter;
 import android.statussaver.com.statussaver.BaseCompare;
@@ -38,14 +40,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.jobdispatcher.Constraint;
-import com.firebase.jobdispatcher.FirebaseJobDispatcher;
-import com.firebase.jobdispatcher.GooglePlayDriver;
-import com.firebase.jobdispatcher.Job;
-import com.firebase.jobdispatcher.Lifetime;
-import com.firebase.jobdispatcher.RetryStrategy;
-import com.firebase.jobdispatcher.Trigger;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int backCount = 0;
 
     private static final String JOB_TAG = "my_job_tag";
-    private FirebaseJobDispatcher jobDispatcher;
+    //private FirebaseJobDispatcher jobDispatcher;
 
 
     private ImageView imgImage, imgVideo, imgGif, imgSave, imgInfo;
@@ -90,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        jobDispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
+        //jobDispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
 
         reclerMain = findViewById(R.id.reclerMain);
         relRecylerHori = findViewById(R.id.relRecylerHori);
@@ -490,6 +484,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             handlerExit.removeCallbacks(runnableExit);
             this.finish();
         } else {
+            ExitDialogFragment exitDialogFragment =new ExitDialogFragment();
+            exitDialogFragment.setContext(getApplicationContext());
+            exitDialogFragment.show(getSupportFragmentManager(), "ExitDialogFragment");
             ToastCustom.setToast(MainActivity.this, "Tap Again to Exit.");
         }
 
