@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.squareup.picasso.Picasso;
 
@@ -71,6 +72,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
     private ScaleGestureDetector mScaleGestureDetector;
     private float mScaleFactor = 1.0f;
     private AdView mAdView;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +133,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
 
         hideView(state);
         MobileAds.initialize(this, getString(R.string.admob_ad_id));
+        loadIndustrialAd();
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             mAdView.setVisibility(View.VISIBLE);
             adRequest = new AdRequest.Builder().build();
@@ -139,6 +142,14 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
             mAdView.setVisibility(View.GONE);
 
         }
+
+    }
+
+    private void loadIndustrialAd() {
+        //industrial_ad
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
     }
 
@@ -201,6 +212,9 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
                 animatedFab();
                 break;
             case R.id.fab_main_first:
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                }
                 final File filerepost = getItem(globPosition);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
@@ -240,6 +254,9 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
                 animatedFab();
                 break;
             case R.id.fab_main_download:
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                }
                 animatedFab();
                 final File file = getItem(globPosition);
                 try {
@@ -250,6 +267,9 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
                 }
                 break;
             case R.id.fab_main_thired:
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                }
                 final File filewallaper = getItem(globPosition);
                 Alerts.ShowYesOrNo(this, "Are you sure you want to set it as wallpaper?", new DialogInterface.OnClickListener() {
                             @Override
@@ -278,6 +298,9 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
                 break;
 
             case R.id.fab_main_share:
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                }
                 final File fileshare = getItem(globPosition);
                 if (fileshare.getName().endsWith(".jpg") || fileshare.getName().endsWith(".png")) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -323,6 +346,9 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
                 break;
 
             case R.id.rel_close:
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                }
                 finish();
                 break;
         }

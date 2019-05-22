@@ -403,7 +403,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.tv_how_to_use:
                 Intent howtouseintent = new Intent(this, IntroActivity.class);
-                howtouseintent.putExtra("pass","showSkip");
+                howtouseintent.putExtra("pass", "showSkip");
                 startActivity(howtouseintent);
                 break;
             case R.id.tv_privacy_policy:
@@ -478,17 +478,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void showExitPrompt() {
-        ++backCount;
-        handlerExit.postDelayed(runnableExit, 5000);
-        if (backCount >= 2) {
-            handlerExit.removeCallbacks(runnableExit);
-            this.finish();
-        } else {
-            ExitDialogFragment exitDialogFragment =new ExitDialogFragment();
-            exitDialogFragment.setContext(getApplicationContext());
-            exitDialogFragment.show(getSupportFragmentManager(), "ExitDialogFragment");
-            ToastCustom.setToast(MainActivity.this, "Tap Again to Exit.");
-        }
+//        ++backCount;
+//        handlerExit.postDelayed(runnableExit, 5000);
+//        if (backCount >= 2) {
+//            handlerExit.removeCallbacks(runnableExit);
+//            this.finish();
+//        } else {
+//            ExitDialogFragment exitDialogFragment =new ExitDialogFragment();
+//            exitDialogFragment.setContext(getApplicationContext());
+//            exitDialogFragment.show(getSupportFragmentManager(), "ExitDialogFragment");
+//            ToastCustom.setToast(MainActivity.this, "Tap Again to Exit.");
+//        }
+
+        // ++backCount;
+//        //handlerExit.postDelayed(runnableExit, 5000);
+//        if (backCount >= 2) {
+//
+//            ExitDialogFragment exitDialogFragment =new ExitDialogFragment();
+//            if (exitDialogFragment != null
+//                    && exitDialogFragment.getDialog() != null
+//                    && exitDialogFragment.getDialog().isShowing()
+//                    && !exitDialogFragment.isRemoving()) {
+//
+//                exitDialogFragment.dismiss();
+//            }
+//        } else {
+        ExitDialogFragment exitDialogFragment = new ExitDialogFragment();
+        exitDialogFragment.setContext(getApplicationContext());
+        exitDialogFragment.show(getSupportFragmentManager(), "ExitDialogFragment");
+        //ToastCustom.setToast(MainActivity.this, "Tap Again to Exit.");
+//        }
 
     }
 

@@ -4,10 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Environment;
 import android.statussaver.com.statussaver.R;
-import android.statussaver.com.statussaver.activities.IntroActivity;
-import android.statussaver.com.statussaver.activities.MainActivity;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
@@ -35,7 +32,7 @@ import java.util.List;
 
 import static com.facebook.ads.AudienceNetworkAds.TAG;
 
-public class ExitDialogFragment extends DialogFragment implements View.OnClickListener {
+public class DeleteDialogFragment extends DialogFragment implements View.OnClickListener {
 
     private Context context;
     private NativeAdLayout nativeAdLayout;
@@ -44,10 +41,15 @@ public class ExitDialogFragment extends DialogFragment implements View.OnClickLi
     LinearLayout adChoicesContainer;
     private Button btnyes, btnNo;
     private ProgressBar adProgress;
+    MyDialogDeleteListener mListener;
 
 
     public void setContext(Context context) {
         this.context = context;
+    }
+
+    public void setListner(MyDialogDeleteListener listner){
+        this.mListener = listner;
     }
 
     @Nullable
@@ -56,7 +58,7 @@ public class ExitDialogFragment extends DialogFragment implements View.OnClickLi
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
         //progressDialog = new CustomProgressDialog(getActivity());
-        View view = inflater.inflate(R.layout.dialogfragment_exit, container, false);
+        View view = inflater.inflate(R.layout.dialogfragment_delete, container, false);
         View view2 = inflater.inflate(R.layout.native_ad_layout, container, false);
         nativeAdLayout = view.findViewById(R.id.native_ad_container);
         adChoicesContainer = view2.findViewById(R.id.ad_choices_container);
@@ -70,6 +72,18 @@ public class ExitDialogFragment extends DialogFragment implements View.OnClickLi
         loadNativeAd();
         return view;
     }
+
+//    @Override
+//    public void onAttachFragment(Fragment childFragment) {
+//        super.onAttachFragment(childFragment);
+//        try {
+//            // Instantiate the MyDialogListener so we can send events to the host
+//            mListener = (MyDialogListener) childFragment;
+//        } catch (ClassCastException e) {
+//            // The activity doesn't implement the interface, throw exception
+//            throw new ClassCastException(childFragment.toString() + " must implement MyDialogListener");
+//        }
+//    }
 
     private void loadNativeAd() {
 
@@ -183,13 +197,17 @@ public class ExitDialogFragment extends DialogFragment implements View.OnClickLi
         switch (v.getId()) {
 
             case R.id.btnyes:
-                ((MainActivity) getActivity()).finish();
+                mListener.onLeftDeleteClicked(DeleteDialogFragment.this);
                 break;
-
             case R.id.btnNo:
-                dismiss();
+                mListener.onRightDeletClicked(DeleteDialogFragment.this);
                 break;
 
         }
+    }
+
+    public interface MyDialogDeleteListener {
+        void onLeftDeleteClicked(DialogFragment dialogFragment);
+        void onRightDeletClicked(DialogFragment dialogFragment);
     }
 }

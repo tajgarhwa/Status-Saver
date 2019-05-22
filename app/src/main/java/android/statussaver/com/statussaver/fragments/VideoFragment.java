@@ -29,6 +29,7 @@ import android.statussaver.com.statussaver.R;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -244,6 +245,7 @@ public class VideoFragment extends Fragment implements View.OnClickListener {
 
     private RecyclerView recyclerView;
     private TextView tvImage;
+    private ImageView img_imoji;
     private ArrayList<Status> statusList;
     private StoriesAdapterVideo recyclerviewAdapter;
     private static final int COUNT = 2;
@@ -281,6 +283,7 @@ public class VideoFragment extends Fragment implements View.OnClickListener {
         fabMainsecond = view.findViewById(R.id.fab_main_download);
         fabthired = view.findViewById(R.id.fab_main_thired);
         tvImage = view.findViewById(R.id.tvImage);
+        img_imoji = view.findViewById(R.id.img_imoji);
         relFirst = view.findViewById(R.id.relFirst);
         relSecond = view.findViewById(R.id.relSecond);
         relThired = view.findViewById(R.id.relThired);
@@ -510,6 +513,7 @@ public class VideoFragment extends Fragment implements View.OnClickListener {
 
             if (inFiles.size() == 0) {
                 tvImage.setVisibility(View.INVISIBLE);
+                img_imoji.setVisibility(View.INVISIBLE);
             }
             initSetList(WHATSAPP_STATUSES_LOCATION_RECIVED, "TWO");
             return "";
@@ -534,6 +538,7 @@ public class VideoFragment extends Fragment implements View.OnClickListener {
 
             if (inFiles.size() == 0) {
                 tvImage.setVisibility(View.VISIBLE);
+                img_imoji.setVisibility(View.VISIBLE);
             }
         }
 
@@ -556,6 +561,8 @@ public class VideoFragment extends Fragment implements View.OnClickListener {
 
             if (inFiles.size() == 0) {
                 tvImage.setVisibility(View.INVISIBLE);
+                img_imoji.setVisibility(View.INVISIBLE);
+
             }
             initSetList(WHATSAPP_STATUSES_LOCATION_SEND, "THREE");
             return "";
@@ -580,6 +587,7 @@ public class VideoFragment extends Fragment implements View.OnClickListener {
 
             if (inFiles.size() == 0) {
                 tvImage.setVisibility(View.VISIBLE);
+                img_imoji.setVisibility(View.VISIBLE);
             }
         }
 
@@ -605,6 +613,7 @@ public class VideoFragment extends Fragment implements View.OnClickListener {
 
             if (inFiles.size() == 0) {
                 tvImage.setVisibility(View.INVISIBLE);
+                img_imoji.setVisibility(View.INVISIBLE);
             }
             initSetList(WHATSAPP_STATUSES_LOCATION, "ONE");
 
@@ -631,6 +640,7 @@ public class VideoFragment extends Fragment implements View.OnClickListener {
             if (inFiles.size() == 0) {
 
                 tvImage.setVisibility(View.VISIBLE);
+                img_imoji.setVisibility(View.VISIBLE);
             }
         }
 

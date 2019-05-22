@@ -8,7 +8,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
+        <ImageView
+            android:id="@+id/img_imoji"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:visibility="invisible"
+            android:background="@drawable/imoji"
+            />
 
 
         <android.support.v7.widget.RecyclerView
@@ -24,9 +31,11 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
+            android:layout_below="@+id/img_imoji"
             android:fontFamily="@font/righteous_regular"
             android:text="No Status Videos from Your Friends"
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorAccent"
+            android:layout_marginTop="10dp"
             android:textSize="20sp"
             android:textStyle="bold|italic"
             android:visibility="invisible" />

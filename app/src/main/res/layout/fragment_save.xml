@@ -8,7 +8,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
+        <ImageView
+            android:id="@+id/img_imoji"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:visibility="invisible"
+            android:layout_centerInParent="true"
+            android:background="@drawable/imoji"
+            />
 
 
         <android.support.v7.widget.RecyclerView
@@ -26,7 +33,9 @@
             android:gravity="center"
             android:text="No Save Status"
             android:fontFamily="@font/righteous_regular"
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorAccent"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/img_imoji"
             android:textSize="20sp"
             android:textStyle="bold|italic"
             android:visibility="invisible" />

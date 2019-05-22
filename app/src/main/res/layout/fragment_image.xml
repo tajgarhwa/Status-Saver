@@ -11,6 +11,14 @@
 
 
 
+        <ImageView
+            android:id="@+id/img_imoji"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:visibility="invisible"
+            android:background="@drawable/imoji"
+            />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview"
@@ -23,11 +31,13 @@
             android:id="@+id/tvImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/img_imoji"
             android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:fontFamily="@font/righteous_regular"
             android:text="No Status Images from Your Friends"
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorAccent"
             android:textSize="20sp"
             android:textStyle="bold|italic"
             android:visibility="invisible" />

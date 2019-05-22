@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.statussaver.com.statussaver.BaseCompare;
+import android.statussaver.com.statussaver.DialogFragment.DeleteDialogFragment;
+import android.statussaver.com.statussaver.DialogFragment.ExitDialogFragment;
+import android.statussaver.com.statussaver.DialogFragment.ShareDialogFragment;
 import android.statussaver.com.statussaver.activities.ImageViewActivity;
 import android.statussaver.com.statussaver.activities.MainActivity;
 import android.statussaver.com.statussaver.adapters.Stories.StoriesAdapterSave;
@@ -19,6 +22,7 @@ import android.statussaver.com.statussaver.utils.HideShowScrollListener;
 import android.statussaver.com.statussaver.utils.RecyclerItemClickListener;
 import android.statussaver.com.statussaver.utils.ToastCustom;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,6 +41,7 @@ import android.statussaver.com.statussaver.R;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -47,10 +52,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SaveFragment extends Fragment implements View.OnClickListener {
+public class SaveFragment extends Fragment implements View.OnClickListener, ShareDialogFragment.MyDialogListener,DeleteDialogFragment.MyDialogDeleteListener {
 
     private RecyclerView recyclerView;
     private TextView tvImage;
+    private ImageView img_imoji;
     private ArrayList<Status> statusList;
     private StoriesAdapterSave recyclerviewAdapter;
     private static final int COUNT = 2;
@@ -91,6 +97,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
         fabMainsecond = view.findViewById(R.id.fab_main_download);
         fabthired = view.findViewById(R.id.fab_main_thired);
         tvImage = view.findViewById(R.id.tvImage);
+        img_imoji = view.findViewById(R.id.img_imoji);
         relFirst = view.findViewById(R.id.relFirst);
         relSecond = view.findViewById(R.id.relSecond);
         relThired = view.findViewById(R.id.relThired);
@@ -136,7 +143,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onHide() {
                 //fabMain.hide();
-                ((MainActivity)getActivity()).hideBottomNavigationMenu(true);
+                ((MainActivity) getActivity()).hideBottomNavigationMenu(true);
                 //animatedFab();
 //                if (isOpen){
 //                    //fabMain.startAnimation(fabForaward);
@@ -158,7 +165,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onShow() {
                 //fabMain.show();
-                ((MainActivity)getActivity()).hideBottomNavigationMenu(false);
+                ((MainActivity) getActivity()).hideBottomNavigationMenu(false);
                 //animatedFab();
             }
         });
@@ -183,7 +190,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
             fabthired.setClickable(false);
             isOpen = false;
         } else {
-           // fabMain.startAnimation(fabBackward);
+            // fabMain.startAnimation(fabBackward);
             fabFirst.startAnimation(fabOpen);
             fabMainsecond.startAnimation(fabOpen);
             fabthired.startAnimation(fabOpen);
@@ -319,6 +326,142 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
         return getActivity();
     }
 
+    @Override
+    public void onLeftClicked(DialogFragment dialogFragment) {
+
+        dialogFragment.dismiss();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            final Intent shareIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+            shareIntent.setType("*/*");
+
+            final ArrayList<Uri> files = new ArrayList<Uri>();
+            for (int i = 0; i < selectedIds.size(); i++) {
+                //File fileSend = new File(selectedIds.get(i).getAbsolutePath());
+//                                                    final File fileSend = new File(selectedIds.get(i).getAbsolutePath());
+//                                                    Uri photoUri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName() + ".provider", fileSend);
+//                                                    files.add(photoUri);
+
+                final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, selectedIds.get(i).getName());
+                photoUri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName() + ".provider", photoFile);
+                files.add(photoUri);
+                //shareIntent.putExtra(Intent.EXTRA_STREAM, photoUri);
+            }
+
+            //shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, files);
+            //shareIntent.putExtra(Intent.EXTRA_STREAM, files);
+            shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, files);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Download Status Saver and Gallery App on - https://play.google.com/store/apps/details?id=android.statussaver.com.statussaver");
+            getActivity().startActivity(Intent.createChooser(shareIntent, "Share files using"));
+
+
+            if (actionMode != null) {
+                actionMode.finish();
+            }
+            isMultiSelect = false;
+            selectedIds.clear();
+
+
+            //final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, status.getName());
+            //Uri photoUri = FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".provider", photoFile);
+            //shareIntent.putExtra(Intent.EXTRA_STREAM, photoUri);
+            //mContext.startActivity(Intent.createChooser(shareIntent, "Share image using"));
+        } else {
+//                                                final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+//                                                shareIntent.setType("image/*");
+//                                                final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, status.getName());
+//                                                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photoFile));
+//                                                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                                                mContext.startActivity(Intent.createChooser(shareIntent, "Share image using"));
+
+            final Intent shareIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+            shareIntent.setType("*/*");
+
+            final ArrayList<Uri> files = new ArrayList<Uri>();
+            for (int i = 0; i < selectedIds.size(); i++) {
+                //File fileSend = new File(selectedIds.get(i).getAbsolutePath());
+//                                                    final File fileSend = new File(selectedIds.get(i).getAbsolutePath());
+//                                                    Uri photoUri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName() + ".provider", fileSend);
+//                                                    files.add(photoUri);
+
+                final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, selectedIds.get(i).getName());
+                photoUri = Uri.fromFile(photoFile);
+                files.add(photoUri);
+                //shareIntent.putExtra(Intent.EXTRA_STREAM, photoUri);
+            }
+
+            //shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, files);
+            //shareIntent.putExtra(Intent.EXTRA_STREAM, files);
+            shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, files);
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Download Status Saver and Gallery App on - https://play.google.com/store/apps/details?id=android.statussaver.com.statussaver");
+            getActivity().startActivity(Intent.createChooser(shareIntent, "Share files using"));
+
+            if (actionMode != null) {
+                actionMode.finish();
+            }
+            isMultiSelect = false;
+            selectedIds.clear();
+        }
+    }
+
+    @Override
+    public void onRightClicked(DialogFragment dialogFragment) {
+        dialogFragment.dismiss();
+    }
+
+    @Override
+    public void onLeftDeleteClicked(DialogFragment dialogFragment) {
+        dialogFragment.dismiss();
+
+        final StringBuilder stringBuilder = new StringBuilder();
+        File filedelete;
+        for (int i = 0; i < selectedIds.size(); i++) {
+            for (int j = 0; j < inFiles.size(); j++) {
+                if (selectedIds.get(i).getAbsolutePath().contains(inFiles.get(j).getAbsolutePath())) {
+                    stringBuilder.append("\n").append(selectedIds.get(i).getAbsolutePath());
+                    filedelete = new File(selectedIds.get(i).getAbsolutePath());
+                    if (filedelete.exists()) {
+                        inFiles.remove(j);
+                        filedelete.delete();
+                    }
+                }
+            }
+        }
+        if (actionMode != null) {
+            actionMode.finish();
+        }
+        isMultiSelect = false;
+        selectedIds.clear();
+        progressDialog.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //to refresh
+                int resId = R.anim.layout_animation_slide_down;
+                recyclerviewAdapter = new StoriesAdapterSave(inFiles, getActivity(), "ONE");
+                StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(COUNT, LinearLayoutManager.VERTICAL);
+                LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getActivity(), resId);
+                recyclerView.setLayoutAnimation(animation);
+                recyclerView.setLayoutManager(staggeredGridLayoutManager);
+                recyclerView.setAdapter(recyclerviewAdapter);
+
+                // Toast.makeText(getActivity(), "Selected items are :"+stringBuilder.toString(), Toast.LENGTH_SHORT).show();
+                progressDialog.setVisibility(View.GONE);
+            }
+        }, 1500);
+    }
+
+    @Override
+    public void onRightDeletClicked(DialogFragment dialogFragment) {
+        dialogFragment.dismiss();
+        if (actionMode != null) {
+            actionMode.finish();
+        }
+        isMultiSelect = false;
+        selectedIds.clear();
+    }
+
     private class AsyncTaskRunner3 extends AsyncTask<String, String, String> {
 
         @Override
@@ -326,6 +469,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
 
             if (inFiles.size() == 0) {
                 tvImage.setVisibility(View.INVISIBLE);
+                img_imoji.setVisibility(View.INVISIBLE);
             }
             initSetList(WHATSAPP_STATUSES_LOCATION, "ONE");
             return "";
@@ -350,6 +494,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
 
             if (inFiles.size() == 0) {
                 tvImage.setVisibility(View.VISIBLE);
+                img_imoji.setVisibility(View.VISIBLE);
             }
 
             recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(passContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
@@ -392,120 +537,19 @@ public class SaveFragment extends Fragment implements View.OnClickListener {
                                 public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                                     switch (item.getItemId()) {
                                         case R.id.action_delete:
-                                            //just to show selected items.
-                                            Alerts.ShowYesOrNo(getActivity(), "Are you sure you want to delete it ?", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    final StringBuilder stringBuilder = new StringBuilder();
-                                                    File filedelete;
-                                                    for (int i = 0; i < selectedIds.size(); i++) {
-                                                        for (int j = 0; j < inFiles.size(); j++) {
-                                                            if (selectedIds.get(i).getAbsolutePath().contains(inFiles.get(j).getAbsolutePath())) {
-                                                                stringBuilder.append("\n").append(selectedIds.get(i).getAbsolutePath());
-                                                                filedelete = new File(selectedIds.get(i).getAbsolutePath());
-                                                                if (filedelete.exists()) {
-                                                                    inFiles.remove(j);
-                                                                    filedelete.delete();
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                    if (actionMode != null) {
-                                                        actionMode.finish();
-                                                    }
-                                                    isMultiSelect = false;
-                                                    selectedIds.clear();
-                                                    progressDialog.setVisibility(View.VISIBLE);
-                                                    new Handler().postDelayed(new Runnable() {
-                                                        @Override
-                                                        public void run() {
-                                                            //to refresh
-                                                            int resId = R.anim.layout_animation_slide_down;
-                                                            recyclerviewAdapter = new StoriesAdapterSave(inFiles, getActivity(), "ONE");
-                                                            StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(COUNT, LinearLayoutManager.VERTICAL);
-                                                            LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getActivity(), resId);
-                                                            recyclerView.setLayoutAnimation(animation);
-                                                            recyclerView.setLayoutManager(staggeredGridLayoutManager);
-                                                            recyclerView.setAdapter(recyclerviewAdapter);
 
-                                                            // Toast.makeText(getActivity(), "Selected items are :"+stringBuilder.toString(), Toast.LENGTH_SHORT).show();
-                                                            progressDialog.setVisibility(View.GONE);
-                                                        }
-                                                    }, 1500);
-
-                                                }
-                                            }, new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    if (actionMode != null) {
-                                                        actionMode.finish();
-                                                    }
-                                                    isMultiSelect = false;
-                                                    selectedIds.clear();
-                                                }
-                                            }, true);
+                                            DeleteDialogFragment deleteeDialogFragment = new DeleteDialogFragment();
+                                            deleteeDialogFragment.setContext(getActivity());
+                                            deleteeDialogFragment.setListner(SaveFragment.this);
+                                            deleteeDialogFragment.show(getFragmentManager(), "DeleteDialogFragment");
                                             return true;
 
                                         case R.id.action_share:
-                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                                final Intent shareIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
-                                                shareIntent.setType("*/*");
 
-                                                final ArrayList<Uri> files = new ArrayList<Uri>();
-                                                for (int i = 0; i < selectedIds.size(); i++) {
-                                                    //File fileSend = new File(selectedIds.get(i).getAbsolutePath());
-//                                                    final File fileSend = new File(selectedIds.get(i).getAbsolutePath());
-//                                                    Uri photoUri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName() + ".provider", fileSend);
-//                                                    files.add(photoUri);
-
-                                                    final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, selectedIds.get(i).getName());
-                                                    photoUri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName() + ".provider", photoFile);
-                                                    files.add(photoUri);
-                                                    //shareIntent.putExtra(Intent.EXTRA_STREAM, photoUri);
-                                                }
-
-                                                //shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, files);
-                                                //shareIntent.putExtra(Intent.EXTRA_STREAM, files);
-                                                shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, files);
-                                                shareIntent.putExtra(Intent.EXTRA_TEXT, "Download Status Saver and Gallery App on - https://play.google.com/store/apps/details?id=android.statussaver.com.statussaver");
-                                                getActivity().startActivity(Intent.createChooser(shareIntent, "Share files using"));
-
-
-                                                //final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, status.getName());
-                                                //Uri photoUri = FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".provider", photoFile);
-                                                //shareIntent.putExtra(Intent.EXTRA_STREAM, photoUri);
-                                                //mContext.startActivity(Intent.createChooser(shareIntent, "Share image using"));
-                                            } else {
-//                                                final Intent shareIntent = new Intent(Intent.ACTION_SEND);
-//                                                shareIntent.setType("image/*");
-//                                                final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, status.getName());
-//                                                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photoFile));
-//                                                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//                                                mContext.startActivity(Intent.createChooser(shareIntent, "Share image using"));
-
-                                                final Intent shareIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
-                                                shareIntent.setType("*/*");
-
-                                                final ArrayList<Uri> files = new ArrayList<Uri>();
-                                                for (int i = 0; i < selectedIds.size(); i++) {
-                                                    //File fileSend = new File(selectedIds.get(i).getAbsolutePath());
-//                                                    final File fileSend = new File(selectedIds.get(i).getAbsolutePath());
-//                                                    Uri photoUri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName() + ".provider", fileSend);
-//                                                    files.add(photoUri);
-
-                                                    final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, selectedIds.get(i).getName());
-                                                    photoUri = Uri.fromFile(photoFile);
-                                                    files.add(photoUri);
-                                                    //shareIntent.putExtra(Intent.EXTRA_STREAM, photoUri);
-                                                }
-
-                                                //shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, files);
-                                                //shareIntent.putExtra(Intent.EXTRA_STREAM, files);
-                                                shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, files);
-                                                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                                shareIntent.putExtra(Intent.EXTRA_TEXT, "Download Status Saver and Gallery App on - https://play.google.com/store/apps/details?id=android.statussaver.com.statussaver");
-                                                getActivity().startActivity(Intent.createChooser(shareIntent, "Share files using"));
-                                            }
+                                            ShareDialogFragment shareDialogFragment = new ShareDialogFragment();
+                                            shareDialogFragment.setContext(getActivity());
+                                            shareDialogFragment.setListner(SaveFragment.this);
+                                            shareDialogFragment.show(getFragmentManager(), "ShareDialogFragment");
                                             return true;
                                     }
                                     return false;
