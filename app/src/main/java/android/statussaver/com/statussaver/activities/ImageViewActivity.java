@@ -142,7 +142,17 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
             adRequest = new AdRequest.Builder().build();
             mAdView.loadAd(adRequest);
         }else {
+            fabMain.hide();
+            fabFirst.hide();
+            fabMainsecond.hide();
+            fabthired.hide();
+            fab_main_share.hide();
+
             mAdView.setVisibility(View.GONE);
+            relshare.setVisibility(View.GONE);
+            relshare_fab_main_thired.setVisibility(View.GONE);
+            relshare_fab_main_download.setVisibility(View.GONE);
+            relshare_fab_main_first.setVisibility(View.GONE);
 
         }
 

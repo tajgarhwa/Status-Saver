@@ -102,6 +102,23 @@
             android:fontFamily="@font/righteous_regular"
             android:text="Share this app"
             android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tv_send_mail"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="5dp"
+            android:clickable="true"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/ic_mail"
+            android:gravity="left|center_vertical"
+            android:onClick="onClick"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:fontFamily="@font/righteous_regular"
+            android:text="Send Suggestions"
+            android:visibility="visible" />
+
     </LinearLayout>
 
     <LinearLayout

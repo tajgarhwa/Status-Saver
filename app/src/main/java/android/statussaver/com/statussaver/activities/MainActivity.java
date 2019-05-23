@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     MediaPlayer player;
     RelativeLayout bottom_navigation_bar, relmiidleroundbtn, btnClose;
 
-    TextView tv_how_to_use, tv_privacy_policy, tv_rate, tv_settings, tv_share_app;
+    TextView tv_how_to_use, tv_privacy_policy, tv_rate, tv_settings, tv_share_app,tv_send_mail;
 
 
     @Override
@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv_rate = findViewById(R.id.tv_rate);
         tv_settings = findViewById(R.id.tv_settings);
         tv_share_app = findViewById(R.id.tv_share_app);
+        tv_send_mail = findViewById(R.id.tv_send_mail);
         btnClose = findViewById(R.id.btnClose);
 
         RelImgImage.setOnClickListener(this);
@@ -126,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv_rate.setOnClickListener(this);
         tv_settings.setOnClickListener(this);
         tv_share_app.setOnClickListener(this);
+        tv_send_mail.setOnClickListener(this);
         btnClose.setOnClickListener(this);
 
 
@@ -421,6 +423,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         "Hey check out my app at: https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID);
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
+                break;
+
+            case R.id.tv_send_mail:
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                emailIntent.setData(Uri.parse("mailto:chamiappsdev@gmail.com"));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Send feedback/suggestions");
+                startActivity(Intent.createChooser(emailIntent, "Send feedback/suggestions"));
                 break;
             case R.id.btnClose:
                 drawerLayout.closeDrawers();
