@@ -509,6 +509,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener, Shar
                         intent.putExtra("imageList", inFiles);
                         intent.putExtra("state", "ONE");
                         intent.putExtra("position", position);
+                        intent.putExtra("DirectFrom", "saveFragment");
                         getActivity().startActivity(intent);
                     }
                 }

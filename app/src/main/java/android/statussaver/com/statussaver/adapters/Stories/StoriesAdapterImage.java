@@ -99,6 +99,7 @@ public class StoriesAdapterImage extends RecyclerView.Adapter<StoriesAdapterImag
                 intent.putExtra("file",status);
                 intent.putExtra("state",st);
                 intent.putExtra("position",position);
+                intent.putExtra("DirectFrom", "storiesImage");
                 mContext.startActivity(intent);
             }
         });

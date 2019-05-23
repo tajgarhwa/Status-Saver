@@ -97,6 +97,7 @@ public class StoriesAdapterVideo extends RecyclerView.Adapter<StoriesAdapterVide
                 intent.putExtra("file",status);
                 intent.putExtra("state",st);
                 intent.putExtra("position",position);
+                intent.putExtra("DirectFrom", "storiesVideos");
                 mContext.startActivity(intent);
             }
         });

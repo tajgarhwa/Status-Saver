@@ -48,7 +48,9 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
 
     private static final String DIRECTORY_TO_SAVE_MEDIA_NOW ="/Status_Saver/" ;
     private static final String WHATSAPP_STATUSES_LOCATION = "/WhatsApp/Media/.Statuses";
-    String sessionUrl,state;
+
+
+    String sessionUrl,state,direction;
     //ImageView imageView;
     PhotoView imageView;
     File sourceFile;
@@ -83,6 +85,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
         documents = (ArrayList<File>) getIntent().getSerializableExtra("imageList");
         state =getIntent().getStringExtra("state");
         pos = getIntent().getIntExtra("position",0);
+        direction = getIntent().getStringExtra("DirectFrom");
         //sourceFile = (File)getIntent().getSerializableExtra("file");
 
         //pos = Integer.parseInt(position);
@@ -301,46 +304,10 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
                 if (mInterstitialAd.isLoaded()) {
                     mInterstitialAd.show();
                 }
-                final File fileshare = getItem(globPosition);
-                if (fileshare.getName().endsWith(".jpg") || fileshare.getName().endsWith(".png")) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        final Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                        shareIntent.setType("image/*");
-                        final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + WHATSAPP_STATUSES_LOCATION, fileshare.getName());
-                        Uri photoUri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", photoFile);
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, "Download Status Saver and Gallery App on - https://play.google.com/store/apps/details?id=android.statussaver.com.statussaver");
-                        shareIntent.putExtra(Intent.EXTRA_STREAM, photoUri);
-                        shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        this.startActivity(Intent.createChooser(shareIntent, "Share image using"));
-                    } else {
-                        final Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                        shareIntent.setType("image/*");
-                        final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + WHATSAPP_STATUSES_LOCATION, fileshare.getName());
-                        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photoFile));
-                        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, "Download Status Saver and Gallery App on - https://play.google.com/store/apps/details?id=android.statussaver.com.statussaver");
-                        this.startActivity(Intent.createChooser(shareIntent, "Share image using"));
-                    }
+                if (direction !=null && direction.equalsIgnoreCase("saveFragment")) {
+                    shareSaveDirect();
                 }else {
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        final Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                        shareIntent.setType("video/*");
-                        final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + WHATSAPP_STATUSES_LOCATION, fileshare.getName());
-                        Uri photoUri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", photoFile);
-                        shareIntent.putExtra(Intent.EXTRA_STREAM, photoUri);
-                        shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        this.startActivity(Intent.createChooser(shareIntent, "Share Video using"));
-                    }else {
-                        final Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                        shareIntent.setType("video/*");
-                        final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + WHATSAPP_STATUSES_LOCATION, fileshare.getName());
-                        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photoFile));
-                        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        this.startActivity(Intent.createChooser(shareIntent, "Share Video using"));
-                    }
+                    shareImageVideoDirect();
                 }
                 animatedFab();
                 break;
@@ -351,6 +318,94 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
                 }
                 finish();
                 break;
+        }
+    }
+
+    private void shareSaveDirect() {
+        final File fileshare = getItem(globPosition);
+        if (fileshare.getName().endsWith(".jpg") || fileshare.getName().endsWith(".png")) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("image/*");
+                final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, fileshare.getName());
+                Uri photoUri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", photoFile);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "Download Status Saver and Gallery App on - https://play.google.com/store/apps/details?id=android.statussaver.com.statussaver");
+                shareIntent.putExtra(Intent.EXTRA_STREAM, photoUri);
+                shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                this.startActivity(Intent.createChooser(shareIntent, "Share image using"));
+            } else {
+                final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("image/*");
+                final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, fileshare.getName());
+                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photoFile));
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "Download Status Saver and Gallery App on - https://play.google.com/store/apps/details?id=android.statussaver.com.statussaver");
+                this.startActivity(Intent.createChooser(shareIntent, "Share image using"));
+            }
+        }else {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("video/*");
+                final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, fileshare.getName());
+                Uri photoUri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", photoFile);
+                shareIntent.putExtra(Intent.EXTRA_STREAM, photoUri);
+                shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                this.startActivity(Intent.createChooser(shareIntent, "Share Video using"));
+            }else {
+                final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("video/*");
+                final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, fileshare.getName());
+                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photoFile));
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                this.startActivity(Intent.createChooser(shareIntent, "Share Video using"));
+            }
+        }
+    }
+
+    private void shareImageVideoDirect() {
+        final File fileshare = getItem(globPosition);
+        if (fileshare.getName().endsWith(".jpg") || fileshare.getName().endsWith(".png")) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("image/*");
+                final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + WHATSAPP_STATUSES_LOCATION, fileshare.getName());
+                Uri photoUri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", photoFile);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "Download Status Saver and Gallery App on - https://play.google.com/store/apps/details?id=android.statussaver.com.statussaver");
+                shareIntent.putExtra(Intent.EXTRA_STREAM, photoUri);
+                shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                this.startActivity(Intent.createChooser(shareIntent, "Share image using"));
+            } else {
+                final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("image/*");
+                final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + WHATSAPP_STATUSES_LOCATION, fileshare.getName());
+                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photoFile));
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "Download Status Saver and Gallery App on - https://play.google.com/store/apps/details?id=android.statussaver.com.statussaver");
+                this.startActivity(Intent.createChooser(shareIntent, "Share image using"));
+            }
+        }else {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("video/*");
+                final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + WHATSAPP_STATUSES_LOCATION, fileshare.getName());
+                Uri photoUri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", photoFile);
+                shareIntent.putExtra(Intent.EXTRA_STREAM, photoUri);
+                shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                this.startActivity(Intent.createChooser(shareIntent, "Share Video using"));
+            }else {
+                final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("video/*");
+                final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + WHATSAPP_STATUSES_LOCATION, fileshare.getName());
+                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photoFile));
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                this.startActivity(Intent.createChooser(shareIntent, "Share Video using"));
+            }
         }
     }
 
