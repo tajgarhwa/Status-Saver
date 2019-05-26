@@ -2,13 +2,17 @@ package android.statussaver.com.statussaver.activities;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.statussaver.com.statussaver.BuildConfig;
 import android.statussaver.com.statussaver.DialogFragment.ExitDialogFragment;
 import android.statussaver.com.statussaver.DialogFragment.SelectDirectoryDialogFragment;
+import android.statussaver.com.statussaver.DialogFragment.openWhatsappFragment;
 import android.statussaver.com.statussaver.R;
 import android.statussaver.com.statussaver.adapters.RoundRecyclerviewAdapter;
 import android.statussaver.com.statussaver.BaseCompare;
@@ -34,6 +38,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -82,6 +88,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            Drawable background = getResources().getDrawable(R.drawable.gradient_1); //bg_gradient is your gradient.
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                window.setStatusBarColor(getResources().getColor(android.R.color.transparent));
+            }
+            window.setBackgroundDrawable(background);
+        }
         setContentView(R.layout.activity_main);
 
         //jobDispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
@@ -399,8 +414,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                break;
 
             case R.id.relmiidleroundbtn:
-                Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.whatsapp");
-                startActivity(launchIntent);
+                openWhatsappFragment openWhatsappFragment = new openWhatsappFragment();
+                openWhatsappFragment.setContext(getApplicationContext());
+                openWhatsappFragment.show(getSupportFragmentManager(), "openWhatsappFragment");
+
                 break;
 
             case R.id.tv_how_to_use:

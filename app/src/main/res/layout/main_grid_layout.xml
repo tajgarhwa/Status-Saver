@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_below="@+id/lin11"
-                android:background="#d5075e54">
+                android:background="@drawable/gradient_1">
 
                 <LinearLayout
                     android:layout_width="match_parent"

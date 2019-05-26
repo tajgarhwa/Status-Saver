@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -22,6 +23,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.karumi.dexter.Dexter;
@@ -33,6 +35,7 @@ public class SplashActivity extends AppCompatActivity {
     private MultiplePermissionsListener multiplePermissionsListener;
     private View background;
     private SettingsApps settings;
+    RelativeLayout background_main;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +51,17 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 Dexter.withActivity(SplashActivity.this).withPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE).withListener(multiplePermissionsListener).check();
             }
-            },3000);
+            },4000);
 
 
 
         background = findViewById(R.id.background);
+        background_main = findViewById(R.id.background);
+
+        AnimationDrawable animationDrawable = (AnimationDrawable) background_main.getBackground();
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(4000);
+        animationDrawable.start();
 
         if (savedInstanceState == null) {
             background.setVisibility(View.INVISIBLE);
@@ -134,14 +143,14 @@ public class SplashActivity extends AppCompatActivity {
 
     public void showPermissionDenied(String permissionName) {
         if (permissionName.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            Toast.makeText(getApplicationContext(), "WRITE_EXTERNAL_STORAGE Permission Denied", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Permission need to continue!", Toast.LENGTH_LONG).show();
             this.finish();
         }
 
     }
 
     public void showPermissionRational(final PermissionToken permissionToken) {
-        new AlertDialog.Builder(this).setTitle("We need permissions")
+        new AlertDialog.Builder(this).setTitle("Status saver and gallery need permissions")
                 .setMessage("Please allow permissions to continue")
                 .setPositiveButton("Allow", new DialogInterface.OnClickListener() {
                     @Override
