@@ -284,26 +284,30 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
                     mInterstitialAd.show();
                 }
                 final File filewallaper = getItem(globPosition);
-                Alerts.ShowYesOrNo(this, "Are you sure you want to set it as wallpaper?", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                WallpaperManager myWallpaperManager = WallpaperManager.getInstance(getApplicationContext());
-                                Bitmap myBitmap =  BitmapFactory.decodeFile(filewallaper.getAbsolutePath());
-                                try {
-                                    myWallpaperManager.setBitmap(myBitmap);
-                                    ToastCustom.setToast(getApplicationContext(),"Wallpaper set successfully!");
-                                } catch (IOException e) {
-                                    // TODO Auto-generated catch block
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        },true);
 
+                if(filewallaper.getName().endsWith(".mp4") || filewallaper.getName().endsWith(".3gp") || filewallaper.getName().endsWith(".mov")){
+                    ToastCustom.setToast(this,"Sorry this file type is not supported.");
+                }else {
+                    Alerts.ShowYesOrNo(this, "Are you sure you want to set it as wallpaper?", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            WallpaperManager myWallpaperManager = WallpaperManager.getInstance(getApplicationContext());
+                            Bitmap myBitmap = BitmapFactory.decodeFile(filewallaper.getAbsolutePath());
+                            try {
+                                myWallpaperManager.setBitmap(myBitmap);
+                                ToastCustom.setToast(getApplicationContext(), "Wallpaper set successfully!");
+                            } catch (IOException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }, true);
+                }
 
 
 

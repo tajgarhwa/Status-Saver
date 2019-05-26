@@ -78,6 +78,7 @@ public class RoundRecyclerviewAdapter extends RecyclerView.Adapter<RoundRecycler
                 intent.putExtra("file",status);
                 intent.putExtra("state","ONE");
                 intent.putExtra("position",position);
+                intent.putExtra("DirectFrom", "roundFragment");
                 mContext.startActivity(intent);
             }
         });

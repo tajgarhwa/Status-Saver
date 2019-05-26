@@ -409,6 +409,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(howtouseintent);
                 break;
             case R.id.tv_privacy_policy:
+                String url = "https://sites.google.com/view/privacy-policy-status-saver/home";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
                 break;
             case R.id.tv_rate:
                 goToMyApp(true);
