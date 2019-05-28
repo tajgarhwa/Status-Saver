@@ -46,9 +46,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -83,7 +88,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     RelativeLayout bottom_navigation_bar, relmiidleroundbtn, btnClose;
 
     TextView tv_how_to_use, tv_privacy_policy, tv_rate, tv_settings, tv_share_app,tv_send_mail;
-
+    private AdRequest adRequest;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv_share_app = findViewById(R.id.tv_share_app);
         tv_send_mail = findViewById(R.id.tv_send_mail);
         btnClose = findViewById(R.id.btnClose);
+        mAdView = findViewById(R.id.adView);
 
         RelImgImage.setOnClickListener(this);
         RelImgVideo.setOnClickListener(this);
@@ -151,6 +158,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //setStatusList();
         initSetList();
         setButtonState();
+        MobileAds.initialize(this, getString(R.string.admob_ad_id));
+        adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
 //        requestAppPermissions(new String[]{
 //                        Manifest.permission.READ_CONTACTS,
@@ -158,7 +168,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                        Manifest.permission.WRITE_CONTACTS},
 //                R.string.msg,REQUEST_PERMISSION);
 
+        Random random = new Random();
+        int numberRandom = random.nextInt(100 - 1) + 1;
+
+        if (numberRandom < 50){
+            mAdView.setVisibility(View.VISIBLE);
+        }
+
     }
+
+
 
     public void hideBottomNavigationMenu(boolean b) {
         if (b) {
@@ -333,6 +352,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
+        Random random = new Random();
+        int numberRandom = random.nextInt(100 - 1) + 1;
+        if (numberRandom < 50){
+            mAdView.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override
@@ -540,6 +565,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        }
 
     }
+
+
 
 
 }
