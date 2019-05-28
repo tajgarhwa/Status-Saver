@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">StatusSaver</string>
+    <string name="app_name">Status Saver</string>
     <string name="status_saver">Status Saver And Gallery</string>
     <string name="msg">Please enable all permission</string>
 

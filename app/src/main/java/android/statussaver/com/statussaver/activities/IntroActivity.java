@@ -195,7 +195,7 @@ public class IntroActivity extends YouTubeBaseActivity {
                     @Override
                     public void onInitializationFailure(YouTubePlayer.Provider provider,
                                                         YouTubeInitializationResult youTubeInitializationResult) {
-                        ToastCustom.setToast(IntroActivity.this,"Please Update your YouTube app");
+                        ToastCustom.setToast(IntroActivity.this,"Please update your YouTube app!");
                     }
                 });
     }
