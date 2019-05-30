@@ -6,16 +6,16 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="260dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:background="@drawable/curved_background_dialog">
 
         <RelativeLayout
+            android:id="@+id/rel_ad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_above="@+id/share_text">
+            android:layout_marginTop="15dp">
 
             <ProgressBar
                 android:id="@+id/progres_ad"
@@ -24,15 +24,21 @@
                 android:visibility="gone"
                 android:layout_centerInParent="true"/>
 
-            <com.google.android.gms.ads.AdView
-                xmlns:ads="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/adView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                ads:adSize="LARGE_BANNER"
-                ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+            <!--<com.google.android.gms.ads.AdView-->
+                <!--xmlns:ads="http://schemas.android.com/apk/res-auto"-->
+                <!--android:id="@+id/adView"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--ads:adSize="LARGE_BANNER"-->
+                <!--ads:adUnitId="@string/whatsapp_logo_banner">-->
 
-            </com.google.android.gms.ads.AdView>
+            <!--</com.google.android.gms.ads.AdView>-->
+            <LinearLayout
+            android:id="@+id/banner_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            />
         </RelativeLayout>
 
         <RelativeLayout
@@ -41,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_above="@+id/btn_layout">
+            android:layout_below="@+id/rel_ad">
 
             <TextView
                 android:layout_width="match_parent"
@@ -60,9 +66,9 @@
             android:id="@+id/btn_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_weight="2"
             android:gravity="center"
+            android:layout_below="@+id/share_text"
             android:orientation="horizontal"
             android:padding="@dimen/dialog_inner_margin"
             android:paddingTop="0dp">

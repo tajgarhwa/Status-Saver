@@ -161,7 +161,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
     private void loadIndustrialAd() {
         //industrial_ad
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdUnitId(getString(R.string.admob_indastrial));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
     }

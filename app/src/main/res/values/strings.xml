@@ -9,7 +9,12 @@
     <string name="status_saver_and_gallery">Status Saver And \nGallery</string>
     <string name="youtube_api_key">AIzaSyA0LGfPxAAjkNkMrdGuW-Ln9jqV1HSe1zc</string>
     <string name="fb_banner_ad">626305281179458_626312557845397</string>
-    <string name="fb_native_ad">VID_HD_16_9_46S_APP_INSTALL#626305281179458_626318601178126</string>
-    <string name="admob_ad_id">ca-app-pub-3940256099942544~3347511713</string>
+    <!--<string name="fb_native_ad">VID_HD_16_9_46S_APP_INSTALL#626305281179458_626318601178126</string>-->
+    <string name="fb_native_ad">626305281179458_626318601178126</string>
+    <string name="admob_ad_id">ca-app-pub-8434077743160830~2699324225</string>
+    <string name="adunit_id_banner">ca-app-pub-8434077743160830/9519893185</string>
+    <string name="admob_indastrial">ca-app-pub-8434077743160830/6985051576</string>
+    <string name="admob_banner_id_2">ca-app-pub-8434077743160830/7966960750</string>
+    <string name="whatsapp_logo_banner">ca-app-pub-8434077743160830/6609168120</string>
 
 </resources>
