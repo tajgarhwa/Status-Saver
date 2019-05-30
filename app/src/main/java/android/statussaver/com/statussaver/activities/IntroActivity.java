@@ -58,7 +58,7 @@ public class IntroActivity extends YouTubeBaseActivity {
 
         settings = new SettingsApps(this);
         skip_btn = findViewById(R.id.skip_btn);
-        playVideo("4VBoFvH_aiQ",youTubePlayerView);
+        playVideo("QcGRithRCxM",youTubePlayerView);
 
         intent = getIntent();
         if (intent !=null && intent.getExtras() !=null){

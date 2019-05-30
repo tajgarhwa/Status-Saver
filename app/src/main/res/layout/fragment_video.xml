@@ -133,7 +133,7 @@
                 android:fontFamily="@font/righteous_regular"
                 android:layout_centerInParent="true"
                 android:textColor="@android:color/white"
-                android:text="Received Status Videos"/>
+                android:text="Received Gallery Videos"/>
 
 
 
@@ -159,7 +159,7 @@
                 android:fontFamily="@font/righteous_regular"
                 android:padding="4dp"
                 android:textColor="@android:color/white"
-                android:text="Send Status Videos"/>
+                android:text="Send Gallery Videos"/>
 
         </RelativeLayout>
 
