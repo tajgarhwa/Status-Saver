@@ -1,4 +1,4 @@
-package com.statussaver.com.statussaver.activities;
+package com.statussaver.chamiappslk.statussaver.activities;
 
 import android.Manifest;
 import android.animation.Animator;
@@ -13,9 +13,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.provider.Settings;
 import android.statussaver.com.statussaver.R;
-import android.statussaver.com.statussaver.utils.Alerts;
-import android.statussaver.com.statussaver.utils.MultiplePermissionListner;
-import android.statussaver.com.statussaver.utils.SettingsApps;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,9 +26,9 @@ import android.widget.Toast;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.statussaver.com.statussaver.utils.Alerts;
-import com.statussaver.com.statussaver.utils.MultiplePermissionListner;
-import com.statussaver.com.statussaver.utils.SettingsApps;
+import com.statussaver.chamiappslk.statussaver.utils.Alerts;
+import com.statussaver.chamiappslk.statussaver.utils.MultiplePermissionListner;
+import com.statussaver.chamiappslk.statussaver.utils.SettingsApps;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -43,8 +40,8 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        overridePendingTransition(com.statussaver.com.statussaver.R.anim.do_not_move, com.statussaver.com.statussaver.R.anim.do_not_move);
-        setContentView(com.statussaver.com.statussaver.R.layout.activity_splash);
+        overridePendingTransition(R.anim.do_not_move, R.anim.do_not_move);
+        setContentView(R.layout.activity_splash);
         settings = new SettingsApps(this);
 
         multiplePermissionsListener = new MultiplePermissionListner(this);
@@ -58,8 +55,8 @@ public class SplashActivity extends AppCompatActivity {
 
 
 
-        background = findViewById(com.statussaver.com.statussaver.R.id.background);
-        background_main = findViewById(com.statussaver.com.statussaver.R.id.background);
+        background = findViewById(R.id.background);
+        background_main = findViewById(R.id.background);
 
         AnimationDrawable animationDrawable = (AnimationDrawable) background_main.getBackground();
         animationDrawable.setEnterFadeDuration(2000);

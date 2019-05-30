@@ -1,4 +1,4 @@
-package com.statussaver.com.statussaver.activities;
+package com.statussaver.chamiappslk.statussaver.activities;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -10,21 +10,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.statussaver.com.statussaver.BuildConfig;
-import android.statussaver.com.statussaver.DialogFragment.ExitDialogFragment;
-import android.statussaver.com.statussaver.DialogFragment.SelectDirectoryDialogFragment;
-import android.statussaver.com.statussaver.DialogFragment.openWhatsappFragment;
 import android.statussaver.com.statussaver.R;
-import android.statussaver.com.statussaver.adapters.RoundRecyclerviewAdapter;
-import android.statussaver.com.statussaver.BaseCompare;
-import android.statussaver.com.statussaver.fragments.GifFragment;
-import android.statussaver.com.statussaver.fragments.ImageFragment;
-import android.statussaver.com.statussaver.fragments.InfoFragment;
-import android.statussaver.com.statussaver.fragments.SaveFragment;
-import android.statussaver.com.statussaver.fragments.VideoFragment;
-import android.statussaver.com.statussaver.models.Status;
-import android.statussaver.com.statussaver.service.MediaListenerService;
-import android.statussaver.com.statussaver.service.StatusListenerService;
-import android.statussaver.com.statussaver.utils.ToastCustom;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -49,17 +35,17 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.statussaver.com.statussaver.BaseCompare;
-import com.statussaver.com.statussaver.BuildConfig;
-import com.statussaver.com.statussaver.DialogFragment.ExitDialogFragment;
-import com.statussaver.com.statussaver.DialogFragment.openWhatsappFragment;
-import com.statussaver.com.statussaver.adapters.RoundRecyclerviewAdapter;
-import com.statussaver.com.statussaver.fragments.GifFragment;
-import com.statussaver.com.statussaver.fragments.ImageFragment;
-import com.statussaver.com.statussaver.fragments.SaveFragment;
-import com.statussaver.com.statussaver.fragments.VideoFragment;
-import com.statussaver.com.statussaver.models.Status;
-import com.statussaver.com.statussaver.utils.ToastCustom;
+import com.statussaver.chamiappslk.statussaver.BaseCompare;
+import com.statussaver.chamiappslk.statussaver.DialogFragment.ExitDialogFragment;
+import com.statussaver.chamiappslk.statussaver.DialogFragment.openWhatsappFragment;
+import com.statussaver.chamiappslk.statussaver.adapters.RoundRecyclerviewAdapter;
+import com.statussaver.chamiappslk.statussaver.fragments.GifFragment;
+import com.statussaver.chamiappslk.statussaver.fragments.ImageFragment;
+import com.statussaver.chamiappslk.statussaver.fragments.InfoFragment;
+import com.statussaver.chamiappslk.statussaver.fragments.SaveFragment;
+import com.statussaver.chamiappslk.statussaver.fragments.VideoFragment;
+import com.statussaver.chamiappslk.statussaver.models.Status;
+import com.statussaver.chamiappslk.statussaver.utils.ToastCustom;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -107,45 +93,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window window = getWindow();
-            Drawable background = getResources().getDrawable(com.statussaver.com.statussaver.R.drawable.gradient_1); //bg_gradient is your gradient.
+            Drawable background = getResources().getDrawable(R.drawable.gradient_1); //bg_gradient is your gradient.
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 window.setStatusBarColor(getResources().getColor(android.R.color.transparent));
             }
             window.setBackgroundDrawable(background);
         }
-        setContentView(com.statussaver.com.statussaver.R.layout.activity_main);
+        setContentView(R.layout.activity_main);
 
         //jobDispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
 
-        reclerMain = findViewById(com.statussaver.com.statussaver.R.id.reclerMain);
-        relRecylerHori = findViewById(com.statussaver.com.statussaver.R.id.relRecylerHori);
-        tvrecentStories = findViewById(com.statussaver.com.statussaver.R.id.tvrecentStories);
-        drawerLayout = findViewById(com.statussaver.com.statussaver.R.id.drawerLayout);
+        reclerMain = findViewById(R.id.reclerMain);
+        relRecylerHori = findViewById(R.id.relRecylerHori);
+        tvrecentStories = findViewById(R.id.tvrecentStories);
+        drawerLayout = findViewById(R.id.drawerLayout);
         //imageview
-        imgImage = findViewById(com.statussaver.com.statussaver.R.id.imgImage);
-        imgVideo = findViewById(com.statussaver.com.statussaver.R.id.imgVideo);
-        imgGif = findViewById(com.statussaver.com.statussaver.R.id.imgGif);
-        imgSave = findViewById(com.statussaver.com.statussaver.R.id.imgSave);
-        imgInfo = findViewById(com.statussaver.com.statussaver.R.id.imgInfo);
+        imgImage = findViewById(R.id.imgImage);
+        imgVideo = findViewById(R.id.imgVideo);
+        imgGif = findViewById(R.id.imgGif);
+        imgSave = findViewById(R.id.imgSave);
+        imgInfo = findViewById(R.id.imgInfo);
 
         //relativelayout
-        RelImgImage = findViewById(com.statussaver.com.statussaver.R.id.RelImgImage);
-        RelImgVideo = findViewById(com.statussaver.com.statussaver.R.id.RelImgVideo);
-        RelImgGif = findViewById(com.statussaver.com.statussaver.R.id.RelImgGif);
-        RelImgSave = findViewById(com.statussaver.com.statussaver.R.id.RelImgSave);
-        RelImgInfo = findViewById(com.statussaver.com.statussaver.R.id.RelImgInfo);
-        bottom_navigation_bar = findViewById(com.statussaver.com.statussaver.R.id.bottom_navigation_bar);
-        relmiidleroundbtn = findViewById(com.statussaver.com.statussaver.R.id.relmiidleroundbtn);
+        RelImgImage = findViewById(R.id.RelImgImage);
+        RelImgVideo = findViewById(R.id.RelImgVideo);
+        RelImgGif = findViewById(R.id.RelImgGif);
+        RelImgSave = findViewById(R.id.RelImgSave);
+        RelImgInfo = findViewById(R.id.RelImgInfo);
+        bottom_navigation_bar = findViewById(R.id.bottom_navigation_bar);
+        relmiidleroundbtn = findViewById(R.id.relmiidleroundbtn);
 
-        tv_how_to_use = findViewById(com.statussaver.com.statussaver.R.id.tv_share_app);
-        tv_privacy_policy = findViewById(com.statussaver.com.statussaver.R.id.tv_privacy_policy);
-        tv_rate = findViewById(com.statussaver.com.statussaver.R.id.tv_rate);
-        tv_settings = findViewById(com.statussaver.com.statussaver.R.id.tv_settings);
-        tv_share_app = findViewById(com.statussaver.com.statussaver.R.id.tv_share_app);
-        tv_send_mail = findViewById(com.statussaver.com.statussaver.R.id.tv_send_mail);
-        btnClose = findViewById(com.statussaver.com.statussaver.R.id.btnClose);
-        mAdView = findViewById(com.statussaver.com.statussaver.R.id.adView);
+        tv_how_to_use = findViewById(R.id.tv_share_app);
+        tv_privacy_policy = findViewById(R.id.tv_privacy_policy);
+        tv_rate = findViewById(R.id.tv_rate);
+        tv_settings = findViewById(R.id.tv_settings);
+        tv_share_app = findViewById(R.id.tv_share_app);
+        tv_send_mail = findViewById(R.id.tv_send_mail);
+        btnClose = findViewById(R.id.btnClose);
+        mAdView = findViewById(R.id.adView);
 
         RelImgImage.setOnClickListener(this);
         RelImgVideo.setOnClickListener(this);
@@ -169,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //setStatusList();
         initSetList();
         setButtonState();
-        MobileAds.initialize(this, getString(com.statussaver.com.statussaver.R.string.admob_ad_id));
+        MobileAds.initialize(this, getString(R.string.admob_ad_id));
         adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
@@ -343,7 +329,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             fragmentManager = getSupportFragmentManager();
         }
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(com.statussaver.com.statussaver.R.id.fragment_container, fragment);
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
@@ -352,12 +338,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void setButtonState() {
 
         showSelectedFragment(getImageFragment());
-        imgImage.setImageResource(com.statussaver.com.statussaver.R.drawable.ic_action_image_selected);
-        imgVideo.setImageResource(com.statussaver.com.statussaver.R.drawable.ic_action_video);
-        imgGif.setImageResource(com.statussaver.com.statussaver.R.drawable.ic_action_gif);
-        imgSave.setImageResource(com.statussaver.com.statussaver.R.drawable.ic_action_save);
+        imgImage.setImageResource(R.drawable.ic_action_image_selected);
+        imgVideo.setImageResource(R.drawable.ic_action_video);
+        imgGif.setImageResource(R.drawable.ic_action_gif);
+        imgSave.setImageResource(R.drawable.ic_action_save);
         // imgInfo.setImageResource(R.drawable.item_drawer);
-        imgInfo.setImageResource(com.statussaver.com.statussaver.R.drawable.item_drawer_selected);
+        imgInfo.setImageResource(R.drawable.item_drawer_selected);
     }
 
     @Override
@@ -376,7 +362,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (v.getId()) {
 
-            case com.statussaver.com.statussaver.R.id.RelImgImage:
+            case R.id.RelImgImage:
 
                 showSelectedFragment(getImageFragment());
 
@@ -384,55 +370,55 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     saveFragment = new SaveFragment();
                 }
                 saveFragment.updateContextMenu();
-                imgImage.setImageResource(com.statussaver.com.statussaver.R.drawable.ic_action_image_selected);
-                imgVideo.setImageResource(com.statussaver.com.statussaver.R.drawable.ic_action_video);
-                imgGif.setImageResource(com.statussaver.com.statussaver.R.drawable.ic_action_gif);
-                imgSave.setImageResource(com.statussaver.com.statussaver.R.drawable.ic_action_save);
-                imgInfo.setImageResource(com.statussaver.com.statussaver.R.drawable.item_drawer_selected);
+                imgImage.setImageResource(R.drawable.ic_action_image_selected);
+                imgVideo.setImageResource(R.drawable.ic_action_video);
+                imgGif.setImageResource(R.drawable.ic_action_gif);
+                imgSave.setImageResource(R.drawable.ic_action_save);
+                imgInfo.setImageResource(R.drawable.item_drawer_selected);
 
                 break;
 
-            case com.statussaver.com.statussaver.R.id.RelImgVideo:
+            case R.id.RelImgVideo:
                 showSelectedFragment(getVideoFragment());
                 if (saveFragment == null) {
                     saveFragment = new SaveFragment();
                 }
                 saveFragment.updateContextMenu();
-                imgImage.setImageResource(com.statussaver.com.statussaver.R.drawable.ic_action_image);
-                imgVideo.setImageResource(com.statussaver.com.statussaver.R.drawable.ic_action_video_selected);
-                imgGif.setImageResource(com.statussaver.com.statussaver.R.drawable.ic_action_gif);
-                imgSave.setImageResource(com.statussaver.com.statussaver.R.drawable.ic_action_save);
-                imgInfo.setImageResource(com.statussaver.com.statussaver.R.drawable.item_drawer_selected);
+                imgImage.setImageResource(R.drawable.ic_action_image);
+                imgVideo.setImageResource(R.drawable.ic_action_video_selected);
+                imgGif.setImageResource(R.drawable.ic_action_gif);
+                imgSave.setImageResource(R.drawable.ic_action_save);
+                imgInfo.setImageResource(R.drawable.item_drawer_selected);
 
                 break;
 
-            case com.statussaver.com.statussaver.R.id.RelImgGif:
+            case R.id.RelImgGif:
 
                 showSelectedFragment(getGifFragment());
 
-                imgImage.setImageResource(com.statussaver.com.statussaver.R.drawable.ic_action_image);
-                imgVideo.setImageResource(com.statussaver.com.statussaver.R.drawable.ic_action_video);
-                imgGif.setImageResource(com.statussaver.com.statussaver.R.drawable.ic_action_gif_selected);
-                imgSave.setImageResource(com.statussaver.com.statussaver.R.drawable.ic_action_save);
-                imgInfo.setImageResource(com.statussaver.com.statussaver.R.drawable.item_drawer_selected);
+                imgImage.setImageResource(R.drawable.ic_action_image);
+                imgVideo.setImageResource(R.drawable.ic_action_video);
+                imgGif.setImageResource(R.drawable.ic_action_gif_selected);
+                imgSave.setImageResource(R.drawable.ic_action_save);
+                imgInfo.setImageResource(R.drawable.item_drawer_selected);
                 break;
 
-            case com.statussaver.com.statussaver.R.id.RelImgSave:
+            case R.id.RelImgSave:
 
                 showSelectedFragment(getSaveFragment());
                 if (saveFragment == null) {
                     saveFragment = new SaveFragment();
                 }
                 saveFragment.updateContextMenu();
-                imgImage.setImageResource(com.statussaver.com.statussaver.R.drawable.ic_action_image);
-                imgVideo.setImageResource(com.statussaver.com.statussaver.R.drawable.ic_action_video);
-                imgGif.setImageResource(com.statussaver.com.statussaver.R.drawable.ic_action_gif);
-                imgSave.setImageResource(com.statussaver.com.statussaver.R.drawable.ic_action_save_selected);
-                imgInfo.setImageResource(com.statussaver.com.statussaver.R.drawable.item_drawer_selected);
+                imgImage.setImageResource(R.drawable.ic_action_image);
+                imgVideo.setImageResource(R.drawable.ic_action_video);
+                imgGif.setImageResource(R.drawable.ic_action_gif);
+                imgSave.setImageResource(R.drawable.ic_action_save_selected);
+                imgInfo.setImageResource(R.drawable.item_drawer_selected);
 
                 break;
 
-            case com.statussaver.com.statussaver.R.id.RelImgInfo:
+            case R.id.RelImgInfo:
                 drawerLayout.openDrawer(Gravity.RIGHT);
                 //showSelectedFragment(getInfoFragment());
 
@@ -449,31 +435,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                startActivity(intent);
 //                break;
 
-            case com.statussaver.com.statussaver.R.id.relmiidleroundbtn:
+            case R.id.relmiidleroundbtn:
                 openWhatsappFragment openWhatsappFragment = new openWhatsappFragment();
                 openWhatsappFragment.setContext(getApplicationContext());
                 openWhatsappFragment.show(getSupportFragmentManager(), "openWhatsappFragment");
 
                 break;
 
-            case com.statussaver.com.statussaver.R.id.tv_how_to_use:
+            case R.id.tv_how_to_use:
                 Intent howtouseintent = new Intent(this, IntroActivity.class);
                 howtouseintent.putExtra("pass", "showSkip");
                 startActivity(howtouseintent);
                 break;
-            case com.statussaver.com.statussaver.R.id.tv_privacy_policy:
+            case R.id.tv_privacy_policy:
                 String url = "https://sites.google.com/view/privacy-policy-status-saver/home";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
                 break;
-            case com.statussaver.com.statussaver.R.id.tv_rate:
+            case R.id.tv_rate:
                 goToMyApp(true);
                 break;
-            case com.statussaver.com.statussaver.R.id.tv_settings:
+            case R.id.tv_settings:
                 ToastCustom.setToast(this, "Coming Soon");
                 break;
-            case com.statussaver.com.statussaver.R.id.tv_share_app:
+            case R.id.tv_share_app:
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
@@ -482,13 +468,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(sendIntent);
                 break;
 
-            case com.statussaver.com.statussaver.R.id.tv_send_mail:
+            case R.id.tv_send_mail:
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
                 emailIntent.setData(Uri.parse("mailto:chamiappsdev@gmail.com"));
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Send feedback/suggestions");
                 startActivity(Intent.createChooser(emailIntent, "Send feedback/suggestions"));
                 break;
-            case com.statussaver.com.statussaver.R.id.btnClose:
+            case R.id.btnClose:
                 drawerLayout.closeDrawers();
                 break;
 

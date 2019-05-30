@@ -1,8 +1,8 @@
-package com.statussaver.com.statussaver.adapters;
+package com.statussaver.chamiappslk.statussaver.adapters;
 
 
 import android.content.Context;
-import android.statussaver.com.statussaver.fragments.MediaPageFragment;
+import com.statussaver.chamiappslk.statussaver.fragments.MediaPageFragment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.statussaver.com.statussaver.fragments.MediaPageFragment;
+import com.statussaver.chamiappslk.statussaver.fragments.MediaPageFragment;
 
 import java.io.File;
 import java.util.ArrayList;

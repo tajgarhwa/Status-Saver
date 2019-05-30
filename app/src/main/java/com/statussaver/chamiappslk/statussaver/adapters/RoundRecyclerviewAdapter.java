@@ -1,9 +1,11 @@
-package com.statussaver.com.statussaver.adapters;
+package com.statussaver.chamiappslk.statussaver.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+
+import com.statussaver.chamiappslk.statussaver.activities.ImageViewActivity;
+
 import android.statussaver.com.statussaver.R;
-import android.statussaver.com.statussaver.activities.ImageViewActivity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -40,7 +42,7 @@ public class RoundRecyclerviewAdapter extends RecyclerView.Adapter<RoundRecycler
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(com.statussaver.com.statussaver.R.layout.item_horizontal, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_horizontal, parent, false);
         return new ViewHolder(view);
     }
 
@@ -60,13 +62,13 @@ public class RoundRecyclerviewAdapter extends RecyclerView.Adapter<RoundRecycler
                 FileDescriptorBitmapDecoder fileDescriptorBitmapDecoder = new FileDescriptorBitmapDecoder(videoBitmapDecoder, bitmapPool, DecodeFormat.PREFER_ARGB_8888);
                 Glide.with(mContext)
                         .load("file://" + status.getAbsolutePath())
-                        .asBitmap().placeholder(com.statussaver.com.statussaver.R.drawable.placeholder)
+                        .asBitmap().placeholder(R.drawable.placeholder)
                         .override(SIZE_ORIGINAL, SIZE_ORIGINAL)// Example
                         .videoDecoder(fileDescriptorBitmapDecoder).override(100, 100)
                         .into(holder.profile_image);
             } else {
                 holder.rel_video.setVisibility(View.INVISIBLE);
-                Picasso.with(mContext).load(status.getAbsoluteFile()).placeholder(com.statussaver.com.statussaver.R.drawable.placeholder).resize(100, 100).into(holder.profile_image);
+                Picasso.with(mContext).load(status.getAbsoluteFile()).placeholder(R.drawable.placeholder).resize(100, 100).into(holder.profile_image);
             }
 
 
@@ -103,10 +105,10 @@ public class RoundRecyclerviewAdapter extends RecyclerView.Adapter<RoundRecycler
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.statusImage = itemView.findViewById(com.statussaver.com.statussaver.R.id.img_status);
-            this.profile_image = itemView.findViewById(com.statussaver.com.statussaver.R.id.profile_image);
-            this.relround = itemView.findViewById(com.statussaver.com.statussaver.R.id.relround);
-            this.rel_video = itemView.findViewById(com.statussaver.com.statussaver.R.id.rel_video);
+            this.statusImage = itemView.findViewById(R.id.img_status);
+            this.profile_image = itemView.findViewById(R.id.profile_image);
+            this.relround = itemView.findViewById(R.id.relround);
+            this.rel_video = itemView.findViewById(R.id.rel_video);
         }
     }
 }

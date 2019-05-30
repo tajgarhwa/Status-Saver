@@ -1,8 +1,9 @@
-package com.statussaver.com.statussaver.adapters;
+package com.statussaver.chamiappslk.statussaver.adapters;
 
 import android.content.Context;
+import com.statussaver.chamiappslk.statussaver.models.FileDetails;
+
 import android.statussaver.com.statussaver.R;
-import android.statussaver.com.statussaver.models.FileDetails;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

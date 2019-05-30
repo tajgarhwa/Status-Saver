@@ -1,14 +1,15 @@
-package com.statussaver.com.statussaver.adapters.Stories;
+package com.statussaver.chamiappslk.statussaver.adapters.Stories;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import com.statussaver.chamiappslk.statussaver.activities.ImageViewActivity;
+import com.statussaver.chamiappslk.statussaver.activities.VideoViewActivity;
+import com.statussaver.chamiappslk.statussaver.utils.ToastCustom;
+
 import android.statussaver.com.statussaver.R;
-import android.statussaver.com.statussaver.activities.ImageViewActivity;
-import android.statussaver.com.statussaver.activities.VideoViewActivity;
-import android.statussaver.com.statussaver.utils.ToastCustom;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;

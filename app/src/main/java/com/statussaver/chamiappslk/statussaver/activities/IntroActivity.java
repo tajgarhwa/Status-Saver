@@ -1,9 +1,7 @@
-package com.statussaver.com.statussaver.activities;
+package com.statussaver.chamiappslk.statussaver.activities;
 
 import android.content.Intent;
 import android.statussaver.com.statussaver.R;
-import android.statussaver.com.statussaver.utils.SettingsApps;
-import android.statussaver.com.statussaver.utils.ToastCustom;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,8 +25,8 @@ import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
-import com.statussaver.com.statussaver.utils.SettingsApps;
-import com.statussaver.com.statussaver.utils.ToastCustom;
+import com.statussaver.chamiappslk.statussaver.utils.SettingsApps;
+import com.statussaver.chamiappslk.statussaver.utils.ToastCustom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,12 +52,12 @@ public class IntroActivity extends YouTubeBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.statussaver.com.statussaver.R.layout.activity_intro);
-        youTubePlayerView = findViewById(com.statussaver.com.statussaver.R.id.youtubePlayerView);
+        setContentView(R.layout.activity_intro);
+        youTubePlayerView = findViewById(R.id.youtubePlayerView);
        // adContainer = (LinearLayout) findViewById(R.id.banner_container);
 
         settings = new SettingsApps(this);
-        skip_btn = findViewById(com.statussaver.com.statussaver.R.id.skip_btn);
+        skip_btn = findViewById(R.id.skip_btn);
         playVideo("QcGRithRCxM",youTubePlayerView);
 
         intent = getIntent();
@@ -95,7 +93,7 @@ public class IntroActivity extends YouTubeBaseActivity {
 //    }
     private void loadNativeAd() {
 
-        nativeAd = new NativeAd(this, getResources().getString(com.statussaver.com.statussaver.R.string.fb_native_ad));
+        nativeAd = new NativeAd(this, getResources().getString(R.string.fb_native_ad));
 
         nativeAd.setAdListener(new NativeAdListener() {
             @Override
@@ -143,26 +141,26 @@ public class IntroActivity extends YouTubeBaseActivity {
         nativeAd.unregisterView();
 
         // Add the Ad view into the ad container.
-        nativeAdLayout = findViewById(com.statussaver.com.statussaver.R.id.native_ad_container);
+        nativeAdLayout = findViewById(R.id.native_ad_container);
         LayoutInflater inflater = LayoutInflater.from(IntroActivity.this);
         // Inflate the Ad view.  The layout referenced should be the one you created in the last step.
-        adView = (LinearLayout) inflater.inflate(com.statussaver.com.statussaver.R.layout.native_ad_layout, nativeAdLayout, false);
+        adView = (LinearLayout) inflater.inflate(R.layout.native_ad_layout, nativeAdLayout, false);
         nativeAdLayout.addView(adView);
 
         // Add the AdOptionsView
-        LinearLayout adChoicesContainer = findViewById(com.statussaver.com.statussaver.R.id.ad_choices_container);
+        LinearLayout adChoicesContainer = findViewById(R.id.ad_choices_container);
         AdOptionsView adOptionsView = new AdOptionsView(IntroActivity.this, nativeAd, nativeAdLayout);
         adChoicesContainer.removeAllViews();
         adChoicesContainer.addView(adOptionsView, 0);
 
         // Create native UI using the ad metadata.
-        AdIconView nativeAdIcon = adView.findViewById(com.statussaver.com.statussaver.R.id.native_ad_icon);
-        TextView nativeAdTitle = adView.findViewById(com.statussaver.com.statussaver.R.id.native_ad_title);
-        MediaView nativeAdMedia = adView.findViewById(com.statussaver.com.statussaver.R.id.native_ad_media);
-        TextView nativeAdSocialContext = adView.findViewById(com.statussaver.com.statussaver.R.id.native_ad_social_context);
-        TextView nativeAdBody = adView.findViewById(com.statussaver.com.statussaver.R.id.native_ad_body);
-        TextView sponsoredLabel = adView.findViewById(com.statussaver.com.statussaver.R.id.native_ad_sponsored_label);
-        Button nativeAdCallToAction = adView.findViewById(com.statussaver.com.statussaver.R.id.native_ad_call_to_action);
+        AdIconView nativeAdIcon = adView.findViewById(R.id.native_ad_icon);
+        TextView nativeAdTitle = adView.findViewById(R.id.native_ad_title);
+        MediaView nativeAdMedia = adView.findViewById(R.id.native_ad_media);
+        TextView nativeAdSocialContext = adView.findViewById(R.id.native_ad_social_context);
+        TextView nativeAdBody = adView.findViewById(R.id.native_ad_body);
+        TextView sponsoredLabel = adView.findViewById(R.id.native_ad_sponsored_label);
+        Button nativeAdCallToAction = adView.findViewById(R.id.native_ad_call_to_action);
 
         // Set the Text.
         nativeAdTitle.setText(nativeAd.getAdvertiserName());
@@ -186,7 +184,7 @@ public class IntroActivity extends YouTubeBaseActivity {
     }
 
     public void playVideo(final String videoId, YouTubePlayerView youTubePlayerView) {
-        youTubePlayerView.initialize(getString(com.statussaver.com.statussaver.R.string.youtube_api_key),
+        youTubePlayerView.initialize(getString(R.string.youtube_api_key),
                 new YouTubePlayer.OnInitializedListener() {
                     @Override
                     public void onInitializationSuccess(YouTubePlayer.Provider provider,

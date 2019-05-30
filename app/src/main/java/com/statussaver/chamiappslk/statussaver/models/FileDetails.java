@@ -1,4 +1,4 @@
-package com.statussaver.com.statussaver.models;
+package com.statussaver.chamiappslk.statussaver.models;
 
 public class FileDetails {
 

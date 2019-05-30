@@ -1,4 +1,4 @@
-package com.statussaver.com.statussaver.fragments;
+package com.statussaver.chamiappslk.statussaver.fragments;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;

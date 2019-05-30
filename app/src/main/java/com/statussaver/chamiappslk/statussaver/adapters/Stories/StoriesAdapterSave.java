@@ -1,11 +1,12 @@
-package com.statussaver.com.statussaver.adapters.Stories;
+package com.statussaver.chamiappslk.statussaver.adapters.Stories;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import com.statussaver.chamiappslk.statussaver.activities.ImageViewActivity;
+import com.statussaver.chamiappslk.statussaver.activities.VideoViewActivity;
+
 import android.statussaver.com.statussaver.R;
-import android.statussaver.com.statussaver.activities.ImageViewActivity;
-import android.statussaver.com.statussaver.activities.VideoViewActivity;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -58,7 +59,7 @@ public class StoriesAdapterSave extends RecyclerView.Adapter<StoriesAdapterSave.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(com.statussaver.com.statussaver.R.layout.main_grid_layout_save, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.main_grid_layout_save, parent, false);
         return new ViewHolder(view);
     }
 
@@ -82,7 +83,7 @@ public class StoriesAdapterSave extends RecyclerView.Adapter<StoriesAdapterSave.
             FileDescriptorBitmapDecoder fileDescriptorBitmapDecoder = new FileDescriptorBitmapDecoder(videoBitmapDecoder, bitmapPool, DecodeFormat.PREFER_ARGB_8888);
             Glide.with(mContext)
                     .load("file://" + status.getAbsolutePath())
-                    .asBitmap().placeholder(com.statussaver.com.statussaver.R.drawable.placeholder)
+                    .asBitmap().placeholder(R.drawable.placeholder)
                     .override(SIZE_ORIGINAL,SIZE_ORIGINAL)// Example
                     .videoDecoder(fileDescriptorBitmapDecoder)
                     .into(holder.statusImage);
@@ -91,14 +92,14 @@ public class StoriesAdapterSave extends RecyclerView.Adapter<StoriesAdapterSave.
         }
         else if (status.getAbsolutePath().endsWith(".jpg") || status.getAbsolutePath().endsWith(".png")){
 
-            Picasso.with(mContext).load(status.getAbsoluteFile()).placeholder(com.statussaver.com.statussaver.R.drawable.placeholder).into(holder.statusImage);
+            Picasso.with(mContext).load(status.getAbsoluteFile()).placeholder(R.drawable.placeholder).into(holder.statusImage);
 
             holder.rel_save_video.setVisibility(View.GONE);
 
         }else if (status.getAbsolutePath().endsWith(".gif")){
 
             GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(holder.statusImage);
-            Glide.with(mContext).load("file://" + status.getAbsoluteFile()).placeholder(com.statussaver.com.statussaver.R.drawable.placeholder).into(imageViewTarget);
+            Glide.with(mContext).load("file://" + status.getAbsoluteFile()).placeholder(R.drawable.placeholder).into(imageViewTarget);
             holder.rel_save_video.setVisibility(View.GONE);
         }
 
@@ -168,11 +169,11 @@ public class StoriesAdapterSave extends RecyclerView.Adapter<StoriesAdapterSave.
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.statusImage = itemView.findViewById(com.statussaver.com.statussaver.R.id.img_status);
+            this.statusImage = itemView.findViewById(R.id.img_status);
 //            this.btnDownload = itemView.findViewById(R.id.btnDownload);
 //            this.btnShare = itemView.findViewById(R.id.btnShare);
-            this.rel_save_video = itemView.findViewById(com.statussaver.com.statussaver.R.id.rel_save_video);
-            this.layoutSelected = itemView.findViewById(com.statussaver.com.statussaver.R.id.layoutSelected);
+            this.rel_save_video = itemView.findViewById(R.id.rel_save_video);
+            this.layoutSelected = itemView.findViewById(R.id.layoutSelected);
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.statussaver.com.statussaver.activities;
+package com.statussaver.chamiappslk.statussaver.activities;
 
 
 import android.support.v7.app.AppCompatActivity;

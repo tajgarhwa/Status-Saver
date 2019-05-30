@@ -1,4 +1,4 @@
-package com.statussaver.com.statussaver.fragments;
+package com.statussaver.chamiappslk.statussaver.fragments;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,13 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.statussaver.com.statussaver.BaseCompare;
-import android.statussaver.com.statussaver.activities.MainActivity;
-import android.statussaver.com.statussaver.adapters.Stories.StoriesAdapterImage;
-import android.statussaver.com.statussaver.adapters.Stories.StoriesAdapterVideo;
-import android.statussaver.com.statussaver.models.Status;
-import android.statussaver.com.statussaver.utils.HideShowScrollListener;
-import android.statussaver.com.statussaver.utils.ToastCustom;
+import android.statussaver.com.statussaver.R;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,7 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.statussaver.com.statussaver.R;
+
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
@@ -35,11 +29,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.statussaver.com.statussaver.BaseCompare;
-import com.statussaver.com.statussaver.adapters.Stories.StoriesAdapterVideo;
-import com.statussaver.com.statussaver.models.Status;
-import com.statussaver.com.statussaver.utils.HideShowScrollListener;
-import com.statussaver.com.statussaver.utils.ToastCustom;
+import com.statussaver.chamiappslk.statussaver.BaseCompare;
+import com.statussaver.chamiappslk.statussaver.activities.MainActivity;
+import com.statussaver.chamiappslk.statussaver.adapters.Stories.StoriesAdapterVideo;
+import com.statussaver.chamiappslk.statussaver.models.Status;
+import com.statussaver.chamiappslk.statussaver.utils.HideShowScrollListener;
+import com.statussaver.chamiappslk.statussaver.utils.ToastCustom;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -282,24 +277,24 @@ public class VideoFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(com.statussaver.com.statussaver.R.layout.fragment_video, container, false);
-        recyclerView = view.findViewById(com.statussaver.com.statussaver.R.id.recyclerview);
-        fabMain = view.findViewById(com.statussaver.com.statussaver.R.id.fab_main);
-        fabFirst = view.findViewById(com.statussaver.com.statussaver.R.id.fab_main_first);
-        fabMainsecond = view.findViewById(com.statussaver.com.statussaver.R.id.fab_main_download);
-        fabthired = view.findViewById(com.statussaver.com.statussaver.R.id.fab_main_thired);
-        tvImage = view.findViewById(com.statussaver.com.statussaver.R.id.tvImage);
-        img_imoji = view.findViewById(com.statussaver.com.statussaver.R.id.img_imoji);
-        relFirst = view.findViewById(com.statussaver.com.statussaver.R.id.relFirst);
-        relSecond = view.findViewById(com.statussaver.com.statussaver.R.id.relSecond);
-        relThired = view.findViewById(com.statussaver.com.statussaver.R.id.relThired);
+        View view = inflater.inflate(R.layout.fragment_video, container, false);
+        recyclerView = view.findViewById(R.id.recyclerview);
+        fabMain = view.findViewById(R.id.fab_main);
+        fabFirst = view.findViewById(R.id.fab_main_first);
+        fabMainsecond = view.findViewById(R.id.fab_main_download);
+        fabthired = view.findViewById(R.id.fab_main_thired);
+        tvImage = view.findViewById(R.id.tvImage);
+        img_imoji = view.findViewById(R.id.img_imoji);
+        relFirst = view.findViewById(R.id.relFirst);
+        relSecond = view.findViewById(R.id.relSecond);
+        relThired = view.findViewById(R.id.relThired);
 
-        progressDialog = view.findViewById(com.statussaver.com.statussaver.R.id.progres_main);
+        progressDialog = view.findViewById(R.id.progres_main);
 
-        fabOpen = AnimationUtils.loadAnimation(getActivity(), com.statussaver.com.statussaver.R.anim.fab_open);
-        fabClose = AnimationUtils.loadAnimation(getActivity(), com.statussaver.com.statussaver.R.anim.fab_close);
-        fabForaward = AnimationUtils.loadAnimation(getActivity(), com.statussaver.com.statussaver.R.anim.rotate_forward);
-        fabBackward = AnimationUtils.loadAnimation(getActivity(), com.statussaver.com.statussaver.R.anim.rotate_backward);
+        fabOpen = AnimationUtils.loadAnimation(getActivity(),R.anim.fab_open);
+        fabClose = AnimationUtils.loadAnimation(getActivity(),R.anim.fab_close);
+        fabForaward = AnimationUtils.loadAnimation(getActivity(),R.anim.rotate_forward);
+        fabBackward = AnimationUtils.loadAnimation(getActivity(),R.anim.rotate_backward);
 
         fabMain.setOnClickListener(this);
         fabFirst.setOnClickListener(this);
@@ -464,10 +459,10 @@ public class VideoFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case com.statussaver.com.statussaver.R.id.fab_main:
+            case R.id.fab_main:
                 animatedFab();
                 break;
-            case com.statussaver.com.statussaver.R.id.fab_main_first:
+            case R.id.fab_main_first:
                 animatedFab();
 //                initSetList(WHATSAPP_STATUSES_LOCATION_SEND, "THREE");
 //                ToastCustom.setToast(getActivity(), "WhatsApp Sent Images..");
@@ -480,7 +475,7 @@ public class VideoFragment extends Fragment implements View.OnClickListener {
                     }
                 }, 500);
                 break;
-            case com.statussaver.com.statussaver.R.id.fab_main_download:
+            case R.id.fab_main_download:
                 animatedFab();
                 inFiles.clear();
                 //initSetList(WHATSAPP_STATUSES_LOCATION_RECIVED, "TWO");
@@ -494,7 +489,7 @@ public class VideoFragment extends Fragment implements View.OnClickListener {
                 }, 500);
 
                 break;
-            case com.statussaver.com.statussaver.R.id.fab_main_thired:
+            case R.id.fab_main_thired:
                 animatedFab();
                 inFiles.clear();
 //                initSetList(WHATSAPP_STATUSES_LOCATION, "ONE");
@@ -529,7 +524,7 @@ public class VideoFragment extends Fragment implements View.OnClickListener {
         @Override
         protected void onPostExecute(String result) {
 
-            int resId = com.statussaver.com.statussaver.R.anim.layout_animation_slide_down;
+            int resId = R.anim.layout_animation_slide_down;
             recyclerviewAdapter = new StoriesAdapterVideo(inFiles, getActivity(), "TWO");
             StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(COUNT, LinearLayoutManager.VERTICAL);
 
@@ -579,7 +574,7 @@ public class VideoFragment extends Fragment implements View.OnClickListener {
         protected void onPostExecute(String result) {
 
 
-            int resId = com.statussaver.com.statussaver.R.anim.layout_animation_slide_down;
+            int resId = R.anim.layout_animation_slide_down;
             recyclerviewAdapter = new StoriesAdapterVideo(inFiles, getActivity(), "THREE");
             StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(COUNT, LinearLayoutManager.VERTICAL);
 
@@ -631,7 +626,7 @@ public class VideoFragment extends Fragment implements View.OnClickListener {
         @Override
         protected void onPostExecute(String result) {
 
-            int resId = com.statussaver.com.statussaver.R.anim.layout_animation_slide_down;
+            int resId = R.anim.layout_animation_slide_down;
             recyclerviewAdapter = new StoriesAdapterVideo(inFiles, getActivity(), "ONE");
             StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(COUNT, LinearLayoutManager.VERTICAL);
 

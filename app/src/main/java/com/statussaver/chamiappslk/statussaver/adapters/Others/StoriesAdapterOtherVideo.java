@@ -1,11 +1,10 @@
-package com.statussaver.com.statussaver.adapters.Others;
+package com.statussaver.chamiappslk.statussaver.adapters.Others;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.statussaver.com.statussaver.R;
-import android.statussaver.com.statussaver.activities.VideoViewActivity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,6 +20,7 @@ import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.FileDescriptorBitmapDecoder;
 import com.bumptech.glide.load.resource.bitmap.VideoBitmapDecoder;
+import com.statussaver.chamiappslk.statussaver.activities.VideoViewActivity;
 
 import java.io.File;
 import java.io.FileInputStream;

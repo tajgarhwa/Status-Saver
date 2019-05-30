@@ -1,12 +1,13 @@
-package com.statussaver.com.statussaver.DialogFragment;
+package com.statussaver.chamiappslk.statussaver.DialogFragment;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import com.statussaver.chamiappslk.statussaver.activities.MainActivity;
+
 import android.statussaver.com.statussaver.R;
-import android.statussaver.com.statussaver.activities.MainActivity;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;

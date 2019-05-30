@@ -1,11 +1,12 @@
-package com.statussaver.com.statussaver.adapters.Stories;
+package com.statussaver.chamiappslk.statussaver.adapters.Stories;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
+import com.statussaver.chamiappslk.statussaver.activities.GifViewActivity;
+
 import android.statussaver.com.statussaver.R;
-import android.statussaver.com.statussaver.activities.GifViewActivity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

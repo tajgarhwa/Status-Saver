@@ -1,11 +1,10 @@
-package com.statussaver.com.statussaver.adapters.Others;
+package com.statussaver.chamiappslk.statussaver.adapters.Others;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.statussaver.com.statussaver.R;
-import android.statussaver.com.statussaver.activities.ImageViewActivity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.statussaver.chamiappslk.statussaver.activities.ImageViewActivity;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -1,4 +1,4 @@
-package com.statussaver.com.statussaver.activities;
+package com.statussaver.chamiappslk.statussaver.activities;
 
 import android.annotation.SuppressLint;
 import android.app.WallpaperManager;
@@ -11,9 +11,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.statussaver.com.statussaver.R;
-import android.statussaver.com.statussaver.adapters.ViewPagerAdapter;
-import android.statussaver.com.statussaver.utils.Alerts;
-import android.statussaver.com.statussaver.utils.ToastCustom;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
@@ -36,9 +33,9 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.squareup.picasso.Picasso;
-import com.statussaver.com.statussaver.adapters.ViewPagerAdapter;
-import com.statussaver.com.statussaver.utils.Alerts;
-import com.statussaver.com.statussaver.utils.ToastCustom;
+import com.statussaver.chamiappslk.statussaver.adapters.ViewPagerAdapter;
+import com.statussaver.chamiappslk.statussaver.utils.Alerts;
+import com.statussaver.chamiappslk.statussaver.utils.ToastCustom;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -82,7 +79,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.statussaver.com.statussaver.R.layout.activity_image_view);
+        setContentView(R.layout.activity_image_view);
 
         //sessionUrl = getIntent().getStringExtra("imageList");
         documents = (ArrayList<File>) getIntent().getSerializableExtra("imageList");
@@ -96,25 +93,25 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
 
         globPosition =pos;
 
-        fabMain = findViewById(com.statussaver.com.statussaver.R.id.fab_main);
-        fabFirst = findViewById(com.statussaver.com.statussaver.R.id.fab_main_first);
-        fabMainsecond = findViewById(com.statussaver.com.statussaver.R.id.fab_main_download);
-        fabthired = findViewById(com.statussaver.com.statussaver.R.id.fab_main_thired);
-        fab_main_share = findViewById(com.statussaver.com.statussaver.R.id.fab_main_share);
-        ViewPager viewPager = findViewById(com.statussaver.com.statussaver.R.id.view_pager);
-        tvCurrentItem = findViewById(com.statussaver.com.statussaver.R.id.tvCurrentItem);
-        rel_close = findViewById(com.statussaver.com.statussaver.R.id.rel_close);
+        fabMain = findViewById(R.id.fab_main);
+        fabFirst = findViewById(R.id.fab_main_first);
+        fabMainsecond = findViewById(R.id.fab_main_download);
+        fabthired = findViewById(R.id.fab_main_thired);
+        fab_main_share = findViewById(R.id.fab_main_share);
+        ViewPager viewPager = findViewById(R.id.view_pager);
+        tvCurrentItem = findViewById(R.id.tvCurrentItem);
+        rel_close = findViewById(R.id.rel_close);
 
-        relshare = findViewById(com.statussaver.com.statussaver.R.id.relshare);
-        relshare_fab_main_thired = findViewById(com.statussaver.com.statussaver.R.id.relshare_fab_main_thired);
-        relshare_fab_main_download = findViewById(com.statussaver.com.statussaver.R.id.relshare_fab_main_download);
-        relshare_fab_main_first = findViewById(com.statussaver.com.statussaver.R.id.relshare_fab_main_first);
-        mAdView = findViewById(com.statussaver.com.statussaver.R.id.adView);
+        relshare = findViewById(R.id.relshare);
+        relshare_fab_main_thired = findViewById(R.id.relshare_fab_main_thired);
+        relshare_fab_main_download = findViewById(R.id.relshare_fab_main_download);
+        relshare_fab_main_first = findViewById(R.id.relshare_fab_main_first);
+        mAdView = findViewById(R.id.adView);
 
-        fabOpen = AnimationUtils.loadAnimation(this, com.statussaver.com.statussaver.R.anim.fab_open);
-        fabClose = AnimationUtils.loadAnimation(this, com.statussaver.com.statussaver.R.anim.fab_close);
-        fabForaward = AnimationUtils.loadAnimation(this, com.statussaver.com.statussaver.R.anim.rotate_forward);
-        fabBackward = AnimationUtils.loadAnimation(this, com.statussaver.com.statussaver.R.anim.rotate_backward);
+        fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open);
+        fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close);
+        fabForaward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
+        fabBackward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
 
         fabMain.setOnClickListener(this);
         fabFirst.setOnClickListener(this);
@@ -138,7 +135,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
         }
 
         hideView(state);
-        MobileAds.initialize(this, getString(com.statussaver.com.statussaver.R.string.admob_ad_id));
+        MobileAds.initialize(this, getString(R.string.admob_ad_id));
         loadIndustrialAd();
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             mAdView.setVisibility(View.VISIBLE);
@@ -164,7 +161,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
     private void loadIndustrialAd() {
         //industrial_ad
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getString(com.statussaver.com.statussaver.R.string.admob_indastrial));
+        mInterstitialAd.setAdUnitId(getString(R.string.admob_indastrial));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
     }
@@ -224,10 +221,10 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case com.statussaver.com.statussaver.R.id.fab_main:
+            case R.id.fab_main:
                 animatedFab();
                 break;
-            case com.statussaver.com.statussaver.R.id.fab_main_first:
+            case R.id.fab_main_first:
                 if (mInterstitialAd.isLoaded()) {
                     mInterstitialAd.show();
                 }
@@ -269,7 +266,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
                 }
                 animatedFab();
                 break;
-            case com.statussaver.com.statussaver.R.id.fab_main_download:
+            case R.id.fab_main_download:
                 if (mInterstitialAd.isLoaded()) {
                     mInterstitialAd.show();
                 }
@@ -282,7 +279,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
                     Log.e("RecyclerV", "onClick: Error:"+e.getMessage() );
                 }
                 break;
-            case com.statussaver.com.statussaver.R.id.fab_main_thired:
+            case R.id.fab_main_thired:
                 if (mInterstitialAd.isLoaded()) {
                     mInterstitialAd.show();
                 }
@@ -317,7 +314,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
                 animatedFab();
                 break;
 
-            case com.statussaver.com.statussaver.R.id.fab_main_share:
+            case R.id.fab_main_share:
                 if (mInterstitialAd.isLoaded()) {
                     mInterstitialAd.show();
                 }
@@ -329,7 +326,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
                 animatedFab();
                 break;
 
-            case com.statussaver.com.statussaver.R.id.rel_close:
+            case R.id.rel_close:
                 if (mInterstitialAd.isLoaded()) {
                     mInterstitialAd.show();
                 }

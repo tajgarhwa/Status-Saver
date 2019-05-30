@@ -1,11 +1,10 @@
-package com.statussaver.com.statussaver.adapters.Others;
+package com.statussaver.chamiappslk.statussaver.adapters.Others;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.statussaver.com.statussaver.R;
-import android.statussaver.com.statussaver.activities.GifViewActivity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,9 +13,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.statussaver.chamiappslk.statussaver.activities.GifViewActivity;
 
 import java.io.File;
 import java.io.FileInputStream;

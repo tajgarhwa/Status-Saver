@@ -1,10 +1,9 @@
-package com.statussaver.com.statussaver.activities;
+package com.statussaver.chamiappslk.statussaver.activities;
 
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
 import android.statussaver.com.statussaver.R;
-import android.statussaver.com.statussaver.utils.ToastCustom;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,7 +20,7 @@ import android.widget.VideoView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.squareup.picasso.Picasso;
-import com.statussaver.com.statussaver.utils.ToastCustom;
+import com.statussaver.chamiappslk.statussaver.utils.ToastCustom;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -45,23 +44,23 @@ public class GifViewActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(com.statussaver.com.statussaver.R.layout.activity_gif_view);
+        setContentView(R.layout.activity_gif_view);
 
 
         sessionUrl = getIntent().getStringExtra("gif");
         sourceFile = (File) getIntent().getSerializableExtra("file");
 
-        videoView = findViewById(com.statussaver.com.statussaver.R.id.img_status);
+        videoView = findViewById(R.id.img_status);
 
-        fabMain = findViewById(com.statussaver.com.statussaver.R.id.fab_main);
-        fabFirst = findViewById(com.statussaver.com.statussaver.R.id.fab_main_first);
-        fabMainsecond = findViewById(com.statussaver.com.statussaver.R.id.fab_main_download);
-        fabthired = findViewById(com.statussaver.com.statussaver.R.id.fab_main_thired);
+        fabMain = findViewById(R.id.fab_main);
+        fabFirst = findViewById(R.id.fab_main_first);
+        fabMainsecond = findViewById(R.id.fab_main_download);
+        fabthired = findViewById(R.id.fab_main_thired);
 
-        fabOpen = AnimationUtils.loadAnimation(this, com.statussaver.com.statussaver.R.anim.fab_open);
-        fabClose = AnimationUtils.loadAnimation(this, com.statussaver.com.statussaver.R.anim.fab_close);
-        fabForaward = AnimationUtils.loadAnimation(this, com.statussaver.com.statussaver.R.anim.rotate_forward);
-        fabBackward = AnimationUtils.loadAnimation(this, com.statussaver.com.statussaver.R.anim.rotate_backward);
+        fabOpen = AnimationUtils.loadAnimation(this,R.anim.fab_open);
+        fabClose = AnimationUtils.loadAnimation(this,R.anim.fab_close);
+        fabForaward = AnimationUtils.loadAnimation(this,R.anim.rotate_forward);
+        fabBackward = AnimationUtils.loadAnimation(this,R.anim.rotate_backward);
 
         fabMain.setOnClickListener(this);
         fabFirst.setOnClickListener(this);
@@ -119,13 +118,13 @@ public class GifViewActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case com.statussaver.com.statussaver.R.id.fab_main:
+            case R.id.fab_main:
                 animatedFab();
                 break;
-            case com.statussaver.com.statussaver.R.id.fab_main_first:
+            case R.id.fab_main_first:
                 animatedFab();
                 break;
-            case com.statussaver.com.statussaver.R.id.fab_main_download:
+            case R.id.fab_main_download:
                 animatedFab();
                 try {
                     copyFile(sourceFile, new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW + sourceFile.getName()));
@@ -135,7 +134,7 @@ public class GifViewActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 ToastCustom.setToast(this, "Image Saved..");
                 break;
-            case com.statussaver.com.statussaver.R.id.fab_main_thired:
+            case R.id.fab_main_thired:
                 animatedFab();
                 break;
         }

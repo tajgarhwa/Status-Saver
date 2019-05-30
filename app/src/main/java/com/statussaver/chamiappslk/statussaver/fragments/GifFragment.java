@@ -1,14 +1,10 @@
-package com.statussaver.com.statussaver.fragments;
+package com.statussaver.chamiappslk.statussaver.fragments;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.statussaver.com.statussaver.BaseCompare;
-import android.statussaver.com.statussaver.adapters.Stories.StoriesAdapterGif;
-import android.statussaver.com.statussaver.adapters.Stories.StoriesAdapterImage;
-import android.statussaver.com.statussaver.models.Status;
-import android.statussaver.com.statussaver.utils.ToastCustom;
+import android.statussaver.com.statussaver.R;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.statussaver.com.statussaver.R;
+import com.statussaver.chamiappslk.statussaver.BaseCompare;
+import com.statussaver.chamiappslk.statussaver.adapters.Stories.StoriesAdapterGif;
+import com.statussaver.chamiappslk.statussaver.models.Status;
+import com.statussaver.chamiappslk.statussaver.utils.ToastCustom;
+
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
