@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "29559870203",
-    "firebase_url": "https://status-saver-99b92.firebaseio.com",
-    "project_id": "status-saver-99b92",
-    "storage_bucket": "status-saver-99b92.appspot.com"
+    "project_number": "1097168813834",
+    "firebase_url": "https://status-saver-wap.firebaseio.com",
+    "project_id": "status-saver-wap",
+    "storage_bucket": "status-saver-wap.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:29559870203:android:2df60bb730afde0b",
+        "mobilesdk_app_id": "1:1097168813834:android:2d693f817d18850f",
         "android_client_info": {
-          "package_name": "android.statussaver.com.statussaver"
+          "package_name": "com.statussaver.chamiappslk.statussaver"
         }
       },
       "oauth_client": [
         {
-          "client_id": "29559870203-8r1l8r6v345o4nbotcst23h39edahn7s.apps.googleusercontent.com",
+          "client_id": "1097168813834-0h23l37qtttjb8k8tu2rgqsvus2fpjml.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "android.statussaver.com.statussaver",
+            "package_name": "com.statussaver.chamiappslk.statussaver",
             "certificate_hash": "21d072706cbb10a32ffc476600f2005665db594b"
           }
         },
         {
-          "client_id": "29559870203-81lu7rvbcbusfls6f63ii5mdg593d09g.apps.googleusercontent.com",
+          "client_id": "1097168813834-a9u6rkgssklhmlp0rtl2nqsn4dgi9c30.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBBwNb_uAoo__C4cdX-xDI0kxv0DuSmQVQ"
+          "current_key": "AIzaSyCmcZ7FLFq03BJl36TL9BdIgKZV4LQ4bZo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "29559870203-81lu7rvbcbusfls6f63ii5mdg593d09g.apps.googleusercontent.com",
+              "client_id": "1097168813834-a9u6rkgssklhmlp0rtl2nqsn4dgi9c30.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

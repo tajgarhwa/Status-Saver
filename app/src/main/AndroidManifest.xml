@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
 
     <application
-        android:name=".MyApplication"
+        android:name="com.statussaver.chamiappslk.statussaver.MyApplication"
         android:networkSecurityConfig="@xml/network_security_config"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
@@ -20,10 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.statussaver.chamiappslk.statussaver.activities.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.SplashActivity"
+            android:name="com.statussaver.chamiappslk.statussaver.activities.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,12 +31,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ImageViewActivity" />
+        <activity android:name="com.statussaver.chamiappslk.statussaver.activities.ImageViewActivity" />
         <activity
-            android:name=".activities.VideoViewActivity"
+            android:name="com.statussaver.chamiappslk.statussaver.activities.VideoViewActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.GifViewActivity"
+            android:name="com.statussaver.chamiappslk.statussaver.activities.GifViewActivity"
             android:screenOrientation="portrait" />
 
         <!--<service android:name=".service.MediaListenerService">-->
@@ -58,7 +58,7 @@
         <!--</receiver>-->
 
         <activity
-            android:name=".activities.SettingsActivity"
+            android:name="com.statussaver.chamiappslk.statussaver.activities.SettingsActivity"
             android:screenOrientation="portrait" />
 
         <provider
@@ -76,7 +76,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".activities.IntroActivity"
+            android:name="com.statussaver.chamiappslk.statussaver.activities.IntroActivity"
             android:screenOrientation="portrait">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
