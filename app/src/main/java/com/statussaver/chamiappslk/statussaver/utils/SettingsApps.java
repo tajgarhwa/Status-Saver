@@ -25,5 +25,14 @@ public class SettingsApps {
         return value;
     }
 
+    public void setShowHowToPopUp(boolean value) {
+        getPref().edit().putBoolean("ShowHowToPopUp", value).commit();
+    }
+
+    public boolean getShowHowToPopUp() {
+        boolean value = getPref().getBoolean("ShowHowToPopUp", true);
+        return value;
+    }
+
 
 }

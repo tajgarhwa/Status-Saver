@@ -34,12 +34,27 @@
             android:clickable="true"
             android:drawablePadding="10dp"
             android:gravity="left|center_vertical"
+            android:text="Watch tutorial?"
+            android:fontFamily="@font/righteous_regular"
+            android:drawableLeft="@drawable/info_meterial"
+            android:onClick="onClick"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/tv_how_to_use_tutorial"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:clickable="true"
+            android:drawablePadding="10dp"
+            android:gravity="left|center_vertical"
             android:text="How to use?"
             android:fontFamily="@font/righteous_regular"
             android:drawableLeft="@drawable/info_meterial"
             android:onClick="onClick"
             android:textColor="@color/white"
             android:textSize="18sp"/>
+
 
         <TextView
             android:id="@+id/tv_privacy_policy"

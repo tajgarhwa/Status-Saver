@@ -1,6 +1,7 @@
 package com.statussaver.chamiappslk.statussaver.activities;
 
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
@@ -45,6 +46,8 @@ import com.statussaver.chamiappslk.statussaver.fragments.InfoFragment;
 import com.statussaver.chamiappslk.statussaver.fragments.SaveFragment;
 import com.statussaver.chamiappslk.statussaver.fragments.VideoFragment;
 import com.statussaver.chamiappslk.statussaver.models.Status;
+import com.statussaver.chamiappslk.statussaver.utils.Alerts;
+import com.statussaver.chamiappslk.statussaver.utils.SettingsApps;
 import com.statussaver.chamiappslk.statussaver.utils.ToastCustom;
 
 import java.io.File;
@@ -84,9 +87,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     MediaPlayer player;
     RelativeLayout bottom_navigation_bar, relmiidleroundbtn, btnClose;
 
-    TextView tv_how_to_use, tv_privacy_policy, tv_rate, tv_settings, tv_share_app,tv_send_mail;
+    TextView tv_how_to_use, tv_privacy_policy, tv_rate, tv_settings, tv_share_app, tv_send_mail,tv_how_to_use_tutorial;
     private AdRequest adRequest;
     private AdView mAdView;
+    private SettingsApps settingsApps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             window.setBackgroundDrawable(background);
         }
+        settingsApps = new SettingsApps(this);
         setContentView(R.layout.activity_main);
 
         //jobDispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
@@ -130,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv_settings = findViewById(R.id.tv_settings);
         tv_share_app = findViewById(R.id.tv_share_app);
         tv_send_mail = findViewById(R.id.tv_send_mail);
+        tv_how_to_use_tutorial = findViewById(R.id.tv_how_to_use_tutorial);
         btnClose = findViewById(R.id.btnClose);
         mAdView = findViewById(R.id.adView);
 
@@ -147,6 +153,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv_settings.setOnClickListener(this);
         tv_share_app.setOnClickListener(this);
         tv_send_mail.setOnClickListener(this);
+        tv_how_to_use_tutorial.setOnClickListener(this);
         btnClose.setOnClickListener(this);
 
 
@@ -168,13 +175,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Random random = new Random();
         int numberRandom = random.nextInt(100 - 1) + 1;
 
-        if (numberRandom < 50){
+        if (numberRandom < 50) {
             mAdView.setVisibility(View.VISIBLE);
         }
 
+        if (settingsApps.getShowHowToPopUp()) {
+            Alerts.ShowSuccess(MainActivity.this, "", new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    settingsApps.setShowHowToPopUp(false);
+                    dialog.dismiss();
+                }
+            }, false);
+        }
+
     }
-
-
 
     public void hideBottomNavigationMenu(boolean b) {
         if (b) {
@@ -351,10 +366,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
         Random random = new Random();
         int numberRandom = random.nextInt(100 - 1) + 1;
-        if (numberRandom < 50){
+        if (numberRandom < 50) {
             mAdView.setVisibility(View.VISIBLE);
         }
-
+        getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentById(R.id.fragment_container)).commit();
+        initSetList();
+        setButtonState();
     }
 
     @Override
@@ -443,6 +460,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.tv_how_to_use:
+                drawerLayout.closeDrawers();
                 Intent howtouseintent = new Intent(this, IntroActivity.class);
                 howtouseintent.putExtra("pass", "showSkip");
                 startActivity(howtouseintent);
@@ -454,16 +472,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(i);
                 break;
             case R.id.tv_rate:
+                drawerLayout.closeDrawers();
                 goToMyApp(true);
                 break;
             case R.id.tv_settings:
-                ToastCustom.setToast(this, "Coming Soon");
+                drawerLayout.closeDrawers();
+                ToastCustom.setToast(this, "Coming Soon..");
                 break;
             case R.id.tv_share_app:
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
-                        "Hey check out my app at: https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID);
+                        "Hey download this app at: https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID);
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
                 break;
@@ -476,6 +496,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnClose:
                 drawerLayout.closeDrawers();
+                break;
+
+            case R.id.tv_how_to_use_tutorial:
+                drawerLayout.closeDrawers();
+                Alerts.ShowSuccess(MainActivity.this, "", new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        dialog.dismiss();
+                    }
+                }, false);
                 break;
 
 
@@ -562,8 +592,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        }
 
     }
-
-
 
 
 }

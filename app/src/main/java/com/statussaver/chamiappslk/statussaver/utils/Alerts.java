@@ -85,23 +85,22 @@ public class Alerts {
         }
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_success);
+        dialog.setContentView(R.layout.dialog_how_to);
         dialog.setCanceledOnTouchOutside(cancelOutSide);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         final TextView tv_title = (TextView) dialog.findViewById(R.id.tvTitle);
-        final TextView tv_msg = (TextView) dialog.findViewById(R.id.tvMsg);
         final TextView tv_feedback = (TextView) dialog.findViewById(R.id.btnOk);
-        tv_title.setText("SUCCESS");
+        tv_title.setText("How to use:");
        /* if (TextUtils.isEmpty(title)) {
             tv_title.setText(R.string.successful);
         } else {
             tv_title.setText(title);
         }*/
-        if (TextUtils.isEmpty(msg)) {
-            tv_msg.setText("");
-        } else {
-            tv_msg.setText(msg);
-        }
+//        if (TextUtils.isEmpty(msg)) {
+//            tv_msg.setText("");
+//        } else {
+//            tv_msg.setText(msg);
+//        }
         if (TextUtils.isEmpty(feedback)) {
             tv_feedback.setText("OK");
         } else {
@@ -116,7 +115,7 @@ public class Alerts {
                 dialog.dismiss();
             }
         });
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        //dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.show();
     }
 

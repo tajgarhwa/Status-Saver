@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:padding="@dimen/dialog_outer_margin">
+
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/header"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="50dp"-->
+    <!--android:background="@drawable/curved_background_header">-->
+
+    <!--</RelativeLayout>-->
+    <RelativeLayout
+        android:id="@+id/main_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/curved_background_header">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/DialogHeader"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="Status Saver And Gallery" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@android:color/white"
+        android:layout_below="@+id/main_header">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvMsg1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/dialog_inner_margin"
+                android:text="Click WhatsApp button and go to the status section then download the status"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@android:color/black" />
+
+            <TextView
+                android:id="@+id/tvMsg2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/dialog_inner_margin"
+                android:text="Open the status saver and gallery app"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@android:color/black" />
+
+            <TextView
+                android:id="@+id/tvMsg3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/dialog_inner_margin"
+                android:text="Now you see the all status of your friends"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@android:color/black" />
+
+            <TextView
+                android:id="@+id/tvMsg4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/dialog_inner_margin"
+                android:text="Save | Share | Repost | Enjoy"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@android:color/black" />
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scrollview"
+        android:gravity="center"
+        android:background="@drawable/curved_background_dialog_how_to"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:paddingTop="0dp">
+        <!--<Button
+            android:id="@+id/btnCancel"
+            tools:visibility="visible"
+            android:layout_marginStart="0dp"
+            andrmessageCodetext="@string/cancel"
+            style="@style/BtnStyleWhite"/>-->
+        <Button
+            android:id="@+id/btnOk"
+            style="@style/BtnStyleOrange"
+            android:layout_marginTop="5dp"
+            android:text="ok"
+            tools:visibility="visible" />
+    </LinearLayout>
+
+</RelativeLayout>
+

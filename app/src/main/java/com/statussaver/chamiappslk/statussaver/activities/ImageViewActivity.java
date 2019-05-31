@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
 import android.statussaver.com.statussaver.R;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
@@ -44,19 +45,20 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 
-public class ImageViewActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener{
+public class ImageViewActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
-    private static final String DIRECTORY_TO_SAVE_MEDIA_NOW ="/Status_Saver/" ;
+    private static final String DIRECTORY_TO_SAVE_MEDIA_NOW = "/Status_Saver/";
     private static final String WHATSAPP_STATUSES_LOCATION = "/WhatsApp/Media/.Statuses";
 
 
-    String sessionUrl,state,direction;
+    String sessionUrl, state, direction;
     //ImageView imageView;
     PhotoView imageView;
     File sourceFile;
+    private int backCount=0;
 
-    private FloatingActionButton fabMain, fabFirst, fabMainsecond, fabthired,fab_main_share;
-    private RelativeLayout relshare,relshare_fab_main_thired,relshare_fab_main_download,relshare_fab_main_first;
+    private FloatingActionButton fabMain, fabFirst, fabMainsecond, fabthired, fab_main_share;
+    private RelativeLayout relshare, relshare_fab_main_thired, relshare_fab_main_download, relshare_fab_main_first;
     private Animation fabOpen, fabClose, fabForaward, fabBackward;
     private boolean isOpen = false;
     private ViewPagerAdapter adapter;
@@ -83,15 +85,15 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
 
         //sessionUrl = getIntent().getStringExtra("imageList");
         documents = (ArrayList<File>) getIntent().getSerializableExtra("imageList");
-        state =getIntent().getStringExtra("state");
-        pos = getIntent().getIntExtra("position",0);
+        state = getIntent().getStringExtra("state");
+        pos = getIntent().getIntExtra("position", 0);
         direction = getIntent().getStringExtra("DirectFrom");
         //sourceFile = (File)getIntent().getSerializableExtra("file");
 
         //pos = Integer.parseInt(position);
         //imageView = findViewById(R.id.img_status);
 
-        globPosition =pos;
+        globPosition = pos;
 
         fabMain = findViewById(R.id.fab_main);
         fabFirst = findViewById(R.id.fab_main_first);
@@ -123,7 +125,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
         adapter = new ViewPagerAdapter(getSupportFragmentManager(), documents);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(this);
-      //  photoViewAttacher = new PhotoViewAttacher(imageView);
+        //  photoViewAttacher = new PhotoViewAttacher(imageView);
         //Picasso.with(this).load("file://" + sessionUrl).placeholder(R.drawable.placeholder).into(imageView);
 
         //mScaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
@@ -137,11 +139,11 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
         hideView(state);
         MobileAds.initialize(this, getString(R.string.admob_ad_id));
         loadIndustrialAd();
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             mAdView.setVisibility(View.VISIBLE);
             adRequest = new AdRequest.Builder().build();
             mAdView.loadAd(adRequest);
-        }else {
+        } else {
             fabMain.hide();
             fabFirst.hide();
             fabMainsecond.hide();
@@ -168,7 +170,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
 
     private void hideView(String state) {
 
-        if (state.equalsIgnoreCase("TWO") || state.equalsIgnoreCase("THREE")){
+        if (state.equalsIgnoreCase("TWO") || state.equalsIgnoreCase("THREE")) {
 
             //fabMainsecond.setVisibility(View.GONE);
             fabMainsecond.hide();
@@ -241,12 +243,12 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
                     //whatsappIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     try {
                         getApplicationContext().startActivity(whatsappIntent);
-                        ToastCustom.setToast(getApplicationContext(),"Repost!");
+                        ToastCustom.setToast(getApplicationContext(), "Repost!");
                     } catch (android.content.ActivityNotFoundException ex) {
                         // ToastHelper.MakeShortText("Whatsapp have not been installed.");
-                        ToastCustom.setToast(getApplicationContext(),"Whatsapp have not been installed.");
+                        ToastCustom.setToast(getApplicationContext(), "Whatsapp have not been installed.");
                     }
-                }else {
+                } else {
                     Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
                     whatsappIntent.setType("image/*");
                     whatsappIntent.setPackage("com.whatsapp");
@@ -258,10 +260,10 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
 
                     try {
                         getApplicationContext().startActivity(whatsappIntent);
-                        ToastCustom.setToast(getApplicationContext(),"Repost!");
+                        ToastCustom.setToast(getApplicationContext(), "Repost!");
                     } catch (android.content.ActivityNotFoundException ex) {
                         // ToastHelper.MakeShortText("Whatsapp have not been installed.");
-                        ToastCustom.setToast(getApplicationContext(),"Whatsapp have not been installed.");
+                        ToastCustom.setToast(getApplicationContext(), "Whatsapp have not been installed.");
                     }
                 }
                 animatedFab();
@@ -276,7 +278,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
                     copyFile(file, new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW + file.getName()));
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.e("RecyclerV", "onClick: Error:"+e.getMessage() );
+                    Log.e("RecyclerV", "onClick: Error:" + e.getMessage());
                 }
                 break;
             case R.id.fab_main_thired:
@@ -285,9 +287,9 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
                 }
                 final File filewallaper = getItem(globPosition);
 
-                if(filewallaper.getName().endsWith(".mp4") || filewallaper.getName().endsWith(".3gp") || filewallaper.getName().endsWith(".mov")){
-                    ToastCustom.setToast(this,"Sorry this file type is not supported.");
-                }else {
+                if (filewallaper.getName().endsWith(".mp4") || filewallaper.getName().endsWith(".3gp") || filewallaper.getName().endsWith(".mov")) {
+                    ToastCustom.setToast(this, "Sorry this file type is not supported.");
+                } else {
                     Alerts.ShowYesOrNo(this, "Are you sure you want to set it as wallpaper?", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -310,7 +312,6 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
                 }
 
 
-
                 animatedFab();
                 break;
 
@@ -318,9 +319,9 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
                 if (mInterstitialAd.isLoaded()) {
                     mInterstitialAd.show();
                 }
-                if (direction !=null && direction.equalsIgnoreCase("saveFragment")) {
+                if (direction != null && direction.equalsIgnoreCase("saveFragment")) {
                     shareSaveDirect();
-                }else {
+                } else {
                     shareImageVideoDirect();
                 }
                 animatedFab();
@@ -357,7 +358,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "Download Status Saver and Gallery App on - https://play.google.com/store/apps/details?id=android.statussaver.com.statussaver");
                 this.startActivity(Intent.createChooser(shareIntent, "Share image using"));
             }
-        }else {
+        } else {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 final Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -367,7 +368,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
                 shareIntent.putExtra(Intent.EXTRA_STREAM, photoUri);
                 shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 this.startActivity(Intent.createChooser(shareIntent, "Share Video using"));
-            }else {
+            } else {
                 final Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("video/*");
                 final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + DIRECTORY_TO_SAVE_MEDIA_NOW, fileshare.getName());
@@ -401,7 +402,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "Download Status Saver and Gallery App on - https://play.google.com/store/apps/details?id=android.statussaver.com.statussaver");
                 this.startActivity(Intent.createChooser(shareIntent, "Share image using"));
             }
-        }else {
+        } else {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 final Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -411,7 +412,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
                 shareIntent.putExtra(Intent.EXTRA_STREAM, photoUri);
                 shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 this.startActivity(Intent.createChooser(shareIntent, "Share Video using"));
-            }else {
+            } else {
                 final Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("video/*");
                 final File photoFile = new File(Environment.getExternalStorageDirectory().toString() + WHATSAPP_STATUSES_LOCATION, fileshare.getName());
@@ -429,9 +430,9 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
 
         if (!file.exists()) {
             file.createNewFile();
-            ToastCustom.setToast(getApplicationContext(),"Downloaded");
-        }else {
-            ToastCustom.setToast(getApplicationContext(),"It's already exist!");
+            ToastCustom.setToast(getApplicationContext(), "Downloaded");
+        } else {
+            ToastCustom.setToast(getApplicationContext(), "It's already exist!");
             return;
         }
         FileChannel source = null;
@@ -455,9 +456,28 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
 //        return true;
 //    }
 
+    Runnable runnableExit = new Runnable() {
+        @Override
+        public void run() {
+            backCount = 0;
+        }
+    };
+
     @Override
     public void onBackPressed() {
-        finish();
+        //finish();
+
+        Handler handlerExit = new Handler();
+        ++backCount;
+        handlerExit.postDelayed(runnableExit, 5000);
+        if (backCount >= 2) {
+            handlerExit.removeCallbacks(runnableExit);
+            this.finish();
+        } else {
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+            }
+        }
     }
 
 
@@ -485,7 +505,7 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onPageSelected(int position) {
 
-        globPosition =position;
+        globPosition = position;
         try {
             tvCurrentItem.setText((position + 1) + "/" + documents.size());
         } catch (Exception e) {
@@ -496,4 +516,6 @@ public class ImageViewActivity extends AppCompatActivity implements View.OnClick
     public void onPageScrollStateChanged(int state) {
 
     }
+
+
 }
