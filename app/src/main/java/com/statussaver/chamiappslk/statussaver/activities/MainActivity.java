@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     MediaPlayer player;
     RelativeLayout bottom_navigation_bar, relmiidleroundbtn, btnClose;
 
-    TextView tv_how_to_use, tv_privacy_policy, tv_rate, tv_settings, tv_share_app, tv_send_mail,tv_how_to_use_tutorial;
+    TextView tv_how_to_use, tv_privacy_policy, tv_rate, tv_settings, tv_share_app, tv_send_mail, tv_how_to_use_tutorial;
     private AdRequest adRequest;
     private AdView mAdView;
     private SettingsApps settingsApps;
@@ -278,19 +278,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Arrays.sort(files, new BaseCompare.compare());
             int i = 0;
             if (files.length != 0) {
-                for (File file : files) {
-                    if (file.getName().endsWith(".jpg") || file.getName().endsWith(".png") || file.getName().endsWith(".mp4") || file.getName().endsWith(".3gp") || file.getName().endsWith(".mov")) {
-                        if (!inFiles.contains(file)) {
-                            i++;
-                            Log.e("file name" + " " + i, file.getAbsolutePath());
-                            if (i < 7) {
-                                inFiles.add(file);
+                try {
+                    for (File file : files) {
+                        Log.e("File_name ", "File_name :" + file.getName());
+                        if (file.getName().endsWith(".jpg") || file.getName().endsWith(".png") || file.getName().endsWith(".mp4") || file.getName().endsWith(".3gp") || file.getName().endsWith(".mov")) {
+                            if (!inFiles.contains(file)) {
+                                i++;
+                                Log.e("file name" + " " + i, file.getAbsolutePath());
+                                if (i < 7) {
+                                    inFiles.add(file);
+                                }
                             }
+                        } else {
+//                        relRecylerHori.setVisibility(View.GONE);
+//                        tvrecentStories.setVisibility(View.GONE);
                         }
-                    } else {
-                        relRecylerHori.setVisibility(View.GONE);
-                        tvrecentStories.setVisibility(View.GONE);
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             } else {
                 //tvImage.setVisibility(View.VISIBLE);
@@ -369,9 +374,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (numberRandom < 50) {
             mAdView.setVisibility(View.VISIBLE);
         }
-        getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentById(R.id.fragment_container)).commit();
-        initSetList();
-        setButtonState();
+//        getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentById(R.id.fragment_container)).commit();
+//        initSetList();
+//        setButtonState();
     }
 
     @Override

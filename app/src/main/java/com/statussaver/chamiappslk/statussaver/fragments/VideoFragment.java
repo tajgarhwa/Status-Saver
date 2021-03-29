@@ -325,34 +325,34 @@ public class VideoFragment extends Fragment implements View.OnClickListener {
 //        });
 
 
-        recyclerView.addOnScrollListener(new HideShowScrollListener() {
-            @Override
-            public void onHide() {
-                fabMain.hide();
-                ((MainActivity)getActivity()).hideBottomNavigationMenu(true);
-                if (isOpen){
-                    //fabMain.startAnimation(fabForaward);
-                    fabFirst.startAnimation(fabClose);
-                    fabMainsecond.startAnimation(fabClose);
-                    fabthired.startAnimation(fabClose);
-
-                    relFirst.startAnimation(fabClose);
-                    relSecond.startAnimation(fabClose);
-                    relThired.startAnimation(fabClose);
-
-                    fabFirst.setClickable(false);
-                    fabMainsecond.setClickable(false);
-                    fabthired.setClickable(false);
-                    isOpen = false;
-                }
-            }
-
-            @Override
-            public void onShow() {
-                fabMain.show();
-                ((MainActivity)getActivity()).hideBottomNavigationMenu(false);
-            }
-        });
+//        recyclerView.addOnScrollListener(new HideShowScrollListener() {
+//            @Override
+//            public void onHide() {
+//                fabMain.hide();
+//                ((MainActivity)getActivity()).hideBottomNavigationMenu(true);
+//                if (isOpen){
+//                    //fabMain.startAnimation(fabForaward);
+//                    fabFirst.startAnimation(fabClose);
+//                    fabMainsecond.startAnimation(fabClose);
+//                    fabthired.startAnimation(fabClose);
+//
+//                    relFirst.startAnimation(fabClose);
+//                    relSecond.startAnimation(fabClose);
+//                    relThired.startAnimation(fabClose);
+//
+//                    fabFirst.setClickable(false);
+//                    fabMainsecond.setClickable(false);
+//                    fabthired.setClickable(false);
+//                    isOpen = false;
+//                }
+//            }
+//
+//            @Override
+//            public void onShow() {
+//                fabMain.show();
+//                ((MainActivity)getActivity()).hideBottomNavigationMenu(false);
+//            }
+//        });
         return view;
     }
 
