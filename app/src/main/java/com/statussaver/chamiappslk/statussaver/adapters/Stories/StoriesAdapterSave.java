@@ -1,15 +1,11 @@
 package com.statussaver.chamiappslk.statussaver.adapters.Stories;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
-import com.statussaver.chamiappslk.statussaver.activities.ImageViewActivity;
-import com.statussaver.chamiappslk.statussaver.activities.VideoViewActivity;
 
 import android.statussaver.com.statussaver.R;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;

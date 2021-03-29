@@ -14,13 +14,13 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/adView">
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context="com.codinginflow.picassoimagesliderexample.MainActivity">
 
-        </android.support.v4.view.ViewPager>
+        </androidx.viewpager.widget.ViewPager>
 
 
     <!--<com.github.chrisbanes.photoview.PhotoView-->
@@ -31,7 +31,7 @@
         <!--android:adjustViewBounds="true"-->
         <!--/>-->
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
             android:layout_marginBottom="16dp"
             android:src="@drawable/floating_item_added" />
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_main_first"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
             android:visibility="invisible"
             android:src="@drawable/ic_repost" />
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_main_download"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
             android:visibility="invisible"
             android:src="@drawable/item_recived" />
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_main_thired"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
             android:visibility="invisible"
             android:src="@drawable/ic_action_image_selected" />
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_main_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

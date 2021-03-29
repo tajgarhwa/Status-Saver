@@ -13,14 +13,13 @@ import android.os.FileObserver;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
-import android.provider.Settings;
+
 import com.statussaver.chamiappslk.statussaver.activities.MainActivity;
 
 import android.statussaver.com.statussaver.R;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
-import java.io.File;
 
 public class MediaListenerService extends Service {
 

@@ -1,7 +1,7 @@
 package com.statussaver.chamiappslk.statussaver.activities;
 
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
 public class VideoViewActivity extends AppCompatActivity implements View.OnClickListener {

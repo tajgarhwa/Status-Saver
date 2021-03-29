@@ -1,6 +1,6 @@
 package com.statussaver.chamiappslk.statussaver.utils;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class HideShowScrollListener extends RecyclerView.OnScrollListener {
     private static final int HIDE_THRESHOLD = 20;

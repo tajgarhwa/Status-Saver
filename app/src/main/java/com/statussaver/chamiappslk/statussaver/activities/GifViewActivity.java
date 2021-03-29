@@ -1,11 +1,10 @@
 package com.statussaver.chamiappslk.statussaver.activities;
 
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Environment;
 import android.statussaver.com.statussaver.R;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,13 +12,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-import com.squareup.picasso.Picasso;
 import com.statussaver.chamiappslk.statussaver.utils.ToastCustom;
 
 import java.io.File;

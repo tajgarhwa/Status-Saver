@@ -4,13 +4,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Environment;
-import com.statussaver.chamiappslk.statussaver.activities.IntroActivity;
+
 import com.statussaver.chamiappslk.statussaver.activities.MainActivity;
 
 import android.statussaver.com.statussaver.R;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;

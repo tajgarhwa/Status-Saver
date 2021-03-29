@@ -1,7 +1,6 @@
 package com.statussaver.chamiappslk.statussaver.fragments;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -10,13 +9,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.statussaver.com.statussaver.R;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.FileProvider;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -39,10 +38,8 @@ import android.widget.Toast;
 
 import com.statussaver.chamiappslk.statussaver.BaseCompare;
 import com.statussaver.chamiappslk.statussaver.activities.ImageViewActivity;
-import com.statussaver.chamiappslk.statussaver.activities.MainActivity;
 import com.statussaver.chamiappslk.statussaver.adapters.Stories.StoriesAdapterSave;
 import com.statussaver.chamiappslk.statussaver.models.Status;
-import com.statussaver.chamiappslk.statussaver.utils.HideShowScrollListener;
 import com.statussaver.chamiappslk.statussaver.utils.RecyclerItemClickListener;
 import com.statussaver.chamiappslk.statussaver.utils.ToastCustom;
 
